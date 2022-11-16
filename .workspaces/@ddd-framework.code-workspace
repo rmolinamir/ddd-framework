@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "workspaces"
+		},
+		{
+			"path": "../",
+			"name": "root"
+		},
+		{
+			"path": "../lib/core",
+			"name": "@ddd-framework/core"
+		},
+		{
+			"path": "../lib/cqrs",
+			"name": "@ddd-framework/cqrs"
+		},
+		{
+			"path": "../lib/event-sourcing",
+			"name": "@ddd-framework/event-sourcing"
+		},
+		{
+			"path": "../lib/seedwork",
+			"name": "@ddd-framework/seedwork"
+		}
+	]
+}
