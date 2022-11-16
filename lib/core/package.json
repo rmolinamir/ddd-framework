@@ -1,0 +1,40 @@
+{
+  "name": "@ddd-framework/core",
+  "version": "0.0.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "files": ["dist"],
+  "types": "dist",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "dev": "pnpm watch",
+    "prebuild": "rm -rf tsconfig.build.tsbuildinfo ./dist",
+    "prepublish": "pnpm build",
+    "test": "pnpm jest",
+    "test:watch": "pnpm jest --watch",
+    "watch": "tsc --project tsconfig.build.json --watch"
+  },
+  "// TODO:": "Dependencies should be peer dependencies, also add reflect metadata.",
+  "dependencies": {
+    "uuid": "9.0.0",
+    "reflect-metadata": "~0.1.13"
+  },
+  "devDependencies": {
+    "@config/eslint": "*",
+    "@config/tsconfig": "*",
+    "@faker-js/faker": "7.5.0",
+    "@types/jest": "29.1.2",
+    "@types/lodash": "4.14.186",
+    "@types/node": "18.8.3",
+    "@types/uuid": "8.3.4",
+    "jest": "29.1.2",
+    "lodash": "4.17.21",
+    "ts-jest": "29.0.3",
+    "typescript": "4.8.4"
+  }
+}

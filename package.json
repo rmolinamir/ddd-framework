@@ -1,0 +1,44 @@
+{
+  "name": "@ddd-framework/monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "clean:.next": "find . -name '.next' -type d -prune -exec rm -rf '{}' +",
+    "clean:deps": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "clean:dist": "find ./lib -name 'dist' -type d -prune -exec rm -rf '{}' +",
+    "clean:pnpm": "find . -name 'pnpm-lock.yaml' -type f -prune -exec rm -rf '{}' +",
+    "clean:tmp": "find ./lib -name 'tmp' -type d -prune -exec rm -rf '{}' +",
+    "clean:tsbuildinfo": "find ./lib -name '*.tsbuildinfo' -type f -prune -exec rm -rf '{}' +",
+    "clean:turbo": "find ./ -name '.turbo' -type d -prune -exec rm -rf '{}' +",
+    "clean": "pnpm clean:.next && pnpm clean:deps && pnpm clean:dist && pnpm clean:tmp && pnpm clean:turbo && pnpm clean:pnpm",
+    "commit": "pnpm cz",
+    "dev": "turbo run dev --parallel --no-deps",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "prebuild": "pnpm clean:dist",
+    "preclean:deps": "pnpm clean:pnpm",
+    "preclean:dist": "pnpm clean:tsbuildinfo",
+    "test": "turbo run test",
+    "watch": "turbo run build --watch"
+  },
+  "devDependencies": {
+    "commitizen": "4.2.5",
+    "cz-conventional-changelog": "3.3.0",
+    "turbo": "1.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "disableScopeLowerCase": false,
+      "disableSubjectLowerCase": false,
+      "maxHeaderWidth": 100,
+      "maxLineWidth": 100
+    }
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "packageManager": "pnpm@7.13.2"
+}

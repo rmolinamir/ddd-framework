@@ -1,0 +1,5 @@
+{
+  "extends": "@config/tsconfig/backend.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
