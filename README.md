@@ -36,6 +36,10 @@ $ pnpm build
 @ddd-framework/core:build: > tsc --project tsconfig.build.json
 @ddd-framework/cqrs:build: > tsc --project tsconfig.build.json
 @ddd-framework/event-sourcing:build: > tsc --project tsconfig.build.json
+
+ Tasks:    4 successful, 4 total
+Cached:    0 cached, 4 total
+  Time:    3.571s 
 ```
 
 ### `dev`
@@ -62,6 +66,7 @@ To test all packages, run the following command:
 ```sh
 $ pnpm test
 ...
+
  Tasks:    6 successful, 6 total
 Cached:    4 cached, 6 total
   Time:    9.487s 

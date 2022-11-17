@@ -6,7 +6,7 @@ import { DddPackage } from '../types/DddPackage';
 import { DddRepositoryRegistry } from '../DddRepositoryRegistry';
 import { PackageJson } from '../types/PackageJson';
 
-const { author, name } = DddRepositoryRegistry;
+const { author, name, blacklistedPackages } = DddRepositoryRegistry;
 
 export default async function downloadDddPackages(
   verbose = false
@@ -37,12 +37,15 @@ export default async function downloadDddPackages(
 
   await promise;
 
-  const dirents = (await fs.readdir(tmpDir, { withFileTypes: true })).filter(
-    (dirent) => dirent.isDirectory()
+  const libDir = path.resolve(tmpDir, 'lib');
+
+  const dirents = (await fs.readdir(libDir, { withFileTypes: true })).filter(
+    (dirent) =>
+      dirent.isDirectory() && !blacklistedPackages.includes(dirent.name)
   );
 
   const dddPackages: DddPackage[] = dirents.map((dirent) => {
-    const direntDir = path.join(tmpDir, dirent.name);
+    const direntDir = path.join(libDir, dirent.name);
 
     const packageJson = JSON.parse(
       fs.readFileSync(path.join(direntDir, 'package.json'), 'utf-8')

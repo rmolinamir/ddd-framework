@@ -9,7 +9,8 @@ export default async function selectDddPackagesToCopy(
   }>({
     type: 'multiselect',
     name: 'response',
-    message: 'Select which packages to include in the seedwork:',
+    message:
+      'Select which packages to include in the seedwork (any @ddd-framework dependency will also be installed):',
     choices: dddPackages.map(({ dirent, packageJson }) => {
       return { name: dirent.name, message: packageJson.name || dirent.name };
     }),

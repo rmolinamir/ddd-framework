@@ -42,10 +42,7 @@ export default async function copyDddPackage(
 
   await findAndReplaceImportStatements(dddPackage.tmpDir, dddPackageSrcDir);
 
-  const dddPackageOutputDir = path.join(
-    outputDir,
-    dddPackage.packageJson.name.replace('framework', 'seedwork')
-  );
+  const dddPackageOutputDir = path.join(outputDir, dddPackage.dirent.name);
 
   return fs.copy(dddPackageSrcDir, dddPackageOutputDir, {
     overwrite: true

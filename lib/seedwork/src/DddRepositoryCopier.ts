@@ -9,13 +9,13 @@ import shouldContinueIfOutputDirIsNotEmpty from './helpers/shouldContinueIfOutpu
 export class DddRepositoryCopier {
   private constructor() {}
 
-  public static async copy(outputDir: string): Promise<void> {
+  public static async copy(outputDir: string): Promise<boolean> {
     if (!fs.existsSync(outputDir)) {
       console.warn(`Could not find output directory: ${outputDir}`);
-      return;
+      return false;
     }
 
-    if (!(await shouldContinueIfOutputDirIsNotEmpty(outputDir))) return;
+    if (!(await shouldContinueIfOutputDirIsNotEmpty(outputDir))) return false;
 
     const tmpDir = getDddPackagesTmpDir();
 
@@ -24,7 +24,7 @@ export class DddRepositoryCopier {
     const dddPackages = await downloadDddPackages();
 
     if (!(await shouldContinueIfDddDependenciesAreNotInstalled(dddPackages)))
-      return;
+      return false;
 
     const selectedDddPackages = await selectDddPackagesToCopy(dddPackages);
 
@@ -33,5 +33,7 @@ export class DddRepositoryCopier {
         return copyDddPackage(dddPackage, outputDir);
       })
     );
+
+    return true;
   }
 }
