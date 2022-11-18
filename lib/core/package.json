@@ -1,13 +1,15 @@
 {
   "name": "@ddd-framework/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": false,
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "types": "dist",
   "main": "./dist/index.js",
   "scripts": {
