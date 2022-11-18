@@ -13,10 +13,15 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "dev": "pnpm watch",
+    "lint:fix": "tsc --noEmit && eslint --fix",
+    "lint:prepublish": "tsc --project tsconfig.build.json --noEmit && eslint",
+    "lint": "tsc --noEmit && eslint",
     "prebuild": "rm -rf tsconfig.build.tsbuildinfo ./dist",
     "prepublish": "pnpm build",
-    "test": "pnpm jest",
+    "release:dry": "pnpm release-it --dry-run",
+    "release": "pnpm release-it",
     "test:watch": "pnpm jest --watch",
+    "test": "pnpm jest",
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "// TODO:": "Dependencies should be peer dependencies, also add reflect metadata.",
