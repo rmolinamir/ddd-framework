@@ -1,12 +1,11 @@
 {
   "plugins": {
     "@release-it/conventional-changelog": {
-      "preset": "conventionalcommits",
-      "infile": "./CHANGELOG.md"
+      "preset": "conventionalcommits"
     }
   },
   "hooks": {
-    "before:init": ["pnpm lint", "pnpm test"],
+    "before:init": ["pnpm lint:prepublish", "pnpm test"],
     "after:bump": "pnpm build",
     "after:release": "echo Successfully released ${npm.name} v${version} to ${repo.repository}."
   },

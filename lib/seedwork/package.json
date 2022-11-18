@@ -1,7 +1,7 @@
 {
   "name": "@ddd-framework/seedwork",
   "description": "Generates a module with minimal functionality which you may change however you see fit.",
-  "version": "0.0.0-alpha",
+  "version": "0.1.0",
   "private": false,
   "publishConfig": {
     "access": "public",
@@ -20,11 +20,12 @@
     "build": "tsc --project tsconfig.build.json",
     "dev": "pnpm watch",
     "lint:fix": "tsc --noEmit && eslint --fix",
+    "lint:prepublish": "tsc --project tsconfig.build.json --noEmit && eslint",
     "lint": "tsc --noEmit && eslint",
     "prebuild": "rm -rf tsconfig.build.tsbuildinfo ./dist",
     "prepublish": "pnpm build",
-    "publish:dry": "pnpm release-it --dry-run",
-    "publish": "pnpm release-it",
+    "release:dry": "pnpm release-it --dry-run",
+    "release": "pnpm release-it",
     "test:watch": "pnpm jest --watch",
     "test": "pnpm jest",
     "watch": "tsc --project tsconfig.build.json --watch"
