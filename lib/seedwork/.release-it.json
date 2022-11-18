@@ -8,14 +8,14 @@
   "hooks": {
     "before:init": ["pnpm lint", "pnpm test"],
     "after:bump": "pnpm build",
-    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    "after:release": "echo Successfully released ${npm.name} v${version} to ${repo.repository}."
   },
   "git": {
-    "commitMessage": "chore(${name}): release ${name} v${version}",
-    "tagName": "${name}-v${version}"
+    "commitMessage": "chore(${npm.name}): release ${npm.name} v${version}",
+    "tagName": "${npm.name}-v${version}"
   },
   "github": {
     "release": true,
-    "releaseName": "Release ${name} v${version}"
+    "releaseName": "Release ${npm.name} v${version}"
   }
 }
