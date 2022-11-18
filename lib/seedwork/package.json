@@ -17,12 +17,16 @@
     "ddd-seedwork": "./dist/cli.js"
   },
   "scripts": {
-    "dev": "pnpm watch",
     "build": "tsc --project tsconfig.build.json",
+    "dev": "pnpm watch",
+    "lint:fix": "tsc --noEmit && eslint --fix",
+    "lint": "tsc --noEmit && eslint",
     "prebuild": "rm -rf tsconfig.build.tsbuildinfo ./dist",
     "prepublish": "pnpm build",
-    "test": "pnpm jest",
+    "publish:dry": "pnpm release-it --dry-run",
+    "publish": "pnpm release-it",
     "test:watch": "pnpm jest --watch",
+    "test": "pnpm jest",
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "dependencies": {
