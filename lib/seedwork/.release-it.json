@@ -1,0 +1,21 @@
+{
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits",
+      "infile": "./CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "before:init": ["pnpm lint", "pnpm tests"],
+    "after:bump": "pnpm build",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  },
+  "git": {
+    "commitMessage": "chore(${name}): release ${name} v${version}",
+    "tagName": "${name}-v${version}"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release ${name} v${version}"
+  }
+}
