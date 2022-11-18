@@ -72,17 +72,17 @@ describe('AggregateIdentifier', () => {
       public readonly giftId: string = faker.datatype.uuid();
     }
 
-    const isClassIdentified = Reflect.hasMetadata(
-      AggregateIdentifier.name,
-      GiftStollenByTheGrinch
-    );
+    // const isClassIdentified = Reflect.hasMetadata(
+    //   AggregateIdentifier.name,
+    //   GiftStollenByTheGrinch
+    // );
 
     const isInstanceIdentified = Reflect.hasMetadata(
       AggregateIdentifier.name,
       new GiftStollenByTheGrinch()
     );
 
-    expect(isClassIdentified).toBeTruthy();
+    // expect(isClassIdentified).toBeTruthy();
     expect(isInstanceIdentified).toBeTruthy();
 
     expect(() => new GiftStollenByTheGrinch()).not.toThrow();
