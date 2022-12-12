@@ -8,22 +8,6 @@ import type { ExcludeFunctionsOf } from './ExcludeFunctionsOf';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FunctionType = (...args: any) => any;
 
-type IsOptional<T> = Extract<T, undefined> extends never ? false : true;
-
-type IsFunction<T> = T extends FunctionType ? true : false;
-
-type IsAggregateRoot<T> = T extends AggregateRoot ? true : false;
-
-type IsEntityCollection<T> = T extends EntityCollection<Entity<Identity>>
-  ? true
-  : false;
-
-type IsList<T> = T extends List<unknown> ? true : false;
-
-type IsDomainPrimitive<T> = T extends DomainPrimitive<Primitive> ? true : false;
-
-type IsValueObject<T> = T extends ValueObject ? true : false;
-
 // TODO: Add symbol, bigint, & RegExp
 type IsBuiltInType<T> = T extends
   | string
@@ -75,16 +59,16 @@ type SerializeSet<T> = T extends Set<infer I> ? DataTransferObject<I>[] : T;
 
 type SerializeArray<T> = T extends Array<infer I> ? DataTransferObject<I>[] : T;
 
-type Serialize<T> = IsAggregateRoot<T> extends true
-  ? SerializeAggregateRoot<T>
-  : IsEntityCollection<T> extends true
-  ? SerializeEntityCollection<T>
-  : IsList<T> extends true
-  ? SerializeList<T>
-  : IsDomainPrimitive<T> extends true
-  ? SerializeDomainPrimitive<T>
-  : IsValueObject<T> extends true
-  ? SerializeValueObject<T>
+type Serialize<T> = T extends infer U extends AggregateRoot
+  ? SerializeAggregateRoot<U>
+  : T extends infer U extends EntityCollection<Entity<Identity>>
+  ? SerializeEntityCollection<U>
+  : T extends infer U extends List<unknown>
+  ? SerializeList<U>
+  : T extends infer U extends DomainPrimitive<Primitive>
+  ? SerializeDomainPrimitive<U>
+  : T extends infer U extends ValueObject
+  ? SerializeValueObject<U>
   : IsBuiltInType<T> extends true
   ? SerializeDate<SerializeMap<SerializeSet<SerializeArray<T>>>>
   : { [K in keyof ExcludeFunctionsOf<T>]: DataTransferObject<T[K]> };
@@ -93,8 +77,8 @@ type Serialize<T> = IsAggregateRoot<T> extends true
  * Deeply converts a generic type into an anemic type by excluding any methods.
  * Useful for object/class initializers or data-centric operations.
  */
-export type DataTransferObject<Type> = IsFunction<Type> extends true
+export type DataTransferObject<T> = T extends FunctionType
   ? never
-  : IsOptional<Type> extends true
-  ? Serialize<Exclude<Type, undefined>> | undefined
-  : Serialize<Type>;
+  : Extract<T, undefined> extends never
+  ? Serialize<T>
+  : Serialize<T> | undefined;

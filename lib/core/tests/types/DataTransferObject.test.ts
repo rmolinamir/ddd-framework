@@ -43,7 +43,7 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
         id: new OrderId(OrderId.generate()),
         status: 'PROCESSING',
         createdAt: DateValue.now(),
-        updatedAt: DateValue.Null
+        updatedAt: DateValue.null
       });
 
       const dto = serializeMock(order);
@@ -81,6 +81,39 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
 
       expect(dto as Array<DataTransferObject<Order>>).not.toBe(NaN);
       expect(dto[0] as DataTransferObject<Order>).not.toBe(NaN);
+    });
+  });
+
+  describe('Optional', () => {
+    type Opportunity = {
+      preferredCurrency?: CurrencyDetails;
+      order?: Order;
+    };
+
+    test('Order', () => {
+      const opportunity: Opportunity = {};
+
+      const dto = serializeMock(opportunity);
+
+      dto.preferredCurrency as DataTransferObject<CurrencyDetails> | undefined;
+
+      if (dto.preferredCurrency) {
+        expect(dto.preferredCurrency?.currencyCode as string).not.toBe(NaN);
+        expect(dto.preferredCurrency?.currencySymbol as string).not.toBe(NaN);
+        expect(dto.preferredCurrency?.decimalPlaces as number).not.toBe(NaN);
+        expect(dto.preferredCurrency?.isCurrencyPrefix as boolean).not.toBe(
+          NaN
+        );
+      }
+
+      dto.order as DataTransferObject<Order> | undefined;
+
+      if (dto.order) {
+        expect(dto.order?.id as string).not.toBe(NaN);
+        expect(dto.order?.status as string).not.toBe(NaN);
+        expect(dto.order?.createdAt as string).not.toBe(NaN);
+        expect(dto.order?.updatedAt as string).not.toBe(NaN);
+      }
     });
   });
 });
