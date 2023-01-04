@@ -1,6 +1,8 @@
 import { InvalidOperationException, NotFoundException } from '../../exceptions';
 import { DomainPrimitive } from '../../value_objects';
-import { getAggregateRootIdOf, hasAggregateRootId } from './aggregate/root';
+import { setupAggregateRootReferences } from './aggregate/member';
+import { hasAggregateRootRef } from './aggregate/root';
+import { getAggregateRootRefOf } from './aggregate/root/getAggregateRootRefOf';
 import Entity from './Entity';
 import { getEntityIdOf } from './EntityId';
 
@@ -41,13 +43,9 @@ export default class EntityCollection<E extends Entity> implements Iterable<E> {
         'Entity is already in the collection.'
       );
 
-    // TODO: Check if this is part of an Aggregate
-    if (hasAggregateRootId(this)) {
-      const aggregateRootId = getAggregateRootIdOf(this);
-      const entityId = getEntityIdOf(entity);
-      console.log('aggregateRootId: ', aggregateRootId);
-      console.log('entityId: ', entityId);
-    }
+    const isInAggregate = hasAggregateRootRef(this);
+    if (isInAggregate)
+      setupAggregateRootReferences(getAggregateRootRefOf(this), entity);
 
     this.map.set(getEntityIdOf(entity), entity);
 

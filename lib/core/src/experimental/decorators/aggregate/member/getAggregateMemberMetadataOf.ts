@@ -13,6 +13,7 @@ export function getAggregateMemberMetadataOf(
   ) as AggregateMemberMetadata | undefined;
 
   // TODO: Implement a proper Exception
+  // TODO: EntityCollection not properly marked as aggregate member?
   assert(metadata);
 
   return metadata as AggregateMemberMetadata;

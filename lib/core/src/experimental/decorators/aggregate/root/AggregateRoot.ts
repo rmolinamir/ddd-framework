@@ -1,12 +1,10 @@
 import assert from 'assert';
 import { ClassOf } from '../../../../types';
-import { List } from '../../../../value_objects';
-import { AGGREGATE_ROOT_REF, AGGREGATE_ROOT_WATERMARK } from '../../constants';
+import { AGGREGATE_ROOT_WATERMARK } from '../../constants';
 import Entity from '../../Entity';
-import EntityCollection from '../../EntityCollection';
 import Decorator from '../../Decorator';
-import { getAggregateMemberMetadataOf, hasAggregateMember } from '../member';
-import { AggregateMemberRootRef } from './getAggregateRootIdOf';
+import { AggregateRootRef } from './AggregateRootRef';
+import { setupAggregateRootReferences } from './setupAggregateRootReferences';
 
 export function AggregateRoot(): ClassDecorator {
   /**
@@ -19,44 +17,20 @@ export function AggregateRoot(): ClassDecorator {
       'Cannot decorate a class that is not extending from Entity.'
     );
 
-    Decorator.stampWatermark(AGGREGATE_ROOT_WATERMARK, Class);
-
-    return class AggregateRoot extends Class {
+    class AggregateRoot extends Class {
       constructor(...args: unknown[]) {
         super(...args);
 
-        const ref: AggregateMemberRootRef = { root: this };
+        Decorator.stampWatermark(AGGREGATE_ROOT_WATERMARK, this);
 
-        // TODO: Implement proper Exceptions
-        assert(this.aggregateRootId() && this.entityId());
-        assert(this.aggregateRootId() === this.entityId());
-
-        if (hasAggregateMember(this)) {
-          const memberMetadata = getAggregateMemberMetadataOf(this);
-
-          for (const memberKey of memberMetadata.propertyKeys) {
-            const aggregateMember = this[memberKey as keyof AggregateRoot];
-
-            // TODO: Validate AggregateMember is an Entity, EntityCollection, or List.
-            // If any of the above, then define a metadata reference to the Aggregate Root ID.
-            Decorator.setMetadata(AGGREGATE_ROOT_REF, ref, aggregateMember);
-          }
-        }
+        setupAggregateRootReferences({ root: this } as AggregateRootRef, this);
       }
 
       public aggregateRootId<Identity>(): Identity {
         return this.entityId();
       }
+    }
 
-      private static isEntityCollection(
-        arg: unknown
-      ): arg is EntityCollection<any> {
-        return arg instanceof EntityCollection;
-      }
-
-      private static isList(arg: unknown): arg is List {
-        return arg instanceof List;
-      }
-    };
+    return AggregateRoot;
   } as ClassDecorator;
 }

@@ -1,15 +1,15 @@
 import assert from 'assert';
-import { ObjectLiteral } from '../../../types';
+import { Newable } from '../../../types';
 import { DOMAIN_EVENT_METADATA } from '../constants';
 import Decorator from '../Decorator';
 import { DomainEventMetadata } from './DomainEventMetadata';
 
 export function getDomainEventMetadata(
-  target: ObjectLiteral
+  targetClass: Newable
 ): DomainEventMetadata {
   const domainEventMetadata = Decorator.getMetadata<
     DomainEventMetadata | undefined
-  >(DOMAIN_EVENT_METADATA, target);
+  >(DOMAIN_EVENT_METADATA, targetClass);
 
   // TODO: Implement a proper Exception
   assert(domainEventMetadata);

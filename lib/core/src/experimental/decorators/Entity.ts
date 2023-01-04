@@ -9,6 +9,7 @@ import EventSink from './EventSink';
  * of continuity and identity. An object defined primarily by its identity is called
  * an Entity.
  */
+// TODO: Add validations in constructor to check if the Entity is identified (@EntityId decorator).
 export default abstract class Entity<
   DomainEvent extends ObjectLiteral = ObjectLiteral
 > {

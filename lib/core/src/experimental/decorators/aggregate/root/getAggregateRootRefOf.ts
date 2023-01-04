@@ -1,15 +1,15 @@
 import assert from 'assert';
 import { ObjectLiteral } from '../../../../types';
 import { AGGREGATE_ROOT_REF } from '../../constants';
-import { getEntityIdOf } from '../../EntityId';
 import Decorator from '../../Decorator';
 import { AggregateRootRef } from './AggregateRootRef';
 import { isAggregateRoot } from './isAggregateRoot';
+import Entity from '../../Entity';
 
-export function getAggregateRootIdOf<AggregateRootId = unknown>(
+export function getAggregateRootRefOf(
   anObject: ObjectLiteral
-): AggregateRootId {
-  if (isAggregateRoot(anObject)) return getEntityIdOf(anObject);
+): AggregateRootRef {
+  if (isAggregateRoot(anObject)) return { root: anObject as Entity };
 
   const ref = Decorator.getMetadata(AGGREGATE_ROOT_REF, anObject, {
     own: true
@@ -18,5 +18,5 @@ export function getAggregateRootIdOf<AggregateRootId = unknown>(
   // TODO: Implement a proper Exception
   assert(ref);
 
-  return getEntityIdOf(ref.root);
+  return ref;
 }
