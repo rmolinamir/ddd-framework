@@ -1,4 +1,4 @@
-import { Entity, Uuid, List } from '../../src';
+import { Entity, List, Uuid } from '../../src';
 
 class UserId extends Uuid {}
 
@@ -15,6 +15,26 @@ describe('List', () => {
   const user = new User(new UserId(UserId.generate()));
   const userTwo = new User(new UserId(UserId.generate()));
 
+  describe('constructor', () => {
+    test('spread argument', () => {
+      const list = new List(1, 2, 3, 4, 5);
+      expect(list.count).toBe(5);
+      expect(list.unpack()).toMatchObject([1, 2, 3, 4, 5]);
+    });
+
+    test('array argument', () => {
+      const list = new List([1, 2, 3, 4, 5]);
+      expect(list.count).toBe(5);
+      expect(list.unpack()).toMatchObject([1, 2, 3, 4, 5]);
+    });
+
+    test('list argument', () => {
+      const list = new List(new List([1, 2, 3, 4, 5]));
+      expect(list.count).toBe(5);
+      expect(list.unpack()).toMatchObject([1, 2, 3, 4, 5]);
+    });
+  });
+
   test('count', () => {
     const list = new List();
 
@@ -22,13 +42,13 @@ describe('List', () => {
   });
 
   test('first', () => {
-    const list = new List([1, 2, 3]);
+    const list = new List(1, 2, 3);
 
     expect(list.first).toBe(1);
   });
 
   test('last', () => {
-    const list = new List([1, 2, 3]);
+    const list = new List(1, 2, 3);
 
     expect(list.last).toBe(3);
   });
@@ -57,7 +77,7 @@ describe('List', () => {
     });
 
     test('removeAt', () => {
-      const list = new List([0, 1, 2, 3, 4, 5]);
+      const list = new List(0, 1, 2, 3, 4, 5);
 
       expect(list.count).toBe(6);
 
@@ -167,7 +187,7 @@ describe('List', () => {
 
     expect(newList.count).toBe(0);
 
-    expect(newList.equals(new List([])));
+    expect(newList.equals(new List()));
   });
 
   test('map', () => {
@@ -190,12 +210,12 @@ describe('List', () => {
   });
 
   test('sort', () => {
-    const list = new List([4, 1, 2, 3, 6, 7, 3, 1, 2]);
+    const list = new List(4, 1, 2, 3, 6, 7, 3, 1, 2);
 
     expect(list.count).toBe(9);
 
-    expect(list.sort(() => 1).equals(new List([1, 1, 2, 2, 3, 3, 4, 6, 7])));
-    expect(list.sort(() => -1).equals(new List([7, 6, 4, 3, 3, 2, 2, 1, 1])));
+    expect(list.sort(() => 1).equals(new List(1, 1, 2, 2, 3, 3, 4, 6, 7)));
+    expect(list.sort(() => -1).equals(new List(7, 6, 4, 3, 3, 2, 2, 1, 1)));
   });
 
   test('shuffle', () => {
@@ -222,7 +242,7 @@ describe('List', () => {
   });
 
   test('unpack', () => {
-    const list = new List([1, 2, 3, 4, 5]);
+    const list = new List(1, 2, 3, 4, 5);
 
     expect(list.count).toBe(5);
 
@@ -234,10 +254,10 @@ describe('List', () => {
   });
 
   test('equals', () => {
-    const list = new List([4, 1, 2, 3, 6, 7, 3, 1, 2]);
+    const list = new List(4, 1, 2, 3, 6, 7, 3, 1, 2);
 
-    expect(list.sort(() => 1).equals(new List([1, 1, 2, 2, 3, 3, 4, 6, 7])));
-    expect(list.sort(() => -1).equals(new List([7, 6, 4, 3, 3, 2, 2, 1, 1])));
+    expect(list.sort(() => 1).equals(new List(1, 1, 2, 2, 3, 3, 4, 6, 7)));
+    expect(list.sort(() => -1).equals(new List(7, 6, 4, 3, 3, 2, 2, 1, 1)));
   });
 
   test('static from', () => {
@@ -246,9 +266,7 @@ describe('List', () => {
     );
 
     expect(
-      digits.equals(
-        new List(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
-      )
+      digits.equals(new List('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'))
     );
   });
 });

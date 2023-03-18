@@ -7,14 +7,17 @@ export default class List<Item = unknown>
 {
   private readonly array: Array<Item>;
 
-  constructor(list?: Array<Item>);
-  constructor(list?: List<Item>);
-  constructor(list: Array<Item> | List<Item> = []) {
+  constructor(...items: Item[]);
+  constructor(items?: Array<Item>);
+  constructor(items?: List<Item>);
+  constructor(arg1: Array<Item> | List<Item> | Item = [], ...args: Item[]) {
     super();
-    if (Array.isArray(list)) {
-      this.array = list;
+    if (arg1 instanceof List) {
+      this.array = Array.from(arg1.array);
+    } else if (Array.isArray(arg1)) {
+      this.array = arg1;
     } else {
-      this.array = Array.from(list.array);
+      this.array = Array.from([arg1, ...args]);
     }
   }
 
@@ -47,14 +50,14 @@ export default class List<Item = unknown>
 
     array.push(item);
 
-    return new List(array);
+    return new List<Item>(array);
   }
 
   /**
    * Removes an empty List with the same settings.
    */
   public clear(): List<Item> {
-    return new List([]);
+    return new List<Item>();
   }
 
   /**
@@ -88,7 +91,7 @@ export default class List<Item = unknown>
   /**
    * Removes an item from the List.
    */
-  public remove(item: Item) {
+  public remove(item: Item): List<Item> {
     const array = this.array.filter((i) => {
       if (item instanceof ValueObject && i instanceof ValueObject)
         return item.notEquals(i);
@@ -97,18 +100,18 @@ export default class List<Item = unknown>
       else return i !== item;
     });
 
-    return new List(array);
+    return new List<Item>(array);
   }
 
   /**
    * Removes an item at a certain index from the List.
    */
-  public removeAt(index: number) {
+  public removeAt(index: number): List<Item> {
     const array = Array.from(this.array);
 
     array.splice(index, 1);
 
-    return new List(array);
+    return new List<Item>(array);
   }
 
   /**
@@ -124,7 +127,7 @@ export default class List<Item = unknown>
   public map<Value = Item>(mapper: (item: Item) => Value): List<Value> {
     const array = Array.from(this.array).map((i) => mapper(i));
 
-    return new List(array);
+    return new List<Value>(array);
   }
 
   /**
@@ -139,7 +142,7 @@ export default class List<Item = unknown>
       [array[index], array[randomIndex]] = [array[randomIndex], array[index]];
     }
 
-    return new List(array);
+    return new List<Item>(array);
   }
 
   /**
@@ -150,7 +153,7 @@ export default class List<Item = unknown>
 
     array.sort(compare);
 
-    return new List(array);
+    return new List<Item>(array);
   }
 
   /**
@@ -172,12 +175,14 @@ export default class List<Item = unknown>
 
   public static from<Item = unknown, Value = unknown>(
     arg1: Iterable<Value> | Iterable<Item>,
-    arg2?: ((value: Value) => Item) | number
+    arg2?: (value: Value) => Item
   ): List<Item> {
     if (typeof arg2 === 'function') {
-      return new List(Array.from(arg1 as Iterable<Value>).map((v) => arg2(v)));
+      return new List<Item>(
+        Array.from(arg1 as Iterable<Value>).map((v) => arg2(v) as Item)
+      );
     } else {
-      return new List(Array.from(arg1 as Iterable<Item>));
+      return new List<Item>(Array.from(arg1 as Iterable<Item>));
     }
   }
 
