@@ -6,5 +6,5 @@
     "declaration": true
   },
   "include": ["./src"],
-  "exclude": ["dist", "node_modules", "src/__experimental__/**", "tests"]
+  "exclude": ["dist", "node_modules", "src/__*__/**", "tests"]
 }
