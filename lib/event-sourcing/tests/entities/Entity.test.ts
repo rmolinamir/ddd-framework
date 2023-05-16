@@ -1,5 +1,6 @@
 import { Uuid } from '@ddd-framework/core';
 import { faker } from '@faker-js/faker';
+
 import Picture from '../mocks/Picture';
 import * as Events from '../mocks/PictureEvents';
 
@@ -15,10 +16,10 @@ describe('Entity', () => {
   test('handles event', () => {
     const picture = new Picture(applier);
 
-    const postId = new AggregateId(faker.datatype.uuid());
-    const pictureId = faker.datatype.uuid();
-    const width = faker.datatype.number();
-    const height = faker.datatype.number();
+    const postId = new AggregateId(faker.string.uuid());
+    const pictureId = faker.string.uuid();
+    const width = faker.number.int();
+    const height = faker.number.int();
     const uri = faker.image.dataUri();
 
     picture.mutate(
@@ -41,10 +42,10 @@ describe('Entity', () => {
   test('apply should handle event then proxy it to the applier', () => {
     const picture = new Picture(applier);
 
-    const postId = new AggregateId(faker.datatype.uuid());
-    const pictureId = faker.datatype.uuid();
-    const width = faker.datatype.number();
-    const height = faker.datatype.number();
+    const postId = new AggregateId(faker.string.uuid());
+    const pictureId = faker.string.uuid();
+    const width = faker.number.int();
+    const height = faker.number.int();
     const uri = faker.image.dataUri();
 
     const event = new Events.PictureCreated({
@@ -71,12 +72,12 @@ describe('Entity', () => {
   test('apply should handle multiple events then proxy all of them to the applier', () => {
     const picture = new Picture(applier);
 
-    const postId = new AggregateId(faker.datatype.uuid());
-    const pictureId = faker.datatype.uuid();
+    const postId = new AggregateId(faker.string.uuid());
+    const pictureId = faker.string.uuid();
     const uri = faker.image.dataUri();
 
-    let width = faker.datatype.number();
-    let height = faker.datatype.number();
+    let width = faker.number.int();
+    let height = faker.number.int();
 
     const pictureCreated = new Events.PictureCreated({
       postId: postId.unpack(),
@@ -88,8 +89,8 @@ describe('Entity', () => {
 
     picture.apply(pictureCreated);
 
-    width = faker.datatype.number();
-    height = faker.datatype.number();
+    width = faker.number.int();
+    height = faker.number.int();
 
     const pictureResized = new Events.PictureResized({
       postId: postId.unpack(),
@@ -116,12 +117,12 @@ describe('Entity', () => {
     test('resize', () => {
       const picture = new Picture(applier);
 
-      const postId = new AggregateId(faker.datatype.uuid());
-      const pictureId = faker.datatype.uuid();
+      const postId = new AggregateId(faker.string.uuid());
+      const pictureId = faker.string.uuid();
       const uri = faker.image.dataUri();
 
-      let width = faker.datatype.number();
-      let height = faker.datatype.number();
+      let width = faker.number.int();
+      let height = faker.number.int();
 
       const pictureCreated = new Events.PictureCreated({
         postId: postId.unpack(),
@@ -133,8 +134,8 @@ describe('Entity', () => {
 
       picture.apply(pictureCreated);
 
-      width = faker.datatype.number();
-      height = faker.datatype.number();
+      width = faker.number.int();
+      height = faker.number.int();
 
       picture.resize(width, height);
 

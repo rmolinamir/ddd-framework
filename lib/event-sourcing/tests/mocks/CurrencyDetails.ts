@@ -1,4 +1,5 @@
 import { ValueObject } from '@ddd-framework/core';
+
 import CurrencyMismatchException from './CurrencyMismatchException';
 import Money from './Money';
 

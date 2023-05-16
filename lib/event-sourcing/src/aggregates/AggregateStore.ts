@@ -1,4 +1,5 @@
 import { Identity } from '@ddd-framework/core';
+
 import AggregateRoot from './AggregateRoot';
 
 /**

@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { ObjectLiteral } from '../types';
 
 type Newable = { new (...args: any[]): ObjectLiteral };

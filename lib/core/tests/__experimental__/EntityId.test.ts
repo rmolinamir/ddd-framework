@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
+
 import EntityId, {
   getEntityIdOf,
   hasEntityId
-} from '../../src/experimental/decorators/EntityId';
+} from '../../src/__experimental__/decorators/EntityId';
 
 describe('EntityId', () => {
   class Order {
@@ -15,7 +16,7 @@ describe('EntityId', () => {
   }
 
   test('getEntityIdOf', () => {
-    const order = new Order(faker.datatype.uuid());
+    const order = new Order(faker.string.uuid());
 
     const id = getEntityIdOf(order);
 
@@ -24,7 +25,7 @@ describe('EntityId', () => {
   });
 
   test('hasEntityId', () => {
-    const order = new Order(faker.datatype.uuid());
+    const order = new Order(faker.string.uuid());
 
     expect(hasEntityId(order)).toBe(true);
   });

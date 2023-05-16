@@ -1,20 +1,21 @@
-import { VideoMetadata } from './fixtures/VideoMetadata';
-import { VideoMetadataId } from './VideoMetadataId';
-import { Video } from './fixtures/Video';
-import { VideoId } from './fixtures/VideoId';
 import { faker } from '@faker-js/faker';
+
 import {
   getAggregateRootIdOf,
   hasAggregateRootRef
-} from '../../../src/experimental/decorators/aggregate/root';
-import { getEntityIdOf } from '../../../src/experimental/decorators/EntityId';
-import EntityCollection from '../../../src/experimental/decorators/EntityCollection';
+} from '../../../src/__experimental__/decorators/aggregate/root';
+import EntityCollection from '../../../src/__experimental__/decorators/EntityCollection';
+import { getEntityIdOf } from '../../../src/__experimental__/decorators/EntityId';
+import { Choice } from './fixtures/Choice';
+import { ChoiceId } from './fixtures/ChoiceId';
 import { Service } from './fixtures/Service';
 import { ServiceId } from './fixtures/ServiceId';
 import { Specification } from './fixtures/Specification';
 import { SpecificationId } from './fixtures/SpecificationId';
-import { Choice } from './fixtures/Choice';
-import { ChoiceId } from './fixtures/ChoiceId';
+import { Video } from './fixtures/Video';
+import { VideoId } from './fixtures/VideoId';
+import { VideoMetadata } from './fixtures/VideoMetadata';
+import { VideoMetadataId } from './VideoMetadataId';
 
 describe('Aggregate', () => {
   describe('AggregateMember', () => {
@@ -23,25 +24,25 @@ describe('Aggregate', () => {
         new VideoId(VideoId.generate()),
         new VideoMetadata(
           new VideoMetadataId(VideoMetadataId.generate()),
-          faker.random.words()
+          faker.word.words()
         ),
         EntityCollection.from([
           new VideoMetadata(
             new VideoMetadataId(VideoMetadataId.generate()),
-            faker.random.words()
+            faker.word.words()
           ),
           new VideoMetadata(
             new VideoMetadataId(VideoMetadataId.generate()),
-            faker.random.words()
+            faker.word.words()
           ),
           new VideoMetadata(
             new VideoMetadataId(VideoMetadataId.generate()),
-            faker.random.words()
+            faker.word.words()
           )
         ])
       );
 
-      video.metadata.changeTitle(faker.random.words());
+      video.metadata.changeTitle(faker.word.words());
 
       expect(getEntityIdOf(video)).toBe(video.videoId);
       expect(getAggregateRootIdOf(video)).toBe(video.videoId);
@@ -50,7 +51,7 @@ describe('Aggregate', () => {
       video.recommendations.add(
         new VideoMetadata(
           new VideoMetadataId(VideoMetadataId.generate()),
-          faker.random.words()
+          faker.word.words()
         )
       );
 
@@ -66,21 +67,15 @@ describe('Aggregate', () => {
         EntityCollection.from([
           new Specification(
             new SpecificationId(SpecificationId.generate()),
-            faker.random.words(),
+            faker.word.words(),
             EntityCollection.from([
-              new Choice(
-                new ChoiceId(ChoiceId.generate()),
-                faker.random.words()
-              ),
-              new Choice(
-                new ChoiceId(ChoiceId.generate()),
-                faker.random.words()
-              )
+              new Choice(new ChoiceId(ChoiceId.generate()), faker.word.words()),
+              new Choice(new ChoiceId(ChoiceId.generate()), faker.word.words())
             ])
           ),
           new Specification(
             new SpecificationId(SpecificationId.generate()),
-            faker.random.words(),
+            faker.word.words(),
             new EntityCollection()
           )
         ])
@@ -98,18 +93,14 @@ describe('Aggregate', () => {
       service.specifications.add(
         new Specification(
           new SpecificationId(SpecificationId.generate()),
-          faker.random.words(),
+          faker.word.words(),
           new EntityCollection()
         )
       );
 
       service.specifications.lastInserted.choices
-        .add(
-          new Choice(new ChoiceId(ChoiceId.generate()), faker.random.words())
-        )
-        .add(
-          new Choice(new ChoiceId(ChoiceId.generate()), faker.random.words())
-        );
+        .add(new Choice(new ChoiceId(ChoiceId.generate()), faker.word.words()))
+        .add(new Choice(new ChoiceId(ChoiceId.generate()), faker.word.words()));
 
       for (const spec of service.specifications) {
         const specAggregateRootId = getAggregateRootIdOf(spec);
@@ -129,7 +120,7 @@ describe('Aggregate', () => {
         new VideoId(VideoId.generate()),
         new VideoMetadata(
           new VideoMetadataId(VideoMetadataId.generate()),
-          faker.random.words()
+          faker.word.words()
         ),
         new EntityCollection()
       );
@@ -138,7 +129,7 @@ describe('Aggregate', () => {
         new VideoId(VideoId.generate()),
         new VideoMetadata(
           new VideoMetadataId(VideoMetadataId.generate()),
-          faker.random.words()
+          faker.word.words()
         ),
         new EntityCollection()
       );
@@ -150,12 +141,12 @@ describe('Aggregate', () => {
 
       video1.metadata = new VideoMetadata(
         new VideoMetadataId(VideoMetadataId.generate()),
-        faker.random.words()
+        faker.word.words()
       );
 
       video2.metadata = new VideoMetadata(
         new VideoMetadataId(VideoMetadataId.generate()),
-        faker.random.words()
+        faker.word.words()
       );
 
       expect(getAggregateRootIdOf(video1.metadata)).toBe(video1.videoId);

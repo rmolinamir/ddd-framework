@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import { DateValue, DomainEvent, Uuid } from '../../src';
 
 describe('DomainEvent', () => {
@@ -9,7 +10,7 @@ describe('DomainEvent', () => {
         public static readonly eventVersion = faker.system.semver();
       }
 
-      const event = new OrderCreated(faker.datatype.uuid(), {
+      const event = new OrderCreated(faker.string.uuid(), {
         occurredOn: DateValue.now().iso()
       });
 
@@ -123,8 +124,8 @@ describe('DomainEvent', () => {
       }
 
       const data: OrderCreated['data'] = {
-        foo: faker.random.word(),
-        bar: faker.datatype.number(),
+        foo: faker.word.sample(),
+        bar: faker.number.int(),
         foobar: faker.datatype.array()
       };
 
@@ -161,8 +162,8 @@ describe('DomainEvent', () => {
       };
 
       const data: OrderCreated['data'] = {
-        foo: faker.random.word(),
-        bar: faker.datatype.number(),
+        foo: faker.word.sample(),
+        bar: faker.number.int(),
         foobar: faker.datatype.array()
       };
 
@@ -199,8 +200,8 @@ describe('DomainEvent', () => {
       };
 
       const data: OrderCreated['data'] = {
-        foo: faker.random.word(),
-        bar: faker.datatype.number(),
+        foo: faker.word.sample(),
+        bar: faker.number.int(),
         foobar: faker.datatype.array()
       };
 
@@ -224,7 +225,7 @@ describe('DomainEvent', () => {
 
       expect(
         () =>
-          new OrderShipped(faker.datatype.uuid(), {
+          new OrderShipped(faker.string.uuid(), {
             occurredOn: DateValue.now().iso()
           })
       ).toThrow();
@@ -238,7 +239,7 @@ describe('DomainEvent', () => {
 
       expect(
         () =>
-          new OrderShipped(faker.datatype.uuid(), {
+          new OrderShipped(faker.string.uuid(), {
             occurredOn: DateValue.now().iso()
           })
       ).toThrow();
@@ -251,7 +252,7 @@ describe('DomainEvent', () => {
 
       expect(
         () =>
-          new OrderShipped(faker.datatype.uuid(), {
+          new OrderShipped(faker.string.uuid(), {
             occurredOn: DateValue.now().iso()
           })
       ).toThrow();
@@ -264,7 +265,7 @@ describe('DomainEvent', () => {
 
       expect(
         () =>
-          new OrderShipped(faker.datatype.uuid(), {
+          new OrderShipped(faker.string.uuid(), {
             occurredOn: DateValue.now().iso()
           })
       ).toThrow();
@@ -276,7 +277,7 @@ describe('DomainEvent', () => {
       @DomainEvent.Register('OrderCreated', faker.system.semver())
       class OrderCreated extends DomainEvent {}
 
-      const event = new OrderCreated(faker.datatype.uuid(), {
+      const event = new OrderCreated(faker.string.uuid(), {
         occurredOn: DateValue.now().iso()
       });
 
@@ -290,7 +291,7 @@ describe('DomainEvent', () => {
         @DomainEvent.Register('', faker.system.semver())
         class OrderShipped extends DomainEvent {}
 
-        return new OrderShipped(faker.datatype.uuid(), {
+        return new OrderShipped(faker.string.uuid(), {
           occurredOn: DateValue.now().iso()
         });
       }).toThrow();
@@ -301,7 +302,7 @@ describe('DomainEvent', () => {
         @DomainEvent.Register('OrderShipped', '')
         class OrderShipped extends DomainEvent {}
 
-        return new OrderShipped(faker.datatype.uuid(), {
+        return new OrderShipped(faker.string.uuid(), {
           occurredOn: DateValue.now().iso()
         });
       }).toThrow();
@@ -322,13 +323,13 @@ describe('DomainEvent', () => {
       }
 
       const event = new OrderCreated(
-        faker.datatype.uuid(),
+        faker.string.uuid(),
         {
           occurredOn: DateValue.now().iso()
         },
         {
-          foo: faker.random.word(),
-          bar: faker.datatype.number(),
+          foo: faker.word.sample(),
+          bar: faker.number.int(),
           foobar: faker.datatype.array()
         }
       );
@@ -351,13 +352,13 @@ describe('DomainEvent', () => {
       }
 
       const event = new OrderCreated(
-        faker.datatype.uuid(),
+        faker.string.uuid(),
         {
           occurredOn: DateValue.now().iso()
         },
         {
           foo: {
-            [faker.datatype.uuid()]: faker.datatype.uuid()
+            [faker.string.uuid()]: faker.string.uuid()
           },
           bar: DateValue.now().iso(),
           foobar: Array.from(new Set(faker.datatype.array()))
@@ -378,7 +379,7 @@ describe('DomainEvent', () => {
       class OrderPurchased extends DomainEvent {}
 
       expect(
-        new OrderPurchased(faker.datatype.uuid(), {
+        new OrderPurchased(faker.string.uuid(), {
           occurredOn: DateValue.now().iso()
         }).symbol()
       ).toBe(expectedSymbol);
@@ -393,7 +394,7 @@ describe('DomainEvent', () => {
       }
 
       expect(() =>
-        new OrderPurchased(faker.datatype.uuid(), {
+        new OrderPurchased(faker.string.uuid(), {
           occurredOn: DateValue.now().iso()
         }).symbol()
       ).toThrow();
@@ -407,7 +408,7 @@ describe('DomainEvent', () => {
       }
 
       expect(() =>
-        new OrderPurchased(faker.datatype.uuid(), {
+        new OrderPurchased(faker.string.uuid(), {
           occurredOn: DateValue.now().iso()
         }).symbol()
       ).toThrow();
@@ -417,18 +418,18 @@ describe('DomainEvent', () => {
 
   describe('causation', () => {
     class OrderCreated extends DomainEvent {
-      public static readonly eventType = faker.datatype.uuid();
+      public static readonly eventType = faker.string.uuid();
       public static readonly eventVersion = faker.system.semver();
     }
 
     class OrderPurchased extends DomainEvent {
-      public static readonly eventType = faker.datatype.uuid();
+      public static readonly eventType = faker.string.uuid();
       public static readonly eventVersion = faker.system.semver();
     }
 
     test('caused by interface with id (e.g. request object)', () => {
       const request = {
-        id: faker.datatype.uuid()
+        id: faker.string.uuid()
       };
 
       const causationEvent = new OrderCreated().causedBy(request);
@@ -439,7 +440,7 @@ describe('DomainEvent', () => {
 
     test('caused by command', () => {
       const command = {
-        commandId: faker.datatype.uuid()
+        commandId: faker.string.uuid()
       };
 
       const causationEvent = new OrderCreated().causedBy(command);
@@ -450,7 +451,7 @@ describe('DomainEvent', () => {
 
     test('caused by event', () => {
       const command = {
-        commandId: faker.datatype.uuid()
+        commandId: faker.string.uuid()
       };
 
       const causationEvent = new OrderCreated().causedBy(command);

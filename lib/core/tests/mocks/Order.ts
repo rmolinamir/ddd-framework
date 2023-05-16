@@ -1,4 +1,4 @@
-import { AggregateRoot, Uuid, Anemic } from '../../src';
+import { AggregateRoot, Anemic, Uuid } from '../../src';
 
 export class OrderId extends Uuid {}
 

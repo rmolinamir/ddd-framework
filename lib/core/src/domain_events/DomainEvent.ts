@@ -1,7 +1,8 @@
 import assert from 'assert';
+
 import { Guard } from '../helpers';
 import { MutableObject, ObjectLiteral } from '../types';
-import { Uuid, DateValue } from '../value_objects';
+import { DateValue, Uuid } from '../value_objects';
 import DomainEventMap from './DomainEventMap';
 
 /**

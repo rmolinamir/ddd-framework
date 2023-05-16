@@ -1,5 +1,6 @@
 import { DomainEvent } from '@ddd-framework/core';
 import { Transform, TransformCallback, TransformOptions } from 'stream';
+
 import { ReadableStream } from '../types';
 
 /**

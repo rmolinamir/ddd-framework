@@ -1,5 +1,6 @@
 import { DataTransferObject, DateValue } from '@ddd-framework/core';
 import { faker } from '@faker-js/faker';
+
 import { Command } from '../src';
 
 describe('Command', () => {
@@ -8,11 +9,11 @@ describe('Command', () => {
       class CreateFakeData extends Command<string> {}
 
       const cmd = new CreateFakeData(
-        faker.datatype.uuid(),
+        faker.string.uuid(),
         {
           occurredOn: DateValue.now().iso()
         },
-        faker.random.word()
+        faker.word.sample()
       );
 
       expect(cmd.commandId).toBeTruthy();
@@ -31,13 +32,13 @@ describe('Command', () => {
       class CreateFakeData extends Command<Data> {}
 
       const cmd = new CreateFakeData(
-        faker.datatype.uuid(),
+        faker.string.uuid(),
         {
           occurredOn: DateValue.now().iso()
         },
         {
-          foo: faker.random.word(),
-          bar: faker.datatype.number(),
+          foo: faker.word.sample(),
+          bar: faker.number.int(),
           foobar: faker.datatype.array()
         }
       );
@@ -60,13 +61,13 @@ describe('Command', () => {
       }
 
       const cmd = new OrderCreated(
-        faker.datatype.uuid(),
+        faker.string.uuid(),
         {
           occurredOn: DateValue.now().iso()
         },
         {
           foo: Object.fromEntries(
-            new Map().set(faker.datatype.uuid(), faker.random.word()).entries()
+            new Map().set(faker.string.uuid(), faker.word.sample()).entries()
           ),
           bar: DateValue.now().iso(),
           foobar: Array.from(new Set(faker.datatype.array()))

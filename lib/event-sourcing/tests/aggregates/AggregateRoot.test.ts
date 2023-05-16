@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import Address from '../mocks/Address';
 import Order from '../mocks/Order';
 import * as Events from '../mocks/OrderEvents';
@@ -43,7 +44,7 @@ describe('AggregateRoot', () => {
 
   test('load aggregate from event stream', () => {
     const orderId = new OrderId(OrderId.generate());
-    const orderLineId = new OrderLineId(faker.datatype.uuid());
+    const orderLineId = new OrderLineId(faker.string.uuid());
 
     const stream: Events.OrderEvents[] = [
       new Events.OrderCreated({
@@ -52,21 +53,21 @@ describe('AggregateRoot', () => {
       new Events.OrderLineAdded({
         orderId: orderId.unpack(),
         orderLineId: orderLineId.unpack(),
-        orderLineProductId: faker.datatype.uuid()
+        orderLineProductId: faker.string.uuid()
       }),
       new Events.OrderLineAdded({
         orderId: orderId.unpack(),
-        orderLineId: faker.datatype.uuid(),
-        orderLineProductId: faker.datatype.uuid()
+        orderLineId: faker.string.uuid(),
+        orderLineProductId: faker.string.uuid()
       }),
       new Events.OrderLineAdded({
         orderId: orderId.unpack(),
-        orderLineId: faker.datatype.uuid(),
-        orderLineProductId: faker.datatype.uuid()
+        orderLineId: faker.string.uuid(),
+        orderLineProductId: faker.string.uuid()
       }),
       new Events.OrderLineRemoved({
         orderId: orderId.unpack(),
-        orderLineId: faker.datatype.uuid()
+        orderLineId: faker.string.uuid()
       }),
       new Events.ShippingAddressSet({
         orderId: orderId.unpack(),
@@ -137,16 +138,16 @@ describe('AggregateRoot', () => {
       order.create(new OrderId(OrderId.generate()));
 
       order.addOrderLine(
-        new OrderLineId(faker.datatype.uuid()),
-        new ProductId(faker.datatype.uuid())
+        new OrderLineId(faker.string.uuid()),
+        new ProductId(faker.string.uuid())
       );
       order.addOrderLine(
-        new OrderLineId(faker.datatype.uuid()),
-        new ProductId(faker.datatype.uuid())
+        new OrderLineId(faker.string.uuid()),
+        new ProductId(faker.string.uuid())
       );
       order.addOrderLine(
-        new OrderLineId(faker.datatype.uuid()),
-        new ProductId(faker.datatype.uuid())
+        new OrderLineId(faker.string.uuid()),
+        new ProductId(faker.string.uuid())
       );
 
       expect(order.orderLines).toHaveLength(3);
@@ -196,8 +197,8 @@ describe('AggregateRoot', () => {
 
     order.create(new OrderId(OrderId.generate()));
     order.addOrderLine(
-      new OrderLineId(faker.datatype.uuid()),
-      new ProductId(faker.datatype.uuid())
+      new OrderLineId(faker.string.uuid()),
+      new ProductId(faker.string.uuid())
     );
 
     expect(() => order.place()).toThrow();

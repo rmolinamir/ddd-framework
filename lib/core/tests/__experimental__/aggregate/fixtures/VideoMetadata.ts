@@ -1,7 +1,7 @@
-import Entity from '../../../../src/experimental/decorators/Entity';
-import EntityId from '../../../../src/experimental/decorators/EntityId';
-import { VideoMetadataTitleUpdated } from './OrderCreated';
+import Entity from '../../../../src/__experimental__/decorators/Entity';
+import EntityId from '../../../../src/__experimental__/decorators/EntityId';
 import { VideoMetadataId } from '../VideoMetadataId';
+import { VideoMetadataTitleUpdated } from './OrderCreated';
 import { VideoId } from './VideoId';
 
 export class VideoMetadata extends Entity {

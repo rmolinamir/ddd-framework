@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { Newable } from '../../../types';
 import { DOMAIN_EVENT_METADATA } from '../constants';
 import Decorator from '../Decorator';

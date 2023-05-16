@@ -4,6 +4,7 @@ import {
   IdentifiedDomainObject,
   Identity
 } from '@ddd-framework/core';
+
 import { Entity } from '../entities';
 
 export default abstract class AggregateRoot<

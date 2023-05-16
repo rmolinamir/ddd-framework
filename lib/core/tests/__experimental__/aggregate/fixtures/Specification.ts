@@ -1,7 +1,7 @@
-import { AggregateMember } from '../../../../src/experimental/decorators/aggregate/member';
-import Entity from '../../../../src/experimental/decorators/Entity';
-import EntityCollection from '../../../../src/experimental/decorators/EntityCollection';
-import EntityId from '../../../../src/experimental/decorators/EntityId';
+import { AggregateMember } from '../../../../src/__experimental__/decorators/aggregate/member';
+import Entity from '../../../../src/__experimental__/decorators/Entity';
+import EntityCollection from '../../../../src/__experimental__/decorators/EntityCollection';
+import EntityId from '../../../../src/__experimental__/decorators/EntityId';
 import { Choice } from './Choice';
 import { SpecificationId } from './SpecificationId';
 

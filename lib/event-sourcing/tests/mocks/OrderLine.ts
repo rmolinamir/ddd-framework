@@ -7,9 +7,9 @@ export default class OrderLine extends Entity<
   OrderLineId,
   Events.OrderLineAdded
 > {
-  public id: OrderLineId = OrderLineId.Null;
+  public id: OrderLineId = OrderLineId.null;
 
-  public productId: ProductId = ProductId.Null;
+  public productId: ProductId = ProductId.null;
 
   protected when(event: Events.OrderLineAdded) {
     if (event instanceof Events.OrderLineAdded) {

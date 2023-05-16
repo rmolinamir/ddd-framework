@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+
 import { ObjectLiteral } from '../../types';
 
 interface MetadataOptions {

@@ -4,9 +4,9 @@ import Decorator from '../../Decorator';
 import { isEntity } from '../../helpers/isEntity';
 import { isEntityCollection } from '../../helpers/isEntityCollection';
 import { isList } from '../../helpers/isList';
-import { AggregateRootRef } from './AggregateRootRef';
 import { getAggregateMemberMetadataOf } from '../member/getAggregateMemberMetadataOf';
 import { hasAggregateMembers } from '../member/hasAggregateMembers';
+import { AggregateRootRef } from './AggregateRootRef';
 
 /**
  * Recursively point the Aggregate Members to their Aggregate Root.

@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import { Entity, Uuid } from '../../src';
 
 class UserId extends Uuid {}
@@ -14,8 +15,8 @@ class User extends Entity<UserId> {
 
 describe('Entity', () => {
   test('equals', () => {
-    const idOne = faker.datatype.uuid();
-    const idTwo = faker.datatype.uuid();
+    const idOne = faker.string.uuid();
+    const idTwo = faker.string.uuid();
 
     const userOne = new User(new UserId(idOne));
     const userTwo = new User(new UserId(idOne));

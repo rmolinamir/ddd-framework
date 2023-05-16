@@ -1,8 +1,9 @@
 import assert from 'assert';
+
 import { ObjectLiteral } from '../../../../types';
 import { AGGREGATE_ROOT_REF } from '../../constants';
-import { getEntityIdOf } from '../../EntityId';
 import Decorator from '../../Decorator';
+import { getEntityIdOf } from '../../EntityId';
 import { AggregateRootRef } from './AggregateRootRef';
 import { isAggregateRoot } from './isAggregateRoot';
 

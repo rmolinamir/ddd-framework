@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { ObjectLiteral } from '../../types';
 import { ENTITY_ID_METADATA, ENTITY_ID_WATERMARK } from './constants';
 import Decorator from './Decorator';

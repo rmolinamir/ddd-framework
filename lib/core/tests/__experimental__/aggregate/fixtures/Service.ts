@@ -1,10 +1,10 @@
-import Entity from '../../../../src/experimental/decorators/Entity';
-import EntityCollection from '../../../../src/experimental/decorators/EntityCollection';
-import EntityId from '../../../../src/experimental/decorators/EntityId';
-import { AggregateRoot } from '../../../../src/experimental/decorators/aggregate/root';
-import { AggregateMember } from '../../../../src/experimental/decorators/aggregate/member';
-import { Specification } from './Specification';
+import { AggregateMember } from '../../../../src/__experimental__/decorators/aggregate/member';
+import { AggregateRoot } from '../../../../src/__experimental__/decorators/aggregate/root';
+import Entity from '../../../../src/__experimental__/decorators/Entity';
+import EntityCollection from '../../../../src/__experimental__/decorators/EntityCollection';
+import EntityId from '../../../../src/__experimental__/decorators/EntityId';
 import { ServiceId } from './ServiceId';
+import { Specification } from './Specification';
 
 @AggregateRoot()
 export class Service extends Entity {

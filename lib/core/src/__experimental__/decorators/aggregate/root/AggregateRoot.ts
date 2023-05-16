@@ -1,8 +1,9 @@
 import assert from 'assert';
+
 import { ClassOf } from '../../../../types';
 import { AGGREGATE_ROOT_WATERMARK } from '../../constants';
-import Entity from '../../Entity';
 import Decorator from '../../Decorator';
+import Entity from '../../Entity';
 import { AggregateRootRef } from './AggregateRootRef';
 import { setupAggregateRootReferences } from './setupAggregateRootReferences';
 

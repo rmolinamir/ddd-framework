@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { ObjectLiteral } from '../../../../types';
 import { AGGREGATE_MEMBER_METADATA } from '../../constants';
 import Decorator from '../../Decorator';

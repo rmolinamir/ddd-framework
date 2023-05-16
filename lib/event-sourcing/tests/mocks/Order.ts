@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { AggregateRoot } from '../../src';
 import Address from './Address';
 import * as Events from './OrderEvents';

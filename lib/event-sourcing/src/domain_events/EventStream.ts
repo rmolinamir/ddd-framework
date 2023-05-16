@@ -1,5 +1,6 @@
 import { DomainEvent } from '@ddd-framework/core';
 import { Readable } from 'stream';
+
 import { ReadableStream } from '../types';
 
 /**

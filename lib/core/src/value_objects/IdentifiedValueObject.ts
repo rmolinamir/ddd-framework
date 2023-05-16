@@ -1,4 +1,5 @@
 import Lodash from 'lodash';
+
 import { IdentifiedDomainObject, Identity } from '../common';
 import ValueObject from './ValueObject';
 

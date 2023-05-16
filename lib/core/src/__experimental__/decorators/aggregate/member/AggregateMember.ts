@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { ObjectLiteral } from '../../../../types';
 import {
   AGGREGATE_MEMBER_METADATA,
@@ -8,11 +9,11 @@ import Decorator from '../../Decorator';
 import { isEntity } from '../../helpers/isEntity';
 import { isEntityCollection } from '../../helpers/isEntityCollection';
 import { isList } from '../../helpers/isList';
+import { getAggregateRootRefOf, hasAggregateRootRef } from '../root';
+import { setupAggregateRootReferences } from './';
 import { AggregateMemberMetadata } from './AggregateMemberMetadata';
 import { getAggregateMemberMetadataOf } from './getAggregateMemberMetadataOf';
 import { hasAggregateMembers } from './hasAggregateMembers';
-import { setupAggregateRootReferences } from '.';
-import { getAggregateRootRefOf, hasAggregateRootRef } from '../root';
 
 export function AggregateMember(): PropertyDecorator {
   /**

@@ -1,4 +1,5 @@
 import { Command } from '@ddd-framework/cqrs';
+
 import Address from './Address';
 import OrderLine from './OrderLine';
 import OrderLineId from './OrderLineId';

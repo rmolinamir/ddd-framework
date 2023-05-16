@@ -1,10 +1,10 @@
-import Entity from '../../../../src/experimental/decorators/Entity';
-import EntityCollection from '../../../../src/experimental/decorators/EntityCollection';
-import EntityId from '../../../../src/experimental/decorators/EntityId';
-import { VideoMetadata } from './VideoMetadata';
+import { AggregateMember } from '../../../../src/__experimental__/decorators/aggregate/member';
+import { AggregateRoot } from '../../../../src/__experimental__/decorators/aggregate/root';
+import Entity from '../../../../src/__experimental__/decorators/Entity';
+import EntityCollection from '../../../../src/__experimental__/decorators/EntityCollection';
+import EntityId from '../../../../src/__experimental__/decorators/EntityId';
 import { VideoId } from './VideoId';
-import { AggregateRoot } from '../../../../src/experimental/decorators/aggregate/root';
-import { AggregateMember } from '../../../../src/experimental/decorators/aggregate/member';
+import { VideoMetadata } from './VideoMetadata';
 
 @AggregateRoot()
 export class Video extends Entity {

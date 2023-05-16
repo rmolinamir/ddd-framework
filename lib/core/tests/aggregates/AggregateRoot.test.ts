@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import Video, {
   CommentEdited,
   CommentLeft,
@@ -8,8 +9,8 @@ import Video, {
 
 describe('AggregateRoot', () => {
   test('equals', () => {
-    const idOne = faker.datatype.uuid();
-    const idTwo = faker.datatype.uuid();
+    const idOne = faker.string.uuid();
+    const idTwo = faker.string.uuid();
 
     const videoOne = new Video(new VideoId(idOne));
     const videoTwo = new Video(new VideoId(idOne));
@@ -33,12 +34,12 @@ describe('AggregateRoot', () => {
   test('child entity raises Domain Event', () => {
     const video = new Video(new VideoId(VideoId.generate()));
 
-    const comment = video.leaveComment(faker.random.words());
+    const comment = video.leaveComment(faker.word.words());
 
     expect(video.events).toHaveLength(1);
     expect(video.events[0]).toBeInstanceOf(CommentLeft);
 
-    comment.edit(video.id, faker.random.words());
+    comment.edit(video.id, faker.word.words());
 
     expect(video.events).toHaveLength(2);
     expect(video.events[1]).toBeInstanceOf(CommentEdited);

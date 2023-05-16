@@ -1,4 +1,5 @@
 import { DomainEvent, Identity } from '@ddd-framework/core';
+
 import EventStream from './EventStream';
 
 /**

@@ -1,13 +1,14 @@
 import { faker } from '@faker-js/faker';
+
 import {
   DOMAIN_EVENT_METADATA,
   DOMAIN_EVENT_WATERMARK
-} from '../../src/experimental/decorators/constants';
+} from '../../src/__experimental__/decorators/constants';
 import {
   DomainEvent,
   getDomainEventMetadata,
   isDomainEvent
-} from '../../src/experimental/decorators/domain_events';
+} from '../../src/__experimental__/decorators/domain_events';
 
 const DOMAIN_EVENT_TYPE = 'order-cancelled';
 const DOMAIN_EVENT_VERSION = faker.system.semver();

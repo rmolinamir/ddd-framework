@@ -3,6 +3,7 @@ import {
   IdentifiedDomainObject,
   Identity
 } from '@ddd-framework/core';
+
 import { Action } from '../types';
 
 export default abstract class Entity<

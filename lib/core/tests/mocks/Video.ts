@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import { AggregateRoot, DateValue, DomainEvent, Entity, Uuid } from '../../src';
 
 export class VideoWatched extends DomainEvent {
@@ -64,7 +65,7 @@ export default class Video extends AggregateRoot<VideoId> {
   public watch() {
     this.views += 1;
     this.raise(
-      new VideoWatched(faker.datatype.uuid(), {
+      new VideoWatched(faker.string.uuid(), {
         occurredOn: DateValue.now().iso()
       })
     );

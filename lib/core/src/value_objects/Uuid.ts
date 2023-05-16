@@ -1,4 +1,5 @@
 import { v4 as uuidV4, validate } from 'uuid';
+
 import { Identity } from '../common';
 import { IllegalStateException } from '../exceptions';
 

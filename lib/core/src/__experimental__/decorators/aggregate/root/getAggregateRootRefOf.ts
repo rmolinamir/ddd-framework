@@ -1,10 +1,11 @@
 import assert from 'assert';
+
 import { ObjectLiteral } from '../../../../types';
 import { AGGREGATE_ROOT_REF } from '../../constants';
 import Decorator from '../../Decorator';
+import Entity from '../../Entity';
 import { AggregateRootRef } from './AggregateRootRef';
 import { isAggregateRoot } from './isAggregateRoot';
-import Entity from '../../Entity';
 
 export function getAggregateRootRefOf(
   anObject: ObjectLiteral
