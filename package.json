@@ -23,11 +23,11 @@
     "watch": "turbo run build --watch"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "5.1.1",
-    "commitizen": "4.2.5",
-    "cz-conventional-changelog": "3.3.0",
-    "release-it": "15.5.0",
-    "turbo": "1.6.3"
+    "@release-it/conventional-changelog": "~5.1.1",
+    "commitizen": "~4.3.0",
+    "cz-conventional-changelog": "~3.3.0",
+    "release-it": "~15.10.3",
+    "turbo": "~1.9.6"
   },
   "config": {
     "commitizen": {
@@ -42,5 +42,5 @@
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@7.13.2"
+  "packageManager": "pnpm@7.30.0"
 }

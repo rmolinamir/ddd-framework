@@ -1,12 +1,8 @@
 {
 	"folders": [
 		{
-			"path": ".",
-			"name": "workspaces"
-		},
-		{
 			"path": "../",
-			"name": "root"
+			"name": "@ddd-framework"
 		},
 		{
 			"path": "../lib/core",
