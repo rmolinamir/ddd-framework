@@ -5,6 +5,4 @@ import Identity from './Identity';
  */
 export default abstract class IdentifiedDomainObject<Id extends Identity> {
   public abstract id: Id;
-
-  public static null: Identity;
 }
