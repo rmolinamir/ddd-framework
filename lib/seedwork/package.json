@@ -1,7 +1,7 @@
 {
   "name": "@ddd-framework/seedwork",
   "description": "Generates a module with minimal functionality which you may change however you see fit.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "publishConfig": {
     "access": "public",
