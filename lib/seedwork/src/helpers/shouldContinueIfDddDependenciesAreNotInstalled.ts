@@ -1,17 +1,8 @@
 import checkDependencies from 'check-dependencies';
 import { prompt } from 'enquirer';
-import { DddPackage } from '../types/DddPackage';
 
-const unnecessaryDependencies = [
-  '@ddd-framework/core',
-  '@ddd-framework/cqrs',
-  '@ddd-framework/event-sourcing',
-  '@faker-js/faker',
-  '@types/jest',
-  'jest',
-  'ts-jest',
-  'typescript'
-];
+import { ignoredDependencies } from '../constants';
+import { DddPackage } from '../types/DddPackage';
 
 const checkDependenciesLogRegExp = /^(.*):\sinstalled:.*\sexpected:.*$/;
 
@@ -32,7 +23,7 @@ export default async function shouldContinueIfDddDependenciesAreNotInstalled(
 
       return deps;
     }, new Set())
-  ).filter((d) => !unnecessaryDependencies.includes(d));
+  ).filter((d) => !ignoredDependencies.includes(d));
 
   const { log } = await checkDependencies({
     packageManager: 'npm'

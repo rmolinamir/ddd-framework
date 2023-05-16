@@ -28,6 +28,7 @@
     "release": "pnpm release-it",
     "test:watch": "pnpm jest --watch",
     "test": "pnpm jest",
+    "test:interactive": "pnpm jest -c .spec.jest.config.js",
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "dependencies": {

@@ -1,4 +1,5 @@
 import { prompt } from 'enquirer';
+
 import { DddPackage } from '../types/DddPackage';
 
 export default async function selectDddPackagesToCopy(

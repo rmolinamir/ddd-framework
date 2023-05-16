@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
+
 import enquireNoToEverything from './mocks/enquireNoToEverything';
 import enquireRandomAnswers from './mocks/enquireRandomAnswers';
 import enquireYesToEverything from './mocks/enquireYesToEverything';

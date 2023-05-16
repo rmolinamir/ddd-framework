@@ -2,11 +2,12 @@ import degit from 'degit';
 import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
+
+import { details, ignoredPackages } from '../constants';
 import { DddPackage } from '../types/DddPackage';
-import { DddRepositoryRegistry } from '../DddRepositoryRegistry';
 import { PackageJson } from '../types/PackageJson';
 
-const { author, name, blacklistedPackages } = DddRepositoryRegistry;
+const { author, name } = details;
 
 export default async function downloadDddPackages(
   verbose = false
@@ -40,8 +41,7 @@ export default async function downloadDddPackages(
   const libDir = path.resolve(tmpDir, 'lib');
 
   const dirents = (await fs.readdir(libDir, { withFileTypes: true })).filter(
-    (dirent) =>
-      dirent.isDirectory() && !blacklistedPackages.includes(dirent.name)
+    (dirent) => dirent.isDirectory() && !ignoredPackages.includes(dirent.name)
   );
 
   const dddPackages: DddPackage[] = dirents.map((dirent) => {

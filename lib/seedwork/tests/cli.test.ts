@@ -1,6 +1,7 @@
 import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
+
 import enquireYesToEverything from './mocks/enquireYesToEverything';
 
 describe('@ddd-framework/seedwork cli', () => {

@@ -7,9 +7,7 @@ describe('downloadDddPackages', () => {
 
     fs.emptyDir(outputDirectory);
 
-    const { DddRepositoryRegistry } = await import(
-      '../src/DddRepositoryRegistry'
-    );
+    const { details: DddRepositoryRegistry } = await import('../src/constants');
     const { default: downloadDddPackages } = await import(
       '../src/helpers/downloadDddPackages'
     );

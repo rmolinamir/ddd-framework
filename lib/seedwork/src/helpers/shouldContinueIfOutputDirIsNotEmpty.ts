@@ -1,4 +1,5 @@
 import { prompt } from 'enquirer';
+
 import isEmptyDir from './isEmptyDir';
 
 export default async function shouldContinueIfOutputDirIsNotEmpty(

@@ -1,6 +1,8 @@
 import assert from 'assert';
 import fs from 'fs-extra';
 import path from 'path';
+
+import { ignoredDirectories } from '../constants';
 import { DddPackage } from '../types/DddPackage';
 
 async function findAndReplaceImportStatements(
@@ -44,7 +46,16 @@ export default async function copyDddPackage(
 
   const dddPackageOutputDir = path.join(outputDir, dddPackage.dirent.name);
 
-  return fs.copy(dddPackageSrcDir, dddPackageOutputDir, {
-    overwrite: true
+  await fs.copy(dddPackageSrcDir, dddPackageOutputDir, {
+    overwrite: true,
+    // Filters out ignored directories:
+    filter: (src) => {
+      if (fs.lstatSync(src).isDirectory()) {
+        const basename = path.basename(src);
+        return ignoredDirectories.some((d) => basename.match(d) === null);
+      } else return true;
+    }
   });
+
+  await fs.remove(dddPackage.tmpDir);
 }

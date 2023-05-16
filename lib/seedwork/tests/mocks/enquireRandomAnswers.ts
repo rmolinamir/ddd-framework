@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import { PromptAnswer, PromptOptions } from '../types/enquirer';
 
 export default function enquireRandomAnswers() {
