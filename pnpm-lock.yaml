@@ -64,6 +64,8 @@ importers:
 
   config/jest: {}
 
+  config/release-it: {}
+
   config/tsconfig: {}
 
   lib/core:
@@ -74,6 +76,9 @@ importers:
       '@config/jest':
         specifier: '*'
         version: link:../../config/jest
+      '@config/release-it':
+        specifier: '*'
+        version: link:../../config/release-it
       '@config/tsconfig':
         specifier: '*'
         version: link:../../config/tsconfig
@@ -119,6 +124,9 @@ importers:
       '@config/jest':
         specifier: '*'
         version: link:../../config/jest
+      '@config/release-it':
+        specifier: '*'
+        version: link:../../config/release-it
       '@config/tsconfig':
         specifier: '*'
         version: link:../../config/tsconfig
@@ -158,6 +166,9 @@ importers:
       '@config/jest':
         specifier: '*'
         version: link:../../config/jest
+      '@config/release-it':
+        specifier: '*'
+        version: link:../../config/release-it
       '@config/tsconfig':
         specifier: '*'
         version: link:../../config/tsconfig
@@ -216,6 +227,9 @@ importers:
       '@config/jest':
         specifier: '*'
         version: link:../../config/jest
+      '@config/release-it':
+        specifier: '*'
+        version: link:../../config/release-it
       '@config/tsconfig':
         specifier: '*'
         version: link:../../config/tsconfig
