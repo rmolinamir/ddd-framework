@@ -32,6 +32,7 @@
   "devDependencies": {
     "@config/eslint": "*",
     "@config/jest": "*",
+    "@config/release-it": "*",
     "@config/tsconfig": "*",
     "@ddd-framework/core": "*",
     "@faker-js/faker": "~8.0.1",

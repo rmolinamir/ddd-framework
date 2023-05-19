@@ -33,6 +33,7 @@
   "devDependencies": {
     "@config/eslint": "*",
     "@config/jest": "*",
+    "@config/release-it": "*",
     "@config/tsconfig": "*",
     "@ddd-framework/core": "*",
     "@ddd-framework/cqrs": "*",
