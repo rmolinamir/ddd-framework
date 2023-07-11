@@ -1,10 +1,7 @@
 import { InvalidOperationException, NotFoundException } from '../../exceptions';
 import { DomainPrimitive } from '../../value_objects';
-import { setupAggregateRootReferences } from './aggregate/member';
-import { hasAggregateRootRef } from './aggregate/root';
-import { getAggregateRootRefOf } from './aggregate/root/getAggregateRootRefOf';
 import Entity from './Entity';
-import { getEntityIdOf } from './EntityId';
+import EntityId from './EntityId';
 
 type EntityCollectionMap<E extends Entity> = Map<Symbol, E>;
 
@@ -13,6 +10,7 @@ type EntityCollectionMap<E extends Entity> = Map<Symbol, E>;
  */
 export type EntityCollectionOptions = { shouldUpsert: boolean };
 
+// TODO: JSDocs.
 export default class EntityCollection<E extends Entity> implements Iterable<E> {
   private _last?: E;
 
@@ -43,11 +41,7 @@ export default class EntityCollection<E extends Entity> implements Iterable<E> {
         'Entity is already in the collection.'
       );
 
-    const isInAggregate = hasAggregateRootRef(this);
-    if (isInAggregate)
-      setupAggregateRootReferences(getAggregateRootRefOf(this), entity);
-
-    this.map.set(getEntityIdOf(entity), entity);
+    this.map.set(EntityId.getId(entity), entity);
 
     this._last = entity;
 
@@ -65,7 +59,7 @@ export default class EntityCollection<E extends Entity> implements Iterable<E> {
    * Determines whether the EntityCollection contains a specific value.
    */
   public contains(entity: E): boolean {
-    return this.map.has(entity.entityId());
+    return this.map.has(EntityId.getId(entity));
   }
 
   /**
@@ -79,21 +73,23 @@ export default class EntityCollection<E extends Entity> implements Iterable<E> {
    * Returns a specific object from the EntityCollection.
    */
   public get(entity: E) {
-    return this.map.get(entity.entityId());
+    return this.map.get(EntityId.getId(entity));
   }
 
   /**
    * Removes a specific object from the EntityCollection.
    */
   public remove(entity: E) {
-    return this.map.delete(entity.entityId());
+    return this.map.delete(EntityId.getId(entity));
   }
 
   /**
    * Returns a new Array object that contains the keys for each element in the EntityCollection in insertion order.
    */
   public identities<Identity>(): Array<Identity> {
-    return Array.from(this.map.values(), (entity) => getEntityIdOf(entity));
+    return Array.from(this.map.values(), (entity) =>
+      EntityId.getId<Identity>(entity)
+    );
   }
 
   /**
@@ -108,7 +104,7 @@ export default class EntityCollection<E extends Entity> implements Iterable<E> {
    */
   public entries<Identity>(): Array<[Identity, E]> {
     return Array.from(this.map.values(), (entity) => [
-      entity.entityId(),
+      EntityId.getId<Identity>(entity),
       entity
     ]);
   }
@@ -129,7 +125,7 @@ export default class EntityCollection<E extends Entity> implements Iterable<E> {
       (dictionary, entity) => {
         let dictionaryKey: PropertyKey;
 
-        const entityId = entity.entityId();
+        const entityId = EntityId.getId(entity);
 
         if (entityId instanceof DomainPrimitive)
           dictionaryKey = entityId.unpack();

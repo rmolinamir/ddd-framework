@@ -1,128 +1,126 @@
-import { Identity } from '../../common';
+import Identity from '../../common/Identity';
 import { ObjectLiteral } from '../../types';
-import { DomainPrimitive } from '../../value_objects';
+import AggregateId from './AggregateId';
+import AggregateRoot from './AggregateRoot';
 import Entity from './Entity';
+import EntityId from './EntityId';
 
 export default class EventSink<DomainEvent extends ObjectLiteral> {
   private static singleton: EventSink<ObjectLiteral>;
 
+  // TODO: Sink should be an LRU or LFU cache.
   private sink: Map<PropertyKey, DomainEvent[]> = new Map();
 
   private constructor() {}
 
   /**
-   * Returns all events of an Aggregate.
+   * Adds a DomainEvent to the EventSink.
    */
   public static add<DomainEvent extends ObjectLiteral>(
-    aggregateRoot: Entity,
-    aDomainEvent: DomainEvent
-  ): void;
-
-  /**
-   * Returns all events of an Aggregate.
-   */
-  public static add<DomainEvent extends ObjectLiteral>(
-    aggregateId: Identity,
-    aDomainEvent: DomainEvent
-  ): void;
-
-  /**
-   * Returns all events of an Aggregate.
-   */
-  public static add<DomainEvent extends ObjectLiteral>(
-    aggregateId: PropertyKey,
-    aDomainEvent: DomainEvent
-  ): void;
-
-  public static add<DomainEvent extends ObjectLiteral>(
-    arg: Entity | Identity | PropertyKey,
     aDomainEvent: DomainEvent
   ): void {
-    const instance = this.instance();
+    const { sink } = this.instance<DomainEvent>();
 
-    const key = this.getPropertyKeyFrom(arg);
+    const aggregateId = this.getAggregateIdFrom(aDomainEvent);
 
-    const events = instance.sink.get(key);
+    const events = sink.get(aggregateId);
 
     if (events) events.push(aDomainEvent);
-    else instance.sink.set(key, [aDomainEvent]);
+    else sink.set(aggregateId, [aDomainEvent]);
   }
 
   /**
-   * Returns all events of an Aggregate.
+   * Returns all events of an Entity.
    */
   public static get<DomainEvent extends ObjectLiteral>(
-    aggregateRoot: Entity
-  ): DomainEvent[];
-
-  /**
-   * Returns all events of an Aggregate.
-   */
-  public static get<DomainEvent extends ObjectLiteral>(
-    aggregateId: Identity
-  ): DomainEvent[];
-
-  /**
-   * Returns all events of an Aggregate.
-   */
-  public static get<DomainEvent extends ObjectLiteral>(
-    aggregateId: PropertyKey
-  ): DomainEvent[];
-
-  public static get<DomainEvent extends ObjectLiteral>(
-    arg: Entity | Identity | PropertyKey
+    entity: Entity
   ): DomainEvent[] {
-    const key = this.getPropertyKeyFrom(arg);
+    const { sink } = this.instance<DomainEvent>();
 
-    return (this.instance().sink.get(key) as DomainEvent[]) || [];
+    if (AggregateRoot.isRoot(entity)) {
+      return sink.get(this.getAggregateIdFrom(entity)) || [];
+    } else {
+      // Make accessible somehow.
+      if (!AggregateId.hasId(entity) || !EntityId.hasId(entity)) return [];
+
+      const aggregateId = this.getAggregateIdFrom(entity);
+      const entityId = this.getEntityIdFrom(entity)!;
+
+      const events = sink.get(aggregateId) || [];
+
+      const res = events.filter((event) => {
+        const eventEntityId = this.getEntityIdFrom(event);
+
+        if (eventEntityId) return entityId === eventEntityId;
+        else return false;
+      });
+
+      return res;
+    }
   }
 
   /**
-   * Clears all events of an Aggregate and returns them.
+   * Clears all events of an Entity and returns them.
    */
   public static flush<DomainEvent extends ObjectLiteral>(
-    aggregateRoot: Entity
-  ): DomainEvent[];
-
-  /**
-   * Clears all events of an Aggregate and returns them.
-   */
-  public static flush<DomainEvent extends ObjectLiteral>(
-    aggregateId: Identity
-  ): DomainEvent[];
-
-  /**
-   * Clears all events of an Aggregate and returns them.
-   */
-  public static flush<DomainEvent extends ObjectLiteral>(
-    aggregateId: PropertyKey
-  ): DomainEvent[];
-
-  public static flush<DomainEvent extends ObjectLiteral>(
-    arg: Entity | Identity | PropertyKey
+    entity: Entity
   ): DomainEvent[] {
-    const instance = this.instance();
+    const { sink } = this.instance<DomainEvent>();
 
-    const key = this.getPropertyKeyFrom(arg);
+    if (AggregateRoot.isRoot(entity)) {
+      const events = EventSink.get<DomainEvent>(entity);
+      sink.delete(this.getAggregateIdFrom(entity));
+      return events;
+    } else {
+      if (!AggregateId.hasId(entity) || !EntityId.hasId(entity)) return [];
 
-    const events = instance.sink.get(key);
+      const aggregateId = this.getAggregateIdFrom(entity);
+      const entityId = this.getEntityIdFrom(entity)!;
 
-    if (events) {
-      instance.sink.delete(key);
-      return events as DomainEvent[];
-    } else return [];
+      const aggregateEvents = sink.get(aggregateId) || [];
+
+      const { events, remaining } = aggregateEvents.reduce<
+        Record<'events' | 'remaining', DomainEvent[]>
+      >(
+        ({ events, remaining }, event) => {
+          const eventEntityId = this.getEntityIdFrom(event);
+
+          if (eventEntityId && entityId === eventEntityId) events.push(event);
+          else remaining.push(event);
+
+          return { events, remaining };
+        },
+        { events: [], remaining: [] }
+      );
+
+      sink.set(aggregateId, remaining);
+
+      return events;
+    }
   }
 
-  private static instance() {
+  private static instance<
+    DomainEvent extends ObjectLiteral
+  >(): EventSink<DomainEvent> {
     if (!EventSink.singleton) EventSink.singleton = new EventSink();
-    return EventSink.singleton;
+    return EventSink.singleton as EventSink<DomainEvent>;
   }
 
-  private static getPropertyKeyFrom(
-    arg: Entity | Identity | PropertyKey
-  ): PropertyKey {
-    if (arg instanceof Entity) return arg.entityId();
-    else if (arg instanceof DomainPrimitive) return arg.unpack();
-    else return arg;
+  private static getAggregateIdFrom(anObject: ObjectLiteral): PropertyKey {
+    const id = AggregateId.getId<PropertyKey | Identity>(anObject);
+    if (id instanceof Identity) return id.unpack();
+    else return id;
+  }
+
+  private static getEntityIdFrom(
+    anObject: ObjectLiteral
+  ): PropertyKey | undefined {
+    try {
+      const id = EntityId.getId<PropertyKey | Identity>(anObject);
+      if (id instanceof Identity) return id.unpack();
+      else return id;
+    } catch {
+      return undefined;
+    }
   }
 }

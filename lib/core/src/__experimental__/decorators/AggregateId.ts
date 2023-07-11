@@ -1,31 +1,29 @@
 import { InvalidOperationException } from '../../exceptions';
 import { ObjectLiteral } from '../../types';
-import AggregateId from './AggregateId';
-import AggregateRoot from './AggregateRoot';
-import { ENTITY_ID_METADATA, ENTITY_ID_WATERMARK } from './constants';
+import { AGGREGATE_ID_METADATA, AGGREGATE_ID_WATERMARK } from './constants';
 import Decorator from './Decorator';
 
-interface EntityIdMetadata {
+interface AggregateIdMetadata {
   propertyKey: PropertyKey;
 }
 
-const watermarkSymbol = ENTITY_ID_WATERMARK;
-const metadataSymbol = ENTITY_ID_METADATA;
+const watermarkSymbol = AGGREGATE_ID_WATERMARK;
+const metadataSymbol = AGGREGATE_ID_METADATA;
 
 // TODO: JSDocs.
-export default function EntityId(): PropertyDecorator {
+export default function AggregateId(): PropertyDecorator {
   /**
    * This function only runs once at runtime to set up the targetClass property descriptor.
    * All instances share the same `targetClass` variable.
    */
   return function (targetClass: ObjectLiteral, propertyKey: PropertyKey): void {
-    const metadata: EntityIdMetadata = { propertyKey };
+    const metadata: AggregateIdMetadata = { propertyKey };
 
-    if (EntityId.hasId(targetClass)) {
-      if (EntityId.getMetadata(targetClass)!.propertyKey !== propertyKey)
+    if (AggregateId.hasId(targetClass)) {
+      if (AggregateId.getMetadata(targetClass)!.propertyKey !== propertyKey)
         throw new InvalidOperationException(
           // TODO: Improve error message with the object's constructor name if any.
-          'Cannot decorate a class that was already decorated with EntityId.'
+          'Cannot decorate a class that was already decorated with AggregateId.'
         );
     } else {
       Decorator.setWatermark(watermarkSymbol, targetClass);
@@ -37,35 +35,27 @@ export default function EntityId(): PropertyDecorator {
   };
 }
 
-EntityId.getId = function <EntityId = unknown>(
+AggregateId.getId = function <AggregateId = unknown>(
   anObject: ObjectLiteral
-): EntityId {
-  if (AggregateRoot.isRoot(anObject))
-    return AggregateId.getId(anObject) as EntityId;
-
-  if (!EntityId.hasId(anObject))
+): AggregateId {
+  if (!AggregateId.hasId(anObject))
     throw new InvalidOperationException(
       // TODO: Improve error message with the object's constructor name if any.
       'Cannot get the identifier of an object that does not have an identifier.'
     );
 
-  const metadata = Decorator.getMetadata<EntityIdMetadata>(
-    metadataSymbol,
-    anObject
-  );
+  const metadata = AggregateId.getMetadata(anObject);
 
   return anObject[metadata!.propertyKey];
 };
 
-EntityId.getMetadata = function (targetClass: ObjectLiteral) {
-  return Decorator.getMetadata<EntityIdMetadata | undefined>(
+AggregateId.getMetadata = function (targetClass: ObjectLiteral) {
+  return Decorator.getMetadata<AggregateIdMetadata | undefined>(
     metadataSymbol,
     targetClass
   );
 };
 
-EntityId.hasId = function (anObject: ObjectLiteral): boolean {
-  if (AggregateRoot.isRoot(anObject)) return AggregateId.hasId(anObject);
-
+AggregateId.hasId = function (anObject: ObjectLiteral): boolean {
   return Decorator.hasMetadata(watermarkSymbol, anObject);
 };
