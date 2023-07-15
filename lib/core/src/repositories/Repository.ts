@@ -18,6 +18,7 @@ import UnitOfWork from './UnitOfWork';
 export default abstract class Repository<
   DomainObject extends IdentifiedDomainObject<Identity>
 > {
+  // TODO: Change name to `getById`
   public abstract getBy(
     anIdentity: DomainObject['id']
   ): Promise<DomainObject | null>;
