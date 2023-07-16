@@ -1,4 +1,4 @@
-import { IdentifiedDomainObject, Identity } from '../common';
+import { IdentifiedDomainObject, Identity } from '../entities';
 import UnitOfWork from './UnitOfWork';
 
 /**
@@ -18,8 +18,7 @@ import UnitOfWork from './UnitOfWork';
 export default abstract class Repository<
   DomainObject extends IdentifiedDomainObject<Identity>
 > {
-  // TODO: Change name to `getById`
-  public abstract getBy(
+  public abstract getById(
     anIdentity: DomainObject['id']
   ): Promise<DomainObject | null>;
 

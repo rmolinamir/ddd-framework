@@ -6,8 +6,6 @@ import DomainEvent from './DomainEvent';
  * Used to deserialize events by retrieving the respective DomainEvent class using the type and version metadata of a serialized object.
  */
 export default class DomainEventMap {
-  private static singleton: DomainEventMap;
-
   private map: Record<
     DomainEvent['eventType'],
     Record<DomainEvent['eventVersion'], typeof DomainEvent>
@@ -40,6 +38,8 @@ export default class DomainEventMap {
       ? (instance.map[eventType][eventVersion] as Event)
       : undefined;
   }
+
+  private static singleton: DomainEventMap;
 
   private static instance() {
     if (!DomainEventMap.singleton)

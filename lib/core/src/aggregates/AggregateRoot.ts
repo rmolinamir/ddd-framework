@@ -1,6 +1,5 @@
-import { Identity } from '../common';
 import { DomainEvent, EventSink } from '../domain_events';
-import { Entity } from '../entities';
+import { Entity, Identity } from '../entities';
 import { DateValue } from '../value_objects';
 
 /**
@@ -11,16 +10,15 @@ export default abstract class AggregateRoot<
   Id extends Identity = Identity,
   AggregateEvent extends DomainEvent<any> = DomainEvent<any>
 > extends Entity<Id> {
-  // TODO: Convert into a class method rather than a getter accessor.
-  public get events(): readonly AggregateEvent[] {
-    return EventSink.get(this.id);
-  }
-
   constructor(
     public createdAt: DateValue = DateValue.now(),
     public updatedAt: DateValue = createdAt
   ) {
     super();
+  }
+
+  public events(): readonly AggregateEvent[] {
+    return EventSink.get(this.id);
   }
 
   /**

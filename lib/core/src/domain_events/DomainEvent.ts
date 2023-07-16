@@ -1,8 +1,9 @@
 import assert from 'assert';
+import _ from 'lodash';
+import { v4 as uuidV4 } from 'uuid';
 
-import { Guard } from '../helpers';
-import { MutableObject, ObjectLiteral } from '../types';
-import { DateValue, Uuid } from '../value_objects';
+import { ObjectLiteral } from '../types';
+import { DateValue } from '../value_objects';
 import DomainEventMap from './DomainEventMap';
 
 /**
@@ -60,12 +61,12 @@ export default class DomainEvent<
     const Constructor = this.constructor as typeof DomainEvent;
 
     assert(
-      !Guard.isEmpty(Constructor.eventType),
+      !DomainEvent.isEmpty(Constructor.eventType),
       `[${Constructor.name}] static property "eventType" needs to be defined.`
     );
 
     assert(
-      !Guard.isEmpty(Constructor.eventVersion),
+      !DomainEvent.isEmpty(Constructor.eventVersion),
       `[${Constructor.name}] static property "eventVersion" needs to be defined.`
     );
 
@@ -80,7 +81,7 @@ export default class DomainEvent<
     const [arg1, arg2, arg3] = args;
 
     if (!arg1) {
-      eventId = Uuid.generate() as Id;
+      eventId = uuidV4() as Id;
       metadata = {
         occurredOn: DateValue.now().iso()
       };
@@ -93,11 +94,11 @@ export default class DomainEvent<
         };
         data = undefined as Data;
       } else if (typeof arg1 === 'object' && 'occurredOn' in arg1) {
-        eventId = Uuid.generate() as Id;
+        eventId = uuidV4() as Id;
         metadata = arg1 as DomainEvent['metadata'];
         data = undefined as Data;
       } else {
-        eventId = Uuid.generate() as Id;
+        eventId = uuidV4() as Id;
         metadata = {
           occurredOn: DateValue.now().iso()
         };
@@ -109,7 +110,7 @@ export default class DomainEvent<
         metadata = arg2 as DomainEvent['metadata'];
         data = undefined as Data;
       } else {
-        eventId = Uuid.generate() as Id;
+        eventId = uuidV4() as Id;
         metadata = arg1 as DomainEvent['metadata'];
         data = arg2 as Data;
       }
@@ -195,8 +196,10 @@ export default class DomainEvent<
     disableMap = false
   ): ClassDecorator {
     return function (Class: DomainEventClass) {
-      (Class as MutableObject<DomainEventClass>).eventType = eventType;
-      (Class as MutableObject<DomainEventClass>).eventVersion = eventVersion;
+      Object.assign(Class, {
+        eventType,
+        eventVersion
+      });
 
       Class.guardAgainstEmptyEventMetadata();
 
@@ -220,14 +223,23 @@ export default class DomainEvent<
 
   private static guardAgainstEmptyEventMetadata() {
     assert(
-      !Guard.isEmpty(this.eventType),
+      !this.isEmpty(this.eventType),
       `[${this.name}] "eventType" needs to be defined.`
     );
 
     assert(
-      !Guard.isEmpty(this.eventVersion),
+      !this.isEmpty(this.eventVersion),
       `[${this.name}] "eventVersion" needs to be defined.`
     );
+  }
+
+  /**
+   * Checks if `value` is `null`, `undefined`, `NaN`, or an empty string.
+   * @param value The value to check.
+   * @returns Returns `true` if `value` is nullish (i.e. empty), else `false`.
+   */
+  private static isEmpty(value: unknown): boolean {
+    return (_.isEmpty(value) && !_.isNumber(value)) || _.isNaN(value);
   }
 }
 

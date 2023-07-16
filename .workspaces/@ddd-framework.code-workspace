@@ -5,12 +5,20 @@
 			"name": "@ddd-framework"
 		},
 		{
+			"path": "../lib/collections",
+			"name": "@ddd-framework/collections"
+		},
+		{
 			"path": "../lib/core",
 			"name": "@ddd-framework/core"
 		},
 		{
 			"path": "../lib/cqrs",
 			"name": "@ddd-framework/cqrs"
+		},
+		{
+			"path": "../lib/dto",
+			"name": "@ddd-framework/dto"
 		},
 		{
 			"path": "../lib/event-sourcing",

@@ -1,9 +1,7 @@
-import { Identity } from '../common';
+import { Identity } from '../entities';
 import DomainEvent from './DomainEvent';
 
 export default class EventSink {
-  private static singleton: EventSink;
-
   private sink: Map<ReturnType<Identity['unpack']>, DomainEvent[]> = new Map();
 
   private constructor() {}
@@ -38,6 +36,8 @@ export default class EventSink {
       return events as Event[];
     } else return [];
   }
+
+  private static singleton: EventSink;
 
   private static instance() {
     if (!EventSink.singleton) EventSink.singleton = new EventSink();

@@ -8,8 +8,7 @@ import {
 import { Entity } from '../entities';
 
 export default abstract class AggregateRoot<
-  Id extends Identity = Identity,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Id extends Identity<any> = Identity<any>,
   AggregateEvent extends DomainEvent<any> = DomainEvent<any>
 > extends IdentifiedDomainObject<Id> {
   constructor(
@@ -71,7 +70,7 @@ export default abstract class AggregateRoot<
    */
   protected applyOnEntity<
     Event extends DomainEvent<any>,
-    ChildEntity extends Entity<Identity, Event>
+    ChildEntity extends Entity<Id, Event>
   >(anEvent: Event, anEntity: ChildEntity): void {
     anEntity.mutate(anEvent);
   }

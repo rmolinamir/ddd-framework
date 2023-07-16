@@ -1,4 +1,4 @@
-import { ExcludeFunctionsOf } from './ExcludeFunctionsOf';
+import { OmitFunctionsOf } from './OmitFunctionsOf';
 
 /**
  * Converts a generic type into an anemic type by excluding any methods.
@@ -6,7 +6,7 @@ import { ExcludeFunctionsOf } from './ExcludeFunctionsOf';
  */
 export type Anemic<Type, OmittedKeys extends keyof Type = never> = Omit<
   {
-    [Key in keyof ExcludeFunctionsOf<Type>]: Type[Key];
+    [Key in keyof OmitFunctionsOf<Type>]: Type[Key];
   },
   OmittedKeys
 >;

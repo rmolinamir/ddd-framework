@@ -1,6 +1,6 @@
 import Lodash from 'lodash';
 
-import { IdentifiedDomainObject, Identity } from '../common';
+import { IdentifiedDomainObject, Identity } from '../entities';
 import ValueObject from './ValueObject';
 
 /**

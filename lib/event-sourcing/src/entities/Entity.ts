@@ -7,8 +7,7 @@ import {
 import { Action } from '../types';
 
 export default abstract class Entity<
-  Id extends Identity = Identity,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Id extends Identity<any> = Identity<any>,
   EntityEvent extends DomainEvent<any> = DomainEvent<any>
 > extends IdentifiedDomainObject<Id> {
   constructor(private readonly applier: Action<EntityEvent>) {

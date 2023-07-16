@@ -1,4 +1,4 @@
-import { DataTransferObject } from '@ddd-framework/core';
+import { DataTransferObject } from '@ddd-framework/dto';
 
 export default abstract class Query<
   Data = unknown,

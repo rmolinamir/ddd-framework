@@ -1,5 +1,5 @@
 import { AggregateRoot } from '../aggregates';
-import { Identity } from '../common';
+import { Identity } from '../entities';
 import { UnitOfWork } from '../repositories';
 import { ObjectLiteral } from '../types';
 import DomainEvent from './DomainEvent';

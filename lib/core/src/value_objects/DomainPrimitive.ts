@@ -71,13 +71,6 @@ export default abstract class DomainPrimitive<
     }
   }
 
-  /**
-   * TODO:
-   */
-  public valueOf(): T {
-    return this.unpack();
-  }
-
   protected abstract validate(): void;
 
   public static isDomainPrimitive<T extends Primitive>(

@@ -27,8 +27,7 @@
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "peerDependencies": {
-    "@ddd-framework/core": "^0.2.0",
-    "@ddd-framework/cqrs": "^0.0.0"
+    "@ddd-framework/core": "^0.2.0"
   },
   "devDependencies": {
     "@config/eslint": "workspace:*",
@@ -36,7 +35,7 @@
     "@config/release-it": "workspace:*",
     "@config/tsconfig": "workspace:*",
     "@ddd-framework/core": "workspace:*",
-    "@ddd-framework/cqrs": "workspace:*",
+    "@ddd-framework/uuid": "workspace:*",
     "@faker-js/faker": "~8.0.1",
     "@types/jest": "~29.5.1",
     "@types/node": "~20.1.5",

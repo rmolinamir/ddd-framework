@@ -1,3 +1,5 @@
+import { AggregateRoot, Entity } from '@ddd-framework/core';
+
 import Uuid from '../Uuid';
 
 export class VideoId extends Uuid {}
@@ -37,5 +39,35 @@ describe('Uuid', () => {
     const uuid = new Uuid(uuidString);
     expect(uuid.toString()).toBe(uuidString);
     expect(`${uuid}`).toBe(uuidString);
+  });
+
+  describe('Entity compatibility', () => {
+    test('AggregateRoot equality', () => {
+      class Video extends AggregateRoot<VideoId> {
+        constructor(public readonly id: VideoId) {
+          super();
+        }
+      }
+
+      const firstVideo = new Video(new VideoId(VideoId.generate()));
+      const secondVideo = new Video(new VideoId(VideoId.generate()));
+
+      expect(firstVideo.id.equals(secondVideo.id)).toBe(false);
+      expect(firstVideo.id.unpack()).not.toBe(secondVideo.id.unpack());
+    });
+
+    test('Entity equality', () => {
+      class Comment extends Entity<CommentId> {
+        constructor(public readonly id: CommentId) {
+          super();
+        }
+      }
+
+      const firstVideo = new Comment(new CommentId(CommentId.generate()));
+      const secondVideo = new Comment(new CommentId(CommentId.generate()));
+
+      expect(firstVideo.id.equals(secondVideo.id)).toBe(false);
+      expect(firstVideo.id.unpack()).not.toBe(secondVideo.id.unpack());
+    });
   });
 });

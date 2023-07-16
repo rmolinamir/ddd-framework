@@ -1,5 +1,6 @@
-import { IdentifiedDomainObject, Identity } from '../common';
 import { DomainEvent, EventSink } from '../domain_events';
+import IdentifiedDomainObject from './IdentifiedDomainObject';
+import Identity from './Identity';
 
 /**
  * Entities are not fundamentally defined by their properties, but rather by a thread
@@ -7,7 +8,7 @@ import { DomainEvent, EventSink } from '../domain_events';
  * an Entity.
  */
 export default abstract class Entity<
-  Id extends Identity = Identity,
+  Id extends Identity<any> = Identity<any>,
   EntityEvent extends DomainEvent<any> = DomainEvent<any>
 > extends IdentifiedDomainObject<Id> {
   public equals(
