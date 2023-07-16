@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/cqrs-v0.0.1...${npm.name}-v0.1.0) (2023-07-16)
+
+
+### Features
+
+* **v0:** refactored the classes into a more modular structure ([9b9e479](https://github.com/rmolinamir/ddd-framework/commit/9b9e479b75f18a6e5f2f6fb79fbec1c03006ef91))
+
 ### [0.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/cqrs-v0.0.0...${npm.name}-v0.0.1) (2023-07-15)
 
 
