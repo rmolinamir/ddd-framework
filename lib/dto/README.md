@@ -8,7 +8,7 @@ The `@ddd-framework/dto` package extends the functionality of the `@ddd-framewor
 
 ## Documentation
 
-For more detailed information on `@ddd-framework/dto`, including usage examples and API reference, please refer to the [official documentation](https://www.example.com).
+For more detailed information on `@ddd-framework/dto`, including usage examples and API reference, please refer to the [official documentation](https://rmolinamir.github.io/ddd-framework/modules/dto.html).
 
 ## Installation
 

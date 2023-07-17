@@ -12,7 +12,7 @@ The `@ddd-framework/seedwork` package is inspired by the concept of "Seedwork" a
 
 ## Documentation
 
-For more detailed information on how to use the `@ddd-framework/seedwork` module generation tool, please refer to the [official documentation](https://www.example.com).
+For more detailed information on `@ddd-framework/seedwork`, including usage examples and API reference, please refer to the [official documentation](https://rmolinamir.github.io/ddd-framework/modules/seedwork.html).
 
 ## Installation
 

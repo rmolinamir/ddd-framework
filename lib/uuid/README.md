@@ -8,7 +8,7 @@ The `@ddd-framework/uuid` package is an essential component of the `@ddd-framewo
 
 ## Documentation
 
-For more detailed information, usage examples, and API reference for `@ddd-framework/uuid`, please refer to the official documentation.
+For more detailed information on `@ddd-framework/uuid`, including usage examples and API reference, please refer to the [official documentation](https://rmolinamir.github.io/ddd-framework/modules/uuid.html).
 
 ## Installation
 

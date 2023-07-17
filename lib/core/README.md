@@ -8,7 +8,7 @@ The `@ddd-framework/core` package is a fundamental component of the `@ddd-framew
 
 ## Documentation
 
-For more detailed TypeDoc-generated documentation on `@ddd-framework/core`, please refer to the [official documentation](https://www.example.com).
+For more detailed TypeDoc-generated documentation on `@ddd-framework/core`, please refer to the [official documentation](https://rmolinamir.github.io/ddd-framework/modules/core.html).
 
 ## Installation
 

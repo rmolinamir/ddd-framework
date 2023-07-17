@@ -6,15 +6,15 @@
 
 This framework consists of a collection of packages that serve different purposes in order to support DDD practices effectively. These packages provide essential functionalities and tools that enable developers to seamlessly incorporate DDD principles into their Node.js applications. By leveraging `@ddd-framework`, developers can streamline their development process, enhance code organization, and create robust and maintainable applications based on the principles of DDD. It contains the following packages:
 
-- [@ddd-framework/core](./lib/core/README.md)
-- [@ddd-framework/collections](./lib/collections/README.md)
-- [@ddd-framework/dto](./lib/dto/README.md)
-- [@ddd-framework/uuid](./lib/uuid/README.md)
-- [@ddd-framework/seedwork](./lib/seedwork/README.md)
+- [@ddd-framework/core](https://rmolinamir.github.io/ddd-framework/modules/core.html)
+- [@ddd-framework/collections](https://rmolinamir.github.io/ddd-framework/modules/core.html)
+- [@ddd-framework/dto](https://rmolinamir.github.io/ddd-framework/modules/core.html)
+- [@ddd-framework/uuid](https://rmolinamir.github.io/ddd-framework/modules/core.html)
+- [@ddd-framework/seedwork](https://rmolinamir.github.io/ddd-framework/modules/core.html)
 
 ## Documentation
 
-To access comprehensive TypeDoc-generated documentation for `@ddd-framework`, please refer to the [official documentation](https://www.example.com).
+To access comprehensive TypeDoc-generated documentation for `@ddd-framework`, please refer to the [official documentation](https://rmolinamir.github.io/ddd-framework/index.html).
 
 ## Getting Started
 
