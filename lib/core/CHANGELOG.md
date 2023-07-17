@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v0.3.0...${npm.name}-v1.0.0) (2023-07-17)
+
+
+### Features
+
+* **v1:** v1 [@ddd-framework](https://github.com/ddd-framework) refactor using decorators for the core module plus seedwork support ([bacda4c](https://github.com/rmolinamir/ddd-framework/commit/bacda4cc3e3fad7ed4d1607411910113943d2e8e))
+
 ## [0.3.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v0.2.1...${npm.name}-v0.3.0) (2023-07-16)
 
 
