@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  install:
+  deploy-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -47,17 +47,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
       - name: Build packages
         run: pnpm run build
 
-  deploy-docs:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Generate documentation
         run: pnpm run docs
 
