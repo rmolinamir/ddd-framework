@@ -1,4 +1,20 @@
-# Monorepo
+# @ddd-framework
+
+> `@ddd-framework` is a comprehensive framework designed to facilitate the implementation of Domain-Driven Design (DDD) specifically for Node.js.
+
+## Introduction
+
+This framework consists of a collection of packages that serve different purposes in order to support DDD practices effectively. These packages provide essential functionalities and tools that enable developers to seamlessly incorporate DDD principles into their Node.js applications. By leveraging `@ddd-framework`, developers can streamline their development process, enhance code organization, and create robust and maintainable applications based on the principles of DDD. It contains the following packages:
+
+- [@ddd-framework/core](./lib/core/README.md)
+- [@ddd-framework/collections](./lib/collections/README.md)
+- [@ddd-framework/dto](./lib/dto/README.md)
+- [@ddd-framework/uuid](./lib/uuid/README.md)
+- [@ddd-framework/seedwork](./lib/seedwork/README.md)
+
+## Documentation
+
+To access comprehensive TypeDoc-generated documentation for `@ddd-framework`, please refer to the [official documentation](https://www.example.com).
 
 ## Getting Started
 
@@ -71,3 +87,7 @@ $ pnpm test
 Cached:    4 cached, 6 total
   Time:    9.487s 
 ```
+
+## License
+
+The `@ddd-framework` is released under the MIT License. Feel free to customize it further to fit your needs.

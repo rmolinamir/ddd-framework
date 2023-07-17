@@ -1,0 +1,17 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "@ddd-framework",
+  "entryPoints": [
+    "lib/core",
+    "lib/collections",
+    "lib/dto",
+    "lib/uuid",
+    "lib/seedwork"
+  ],
+  "entryPointStrategy": "packages",
+  "out": "docs",
+  "navigationLinks": {
+    "GitHub": "https://github.com/rmolinamir/ddd-framework"
+  },
+  "tsconfig": "typedoc.tsconfig.json"
+}

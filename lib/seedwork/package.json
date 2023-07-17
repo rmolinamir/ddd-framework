@@ -8,10 +8,12 @@
     "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT",
+  "repository": "rmolinamir/ddd-framework",
   "files": [
     "dist"
   ],
   "types": "dist",
+  "main": "./dist/index.js",
   "bin": {
     "ddd-seedwork": "./dist/cli.js"
   },
@@ -25,9 +27,9 @@
     "prepublish": "pnpm build",
     "release:dry": "pnpm release-it --dry-run",
     "release": "pnpm release-it",
+    "test:interactive": "pnpm jest -c .interactive-spec.jest.config.js",
     "test:watch": "pnpm jest --watch",
     "test": "pnpm jest",
-    "test:interactive": "pnpm jest -c .interactive-spec.jest.config.js",
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "dependencies": {

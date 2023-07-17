@@ -1,0 +1,7 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "collections",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "tsconfig": "typedoc.tsconfig.json"
+}

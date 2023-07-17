@@ -1,5 +1,5 @@
 {
-  "name": "@ddd-framework/monorepo",
+  "name": "ddd-framework",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "clean": "pnpm clean:.next && pnpm clean:deps && pnpm clean:dist && pnpm clean:tmp && pnpm clean:turbo && pnpm clean:pnpm",
     "commit": "pnpm cz",
     "dev": "turbo run dev --parallel --no-deps",
+    "docs": "pnpm typedoc",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "prebuild": "pnpm clean:dist",
@@ -27,7 +28,8 @@
     "commitizen": "~4.3.0",
     "cz-conventional-changelog": "~3.3.0",
     "release-it": "~16.1.2",
-    "turbo": "~1.10.7"
+    "turbo": "~1.10.8",
+    "typedoc": "~0.24.8"
   },
   "config": {
     "commitizen": {
