@@ -1,6 +1,6 @@
 {
   "name": "@ddd-framework/uuid",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "private": false,
   "publishConfig": {
     "access": "public",
@@ -27,7 +27,7 @@
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "peerDependencies": {
-    "@ddd-framework/core": "^0.3.0",
+    "@ddd-framework/core": "^1.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -35,6 +35,7 @@
     "@config/jest": "workspace:*",
     "@config/release-it": "workspace:*",
     "@config/tsconfig": "workspace:*",
+    "@ddd-framework/core": "workspace:*",
     "@faker-js/faker": "~8.0.1",
     "@types/jest": "~29.5.1",
     "@types/lodash": "~4.14.194",

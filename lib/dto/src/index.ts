@@ -1,1 +1,1 @@
-export * from './DataTransferObject';
+export type * from './dto';

@@ -1,3 +1,3 @@
-export { default as Entity } from './Entity';
-export { default as IdentifiedDomainObject } from './IdentifiedDomainObject';
-export { default as Identity } from './Identity';
+export * from './entity';
+export * from './entity-id';
+export * from './identity';

@@ -1,9 +1,10 @@
 import { Entity, ValueObject } from '@ddd-framework/core';
 
 /**
- * Represents a collection of ValueObject objects.
+ * Represents an immutable collection of objects that can be accessed by index.
+ * Provides methods to search, sort, and manipulate lists.
  */
-export default class List<Item = unknown>
+export class List<Item = unknown>
   extends ValueObject
   implements Iterable<Item>
 {
@@ -34,7 +35,6 @@ export default class List<Item = unknown>
    * Returns the first item in the List.
    */
   public get first(): Item | undefined {
-    if (this.array.length === 0) return undefined;
     return this.array[0];
   }
 
@@ -42,7 +42,6 @@ export default class List<Item = unknown>
    * Returns the last item in the List.
    */
   public get last(): Item | undefined {
-    if (this.array.length === 0) return undefined;
     return this.array[this.array.length - 1];
   }
 

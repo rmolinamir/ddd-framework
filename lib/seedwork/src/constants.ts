@@ -1,18 +1,39 @@
-export const details = {
-  author: 'rmolinamir' as const,
-  name: 'ddd-framework' as const
+import os from 'os';
+import path from 'path';
+
+import { Repository } from './types';
+
+export const repository: Repository = {
+  author: 'rmolinamir',
+  name: 'ddd-framework',
+  versions: [
+    {
+      name: 'v1',
+      branch: 'main'
+    },
+    {
+      name: 'v0',
+      branch: 'v0'
+    }
+  ]
 };
+
+export const getTmpDir = () =>
+  path.join(os.tmpdir(), Date.now().toString(), '@ddd-framework');
 
 export const ignoredPackages = ['seedwork'];
 
 export const ignoredDirectories = [/^__(.*?)__$/im];
 
-export const ignoredDependencies = [
+export const ignoredDeps = [
   '@config/eslint',
   '@config/jest',
+  '@config/release-it',
   '@config/tsconfig',
+  '@ddd-framework/collections',
   '@ddd-framework/core',
   '@ddd-framework/cqrs',
+  '@ddd-framework/dto',
   '@ddd-framework/event-sourcing',
   '@faker-js/faker',
   '@types/jest',

@@ -1,10 +1,7 @@
-import { AggregateRoot, Entity } from '@ddd-framework/core';
+import { Entity, EntityId } from '@ddd-framework/core';
 
-import Uuid from '../Uuid';
-
-export class VideoId extends Uuid {}
-
-export class CommentId extends Uuid {}
+import { CommentId, VideoId } from '../../tests/identifiers';
+import { Uuid } from '../uuid';
 
 describe('Uuid', () => {
   test('equality of two UUID subclasses', () => {
@@ -43,9 +40,13 @@ describe('Uuid', () => {
 
   describe('Entity compatibility', () => {
     test('AggregateRoot equality', () => {
-      class Video extends AggregateRoot<VideoId> {
-        constructor(public readonly id: VideoId) {
+      class Video extends Entity<VideoId> {
+        @EntityId()
+        public readonly id: VideoId;
+
+        constructor(id: VideoId) {
           super();
+          this.id = id;
         }
       }
 
@@ -58,8 +59,12 @@ describe('Uuid', () => {
 
     test('Entity equality', () => {
       class Comment extends Entity<CommentId> {
-        constructor(public readonly id: CommentId) {
+        @EntityId()
+        public readonly id: CommentId;
+
+        constructor(id: CommentId) {
           super();
+          this.id = id;
         }
       }
 

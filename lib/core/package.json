@@ -1,6 +1,6 @@
 {
   "name": "@ddd-framework/core",
-  "version": "0.3.0",
+  "version": "1.0.0-alpha.0",
   "private": false,
   "publishConfig": {
     "access": "public",
@@ -27,7 +27,6 @@
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "peerDependencies": {
-    "uuid": "^9.0.0",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
@@ -39,12 +38,10 @@
     "@types/jest": "~29.5.1",
     "@types/lodash": "~4.14.194",
     "@types/node": "~20.1.5",
-    "@types/uuid": "~9.0.1",
     "jest": "~29.5.0",
     "lodash": "~4.17.21",
     "reflect-metadata": "~0.1.13",
     "ts-jest": "~29.1.0",
-    "typescript": "~5.0.4",
-    "uuid": "~9.0.0"
+    "typescript": "~5.0.4"
   }
 }

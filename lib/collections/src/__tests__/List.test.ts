@@ -1,11 +1,11 @@
-import { v4 } from 'uuid';
+import { faker } from '@faker-js/faker';
 
-import User, { UserId } from '../../tests/User';
-import List from '../List';
+import { User, UserId } from '../../tests/user';
+import { List } from '../list';
 
 describe('List', () => {
-  const user = new User(new UserId(v4()));
-  const userTwo = new User(new UserId(v4()));
+  const user = new User(new UserId(faker.string.uuid()));
+  const userTwo = new User(new UserId(faker.string.uuid()));
 
   describe('constructor', () => {
     test('spread argument', () => {
@@ -160,16 +160,16 @@ describe('List', () => {
 
   test('clear', () => {
     const list = new List<UserId>()
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()));
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()));
 
     expect(list.count).toBe(10);
 
@@ -184,16 +184,16 @@ describe('List', () => {
 
   test('map', () => {
     const userIds = new List<UserId>()
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()));
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()));
 
     const strings = userIds.map((id) => id.unpack());
 
@@ -212,16 +212,16 @@ describe('List', () => {
 
   test('shuffle', () => {
     const list = new List<UserId>()
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()))
-      .insert(new UserId(v4()));
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()))
+      .insert(new UserId(faker.string.uuid()));
 
     const newList = new List(list);
 

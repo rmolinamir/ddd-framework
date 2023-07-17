@@ -1,1 +1,2 @@
-export { default as AggregateRoot } from './AggregateRoot';
+export * from './aggregate-id';
+export * from './aggregate-root';

@@ -1,13 +1,18 @@
-import { Entity, Identity, IllegalStateException } from '@ddd-framework/core';
-import { validate } from 'uuid';
+import {
+  Entity,
+  EntityId,
+  Identity,
+  IllegalStateException
+} from '@ddd-framework/core';
 
-export class UserId extends Identity<string> {
-  public validate(): void {
-    if (!validate(this.value)) throw new IllegalStateException('Invalid ID.');
+export class UserId extends Identity {
+  protected validate(): void {
+    if (!this.value) throw new IllegalStateException('id is required');
   }
 }
 
-export default class User extends Entity<UserId> {
+export class User extends Entity {
+  @EntityId()
   public id: UserId;
 
   constructor(id: UserId) {

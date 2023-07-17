@@ -1,7 +1,7 @@
 import { InvalidOperationException, ValueObject } from '../src';
-import CurrencyDetails from './CurrencyDetails';
+import { CurrencyDetails } from './currency-details';
 
-export default class Money extends ValueObject {
+export class Money extends ValueObject {
   public amount: number;
 
   public currency: CurrencyDetails;

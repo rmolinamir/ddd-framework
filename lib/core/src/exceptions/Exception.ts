@@ -1,4 +1,4 @@
-import { SerializedException } from './SerializedException';
+import { SerializedException } from './serialized-exception';
 
 /**
  * Exception was created out of a need for a common base class for all Node.js Error objects.
@@ -6,7 +6,7 @@ import { SerializedException } from './SerializedException';
  *
  * **NOTE:** Do not to include comprimising data in the `metadata` constructor parameter in production environments.
  */
-export default class Exception extends Error {
+export class Exception extends Error {
   constructor(
     /**
      * Details of the exception.

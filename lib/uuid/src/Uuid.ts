@@ -4,7 +4,7 @@ import { v4 as uuidV4, validate } from 'uuid';
 /**
  * Universally Unique Identifier (RFC4122).
  */
-export default class Uuid extends Identity<string> {
+export class Uuid extends Identity<string> {
   protected validate(): void {
     if (!validate(this.value))
       throw new IllegalStateException('Invalid UUID format.');

@@ -13,16 +13,8 @@
 			"name": "@ddd-framework/core"
 		},
 		{
-			"path": "../lib/cqrs",
-			"name": "@ddd-framework/cqrs"
-		},
-		{
 			"path": "../lib/dto",
 			"name": "@ddd-framework/dto"
-		},
-		{
-			"path": "../lib/event-sourcing",
-			"name": "@ddd-framework/event-sourcing"
 		},
 		{
 			"path": "../lib/seedwork",

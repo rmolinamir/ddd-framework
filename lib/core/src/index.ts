@@ -1,7 +1,7 @@
 export * from './aggregates';
-export * from './domain_events';
+export { DomainEvent, DomainEventMap } from './domain-events';
 export * from './entities';
 export * from './exceptions';
 export * from './repositories';
-export * from './types';
-export * from './value_objects';
+export type { Anemic, ObjectLiteral } from './types';
+export * from './value-objects';

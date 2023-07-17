@@ -97,9 +97,6 @@ importers:
       '@types/node':
         specifier: ~20.1.5
         version: 20.1.5
-      '@types/uuid':
-        specifier: ~9.0.1
-        version: 9.0.1
       jest:
         specifier: ~29.5.0
         version: 29.5.0(@types/node@20.1.5)(ts-node@10.9.1)
@@ -115,9 +112,6 @@ importers:
       typescript:
         specifier: ~5.0.4
         version: 5.0.4
-      uuid:
-        specifier: ~9.0.0
-        version: 9.0.0
 
   lib/core:
     devDependencies:
@@ -145,9 +139,6 @@ importers:
       '@types/node':
         specifier: ~20.1.5
         version: 20.1.5
-      '@types/uuid':
-        specifier: ~9.0.1
-        version: 9.0.1
       jest:
         specifier: ~29.5.0
         version: 29.5.0(@types/node@20.1.5)(ts-node@10.9.1)
@@ -157,51 +148,6 @@ importers:
       reflect-metadata:
         specifier: ~0.1.13
         version: 0.1.13
-      ts-jest:
-        specifier: ~29.1.0
-        version: 29.1.0(@babel/core@7.22.9)(jest@29.5.0)(typescript@5.0.4)
-      typescript:
-        specifier: ~5.0.4
-        version: 5.0.4
-      uuid:
-        specifier: ~9.0.0
-        version: 9.0.0
-
-  lib/cqrs:
-    devDependencies:
-      '@config/eslint':
-        specifier: workspace:*
-        version: link:../../config/eslint
-      '@config/jest':
-        specifier: workspace:*
-        version: link:../../config/jest
-      '@config/release-it':
-        specifier: workspace:*
-        version: link:../../config/release-it
-      '@config/tsconfig':
-        specifier: workspace:*
-        version: link:../../config/tsconfig
-      '@ddd-framework/dto':
-        specifier: workspace:*
-        version: link:../dto
-      '@faker-js/faker':
-        specifier: ~8.0.1
-        version: 8.0.1
-      '@types/jest':
-        specifier: ~29.5.1
-        version: 29.5.1
-      '@types/lodash':
-        specifier: ~4.14.194
-        version: 4.14.194
-      '@types/node':
-        specifier: ~20.1.5
-        version: 20.1.5
-      jest:
-        specifier: ~29.5.0
-        version: 29.5.0(@types/node@20.1.5)(ts-node@10.9.1)
-      lodash:
-        specifier: ~4.17.21
-        version: 4.17.21
       ts-jest:
         specifier: ~29.1.0
         version: 29.1.0(@babel/core@7.22.9)(jest@29.5.0)(typescript@5.0.4)
@@ -241,9 +187,6 @@ importers:
       '@types/node':
         specifier: ~20.1.5
         version: 20.1.5
-      '@types/uuid':
-        specifier: ~9.0.1
-        version: 9.0.1
       jest:
         specifier: ~29.5.0
         version: 29.5.0(@types/node@20.1.5)(ts-node@10.9.1)
@@ -253,54 +196,6 @@ importers:
       reflect-metadata:
         specifier: ~0.1.13
         version: 0.1.13
-      ts-jest:
-        specifier: ~29.1.0
-        version: 29.1.0(@babel/core@7.22.9)(jest@29.5.0)(typescript@5.0.4)
-      typescript:
-        specifier: ~5.0.4
-        version: 5.0.4
-      uuid:
-        specifier: ~9.0.0
-        version: 9.0.0
-
-  lib/event-sourcing:
-    devDependencies:
-      '@config/eslint':
-        specifier: workspace:*
-        version: link:../../config/eslint
-      '@config/jest':
-        specifier: workspace:*
-        version: link:../../config/jest
-      '@config/release-it':
-        specifier: workspace:*
-        version: link:../../config/release-it
-      '@config/tsconfig':
-        specifier: workspace:*
-        version: link:../../config/tsconfig
-      '@ddd-framework/core':
-        specifier: workspace:*
-        version: link:../core
-      '@ddd-framework/uuid':
-        specifier: workspace:*
-        version: link:../uuid
-      '@faker-js/faker':
-        specifier: ~8.0.1
-        version: 8.0.1
-      '@types/jest':
-        specifier: ~29.5.1
-        version: 29.5.1
-      '@types/lodash':
-        specifier: ~4.14.194
-        version: 4.14.194
-      '@types/node':
-        specifier: ~20.1.5
-        version: 20.1.5
-      jest:
-        specifier: ~29.5.0
-        version: 29.5.0(@types/node@20.1.5)(ts-node@10.9.1)
-      lodash:
-        specifier: ~4.17.21
-        version: 4.17.21
       ts-jest:
         specifier: ~29.1.0
         version: 29.1.0(@babel/core@7.22.9)(jest@29.5.0)(typescript@5.0.4)
@@ -370,10 +265,6 @@ importers:
         version: 5.0.4
 
   lib/uuid:
-    dependencies:
-      '@ddd-framework/core':
-        specifier: ^0.2.0
-        version: 0.2.0
     devDependencies:
       '@config/eslint':
         specifier: workspace:*
@@ -387,6 +278,9 @@ importers:
       '@config/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
+      '@ddd-framework/core':
+        specifier: workspace:*
+        version: link:../core
       '@faker-js/faker':
         specifier: ~8.0.1
         version: 8.0.1
@@ -841,13 +735,6 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
-
-  /@ddd-framework/core@0.2.0:
-    resolution: {integrity: sha512-Nt4Rf+ooUoPQ3ZvY0bMiCxWl8F5EPaFZUqMgbKXV7y7XoY4CzWjziQXaZ6tKTICLlu6PknVsDhINWaSh18+S0w==}
-    dependencies:
-      reflect-metadata: 0.1.13
-      uuid: 9.0.0
-    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.25.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
@@ -1375,8 +1262,8 @@ packages:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
     dev: true
 
-  /@sindresorhus/is@5.5.0:
-    resolution: {integrity: sha512-3rO1QIz6mL0MvFVTOxqhDJRVsLfG/vK2VSlKKPghALA6FhJqU7L+RUHnFvH5BP5HhkWiMQqq514i9ZFTcqoGCQ==}
+  /@sindresorhus/is@5.5.1:
+    resolution: {integrity: sha512-wTsEUhqTXg1NDW+o9aWANj4LxELwWjqN0F3ltsWwpYoh0NSlMWo+u7FluRrSF2E2uaPYx7dJ3FnTf69git/0ug==}
     engines: {node: '>=14.16'}
     dev: true
 
@@ -2284,7 +2171,7 @@ packages:
       '@types/http-cache-semantics': 4.0.1
       get-stream: 6.0.1
       http-cache-semantics: 4.1.1
-      keyv: 4.5.2
+      keyv: 4.5.3
       mimic-response: 4.0.0
       normalize-url: 8.0.0
       responselike: 3.0.0
@@ -4178,7 +4065,7 @@ packages:
     resolution: {integrity: sha512-mThBblvlAF1d4O5oqyvN+ZxLAYwIJK7bpMxgYqPD9okW0C3qm5FFn7k811QrcuEBwaogR3ngOFoCfs6mRv7teQ==}
     engines: {node: '>=14.16'}
     dependencies:
-      '@sindresorhus/is': 5.5.0
+      '@sindresorhus/is': 5.5.1
       '@szmarczak/http-timer': 5.0.1
       cacheable-lookup: 7.0.0
       cacheable-request: 10.2.12
@@ -4195,7 +4082,7 @@ packages:
     resolution: {integrity: sha512-XfBk1CxOOScDcMr9O1yKkNaQyy865NbYs+F7dr4H0LZMVgCj2Le59k6PqbNHoL5ToeaEQUYh6c6yMfVcc6SJxA==}
     engines: {node: '>=16'}
     dependencies:
-      '@sindresorhus/is': 5.5.0
+      '@sindresorhus/is': 5.5.1
       '@szmarczak/http-timer': 5.0.1
       cacheable-lookup: 7.0.0
       cacheable-request: 10.2.12
@@ -5428,8 +5315,8 @@ packages:
       object.values: 1.1.6
     dev: false
 
-  /keyv@4.5.2:
-    resolution: {integrity: sha512-5MHbFaKn8cNSmVW7BYnijeAVlE4cYA/SVkifVgrh7yotnfhKmjuXpDKjrABLnT0SfHWV21P8ow07OGfRrNDg8g==}
+  /keyv@4.5.3:
+    resolution: {integrity: sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==}
     dependencies:
       json-buffer: 3.0.1
     dev: true
@@ -6566,6 +6453,7 @@ packages:
 
   /reflect-metadata@0.1.13:
     resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
+    dev: true
 
   /regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
@@ -7693,6 +7581,7 @@ packages:
   /uuid@9.0.0:
     resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
+    dev: true
 
   /v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
