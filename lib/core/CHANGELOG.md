@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.1...${npm.name}-v1.0.2) (2023-07-22)
+
+
+### Bug Fixes
+
+* **core:** removed logs ([dfaf76f](https://github.com/rmolinamir/ddd-framework/commit/dfaf76f4987723a20d00590cf54faf012e7b4535))
+
 ## [1.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.0...${npm.name}-v1.0.1) (2023-07-17)
 
 ## [1.0.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v0.3.0...${npm.name}-v1.0.0) (2023-07-17)
