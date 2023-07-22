@@ -42,12 +42,6 @@ export function DomainEvent(
 
     DomainEventMap.add(Class);
 
-    const hasAggregateId = AggregateId.hasId(Class);
-    const hasEntityId = EntityId.hasId(Class);
-
-    console.log('hasAggregateId: ', hasAggregateId);
-    console.log('hasEntityId: ', hasEntityId);
-
     return class extends Class {
       constructor(...args: unknown[]) {
         super(...args);
@@ -67,9 +61,6 @@ export function DomainEvent(
 
         if (requireEntityId && !EntityId.hasId(this))
           throw new IllegalStateException(`TODO: Description`);
-
-        console.log('hasAggregateId: ', hasAggregateId);
-        console.log('hasEntityId: ', hasEntityId);
       }
     };
   } as ClassDecorator;
