@@ -77,9 +77,9 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
   /**
    * Returns a specific object from the EntityCollection.
    */
-  public get(entity: E): Entity | undefined;
-  public get(entityId: E[K]): Entity | undefined;
-  public get(arg: E | E[K]): Entity | undefined {
+  public get(entity: E): E | undefined;
+  public get(entityId: E[K]): E | undefined;
+  public get(arg: E | E[K]): E | undefined {
     if (arg instanceof Entity) return this.map.get(EntityId.getId(arg));
     return this.map.get(arg as symbol);
   }
