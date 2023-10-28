@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.0...${npm.name}-v1.1.1) (2023-10-28)
+
+
+### Bug Fixes
+
+* **@ddd-framework/collections:** generic type fix ([6252ced](https://github.com/rmolinamir/ddd-framework/commit/6252ced49ecd8f201f21666b489ca423fc1b2312))
+
 ## [1.1.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.0.1...${npm.name}-v1.1.0) (2023-10-28)
 
 
