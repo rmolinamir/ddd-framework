@@ -15,7 +15,7 @@
 <li><a href="../index.html">@ddd-framework</a></li>
 <li><a href="../modules/collections.html">collections</a></li>
 <li><a href="collections.EntityCollection.html">EntityCollection</a></li></ul>
-<h1>Class EntityCollection&lt;E&gt;</h1></div>
+<h1>Class EntityCollection&lt;E, K&gt;</h1></div>
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>Represents a collection of Entity objects on the &quot;many&quot; end of a relationship.</p>
 </div>
@@ -24,7 +24,9 @@
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li>
-<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a></h4></li></ul></section> 
+<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span> = <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4></li></ul></section> 
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
@@ -34,7 +36,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="tsd-signature-type ">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L19">collections/src/entity-collection.ts:19</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L14">collections/src/entity-collection.ts:14</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -75,26 +77,28 @@
 <section class="tsd-panel tsd-member"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="icon-anchor"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></g></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_EntityCollection"><span class="tsd-kind-constructor-signature">new <wbr/>Entity<wbr/>Collection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><a href="#constructor.new_EntityCollection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_EntityCollection"><span class="tsd-kind-constructor-signature">new <wbr/>Entity<wbr/>Collection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><a href="#constructor.new_EntityCollection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li>
-<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
-<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section></section>
+<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span> = <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="_last" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <code class="tsd-tag ts-flagOptional">Optional</code> <span>_last</span><a href="#_last" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">_last</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type tsd-kind-type-parameter">E</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L20">collections/src/entity-collection.ts:20</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L17">collections/src/entity-collection.ts:17</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-protected"><a id="map" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagProtected">Protected</code> <span>map</span><a href="#map" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">map</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">EntityCollectionMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L22">collections/src/entity-collection.ts:22</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L19">collections/src/entity-collection.ts:19</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Accessors</h2>
 <section class="tsd-panel tsd-member"><a id="count" class="tsd-anchor"></a>
@@ -107,18 +111,18 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L27">collections/src/entity-collection.ts:27</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L24">collections/src/entity-collection.ts:24</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="lastInserted" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>last<wbr/>Inserted</span><a href="#lastInserted" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="lastInserted.lastInserted-1"><span class="tsd-signature-symbol">get</span> lastInserted<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Returns the number of key/value pairs contained in the EntityCollection.</p>
+<div class="tsd-comment tsd-typography"><p>Returns the last inserted Entity in the EntityCollection.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L34">collections/src/entity-collection.ts:34</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L31">collections/src/entity-collection.ts:31</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="_iterator_" class="tsd-anchor"></a>
@@ -132,11 +136,11 @@
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <p>Implementation of Iterable.[iterator]</p>
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L161">collections/src/entity-collection.ts:161</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L167">collections/src/entity-collection.ts:167</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="add" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>add</span><a href="#add" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="add.add-1"><span class="tsd-kind-call-signature">add</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entity</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><a href="#add.add-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="add.add-1"><span class="tsd-kind-call-signature">add</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entity</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><a href="#add.add-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Adds an entity to the EntityCollection.</p>
 </div>
@@ -145,21 +149,21 @@
 <ul class="tsd-parameter-list">
 <li>
 <h5><span class="tsd-kind-parameter">entity</span>: <span class="tsd-signature-type tsd-kind-type-parameter">E</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L43">collections/src/entity-collection.ts:43</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L40">collections/src/entity-collection.ts:40</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="clear" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>clear</span><a href="#clear" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="clear.clear-1"><span class="tsd-kind-call-signature">clear</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#clear.clear-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Removes all entitys from the EntityCollection.</p>
+<div class="tsd-comment tsd-typography"><p>Removes all entities from the EntityCollection.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L59">collections/src/entity-collection.ts:59</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L56">collections/src/entity-collection.ts:56</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="contains" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>contains</span><a href="#contains" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -175,7 +179,17 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L66">collections/src/entity-collection.ts:66</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L63">collections/src/entity-collection.ts:63</a></li></ul></aside></li>
+<li class="tsd-signature tsd-anchor-link" id="contains.contains-2"><span class="tsd-kind-call-signature">contains</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entityId</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#contains.contains-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">entityId</span>: <span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L64">collections/src/entity-collection.ts:64</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="copyTo" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>copy<wbr/>To</span><a href="#copyTo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -193,7 +207,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">[]</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L73">collections/src/entity-collection.ts:73</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L73">collections/src/entity-collection.ts:73</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="dictionary" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>dictionary</span><a href="#dictionary" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -204,7 +218,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">PropertyKey</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L120">collections/src/entity-collection.ts:120</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L126">collections/src/entity-collection.ts:126</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="dictionary.dictionary-2"><span class="tsd-kind-call-signature">dictionary</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">reducer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">PropertyKey</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span><a href="#dictionary.dictionary-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <section class="tsd-panel">
@@ -230,7 +244,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">Value</span></h4></li></ul></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">PropertyKey</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L122">collections/src/entity-collection.ts:122</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L128">collections/src/entity-collection.ts:128</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="entities" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>entities</span><a href="#entities" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -241,7 +255,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">[]</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L103">collections/src/entity-collection.ts:103</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L109">collections/src/entity-collection.ts:109</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="entries" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>entries</span><a href="#entries" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -257,7 +271,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type tsd-kind-type-parameter">Identity</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L110">collections/src/entity-collection.ts:110</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L116">collections/src/entity-collection.ts:116</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="forEach" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>for<wbr/>Each</span><a href="#forEach" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -287,11 +301,11 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L154">collections/src/entity-collection.ts:154</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L160">collections/src/entity-collection.ts:160</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="get" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get</span><a href="#get" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="get.get-1"><span class="tsd-kind-call-signature">get</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entity</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><a href="#get.get-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="get.get-1"><span class="tsd-kind-call-signature">get</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entity</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">&gt;</span><a href="#get.get-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Returns a specific object from the EntityCollection.</p>
 </div>
@@ -300,10 +314,20 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <ul class="tsd-parameter-list">
 <li>
 <h5><span class="tsd-kind-parameter">entity</span>: <span class="tsd-signature-type tsd-kind-type-parameter">E</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L80">collections/src/entity-collection.ts:80</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L80">collections/src/entity-collection.ts:80</a></li></ul></aside></li>
+<li class="tsd-signature tsd-anchor-link" id="get.get-2"><span class="tsd-kind-call-signature">get</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entityId</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">&gt;</span><a href="#get.get-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">entityId</span>: <span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L81">collections/src/entity-collection.ts:81</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="identities" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>identities</span><a href="#identities" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -319,7 +343,7 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">Identity</span><span class="tsd-signature-symbol">[]</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L94">collections/src/entity-collection.ts:94</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L100">collections/src/entity-collection.ts:100</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="remove" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>remove</span><a href="#remove" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -335,11 +359,21 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L87">collections/src/entity-collection.ts:87</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L90">collections/src/entity-collection.ts:90</a></li></ul></aside></li>
+<li class="tsd-signature tsd-anchor-link" id="remove.remove-2"><span class="tsd-kind-call-signature">remove</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entityId</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#remove.remove-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">entityId</span>: <span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L91">collections/src/entity-collection.ts:91</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="from" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>from</span><a href="#from" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="from.from-1"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">dictionary</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="from.from-1"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">iterable</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Returns a new EntityCollection from an iterable object of Entities.</p>
 </div>
@@ -347,19 +381,19 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li>
-<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4></li></ul></section>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">dictionary</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
-<li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <span class="tsd-signature-type ">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/collections.EntityCollectionOptions.html" class="tsd-signature-type tsd-kind-type-alias">EntityCollectionOptions</a><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<h5><span class="tsd-kind-parameter">iterable</span>: <span class="tsd-signature-type ">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L168">collections/src/entity-collection.ts:168</a></li></ul></aside></li>
-<li class="tsd-signature tsd-anchor-link" id="from.from-2"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">dictionary</span>, <span class="tsd-kind-parameter">reducer</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L174">collections/src/entity-collection.ts:174</a></li></ul></aside></li>
+<li class="tsd-signature tsd-anchor-link" id="from.from-2"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">iterable</span>, <span class="tsd-kind-parameter">reducer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
@@ -367,12 +401,14 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <li>
 <h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li>
 <li>
+<h4><span class="tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4></li>
+<li>
 <h4><span class="tsd-kind-type-parameter">Value</span></h4></li></ul></section>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">dictionary</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
+<h5><span class="tsd-kind-parameter">iterable</span>: <span class="tsd-signature-type ">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
 <li>
 <h5><span class="tsd-kind-parameter">reducer</span>: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">)</span></h5>
 <ul class="tsd-parameters">
@@ -385,29 +421,61 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <ul class="tsd-parameter-list">
 <li>
 <h5><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type tsd-kind-type-parameter">Value</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4></li></ul></li></ul></li>
-<li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <span class="tsd-signature-type ">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/collections.EntityCollectionOptions.html" class="tsd-signature-type tsd-kind-type-alias">EntityCollectionOptions</a><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4></li></ul></li></ul></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L173">collections/src/entity-collection.ts:173</a></li></ul></aside></li>
-<li class="tsd-signature tsd-anchor-link" id="from.from-3"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">iterable</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L178">collections/src/entity-collection.ts:178</a></li></ul></aside></li>
+<li class="tsd-signature tsd-anchor-link" id="from.from-3"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">dictionary</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li>
-<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4></li></ul></section>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">iterable</span>: <span class="tsd-signature-type ">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">ArrayLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
-<li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <span class="tsd-signature-type ">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/collections.EntityCollectionOptions.html" class="tsd-signature-type tsd-kind-type-alias">EntityCollectionOptions</a><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">dictionary</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/0e291e5/lib/collections/src/entity-collection.ts#L179">collections/src/entity-collection.ts:179</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L183">collections/src/entity-collection.ts:183</a></li></ul></aside></li>
+<li class="tsd-signature tsd-anchor-link" id="from.from-4"><span class="tsd-kind-call-signature">from</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Key</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">dictionary</span>, <span class="tsd-kind-parameter">reducer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span><a href="#from.from-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<section class="tsd-panel">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameter-list">
+<li>
+<h4><span class="tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol"> extends </span><a href="core.Entity.html" class="tsd-signature-type tsd-kind-class">Entity</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/core.ObjectLiteral.html" class="tsd-signature-type tsd-kind-interface">ObjectLiteral</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">&gt;</span></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">Key</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4></li>
+<li>
+<h4><span class="tsd-kind-type-parameter">Value</span></h4></li></ul></section>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">dictionary</span>: <span class="tsd-signature-type ">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">Key</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
+<li>
+<h5><span class="tsd-kind-parameter">reducer</span>: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entry</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">)</span></h5>
+<ul class="tsd-parameters">
+<li class="tsd-parameter-signature">
+<ul class="tsd-signatures">
+<li class="tsd-signature"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">entry</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type tsd-kind-type-parameter">E</span></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">entry</span>: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type tsd-kind-type-parameter">Key</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">Value</span><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type tsd-kind-type-parameter">E</span></h4></li></ul></li></ul></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="collections.EntityCollection.html" class="tsd-signature-type tsd-kind-class">EntityCollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type tsd-kind-type-parameter">K</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/rmolinamir/ddd-framework/blob/9ea5c90/lib/collections/src/entity-collection.ts#L187">collections/src/entity-collection.ts:187</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -454,8 +522,7 @@ If a thisArg parameter is provided to forEach, it will be used as the this value
 <div class="tsd-accordion-details">
 <ul class="tsd-nested-navigation">
 <li><a href="collections.EntityCollection.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-128"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)"></path></g></svg><span>Entity<wbr/>Collection</span></a></li>
-<li><a href="collections.List.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>List</span></a></li>
-<li><a href="../types/collections.EntityCollectionOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4194304"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>Entity<wbr/>Collection<wbr/>Options</span></a></li></ul></div></details></li>
+<li><a href="collections.List.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>List</span></a></li></ul></div></details></li>
 <li><a href="../modules/dto.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>dto</span></a></li>
 <li><a href="../modules/uuid.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>uuid</span></a></li>
 <li><a href="../modules/seedwork.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>seedwork</span></a></li></ul></nav></div></div></div>
