@@ -21,7 +21,7 @@ export class CurrencyDetails extends ValueObject {
     this.isCurrencyPrefix = isCurrencyPrefix;
   }
 
-  public serialize(money: Money): string {
+  public toString(money: Money): string {
     if (money.currency.notEquals(this))
       throw new InvalidOperationException(
         'Cannot serialize money from another currency'

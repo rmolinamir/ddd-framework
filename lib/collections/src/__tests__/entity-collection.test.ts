@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-
 import { User, UserId } from '../../tests/user';
 import { EntityCollection } from '../entity-collection';
 
@@ -27,7 +26,7 @@ describe('EntityCollection', () => {
     expect(collection.lastInserted.equals(user)).toBeFalsy();
     expect(collection.lastInserted.equals(userTwo)).toBeTruthy();
 
-    const anotherCollection = EntityCollection.from<User>(collection);
+    const anotherCollection = EntityCollection.from(collection);
     expect(anotherCollection.lastInserted.equals(userTwo)).toBeTruthy();
   });
 
@@ -70,7 +69,7 @@ describe('EntityCollection', () => {
       expect(collection.contains(user)).toBeFalsy();
     });
 
-    test('contains with Entity id property', () => {
+    test('implicitly contains with Entity id property', () => {
       const collection = new EntityCollection<User>();
 
       collection.add(user);
@@ -80,6 +79,18 @@ describe('EntityCollection', () => {
       collection.remove(user);
 
       expect(collection.contains(user)).toBeFalsy();
+    });
+
+    test('explicitly contains with Entity id property', () => {
+      const collection = new EntityCollection<User, 'id'>();
+
+      collection.add(user);
+
+      expect(collection.contains(user.id)).toBeTruthy();
+
+      collection.remove(user);
+
+      expect(collection.contains(user.id)).toBeFalsy();
     });
   });
 
@@ -110,7 +121,7 @@ describe('EntityCollection', () => {
       expect(collection.get(user)).toBe(undefined);
     });
 
-    test('get with Entity id property', () => {
+    test('implicitly get with Entity id property', () => {
       const collection = new EntityCollection<User>();
 
       collection.add(user);
@@ -120,6 +131,18 @@ describe('EntityCollection', () => {
       collection.remove(user);
 
       expect(collection.get(user)).toBe(undefined);
+    });
+
+    test('explicitly get with Entity id property', () => {
+      const collection = new EntityCollection<User, 'id'>();
+
+      collection.add(user);
+
+      expect(collection.get(user.id)).toBeTruthy();
+
+      collection.remove(user);
+
+      expect(collection.get(user.id)).toBe(undefined);
     });
   });
 
@@ -136,7 +159,7 @@ describe('EntityCollection', () => {
       expect(collection.contains(user)).toBeFalsy();
     });
 
-    test('remove with Entity id property', () => {
+    test('implicitly remove with Entity id property', () => {
       const collection = new EntityCollection<User>();
 
       collection.add(user);
@@ -144,6 +167,18 @@ describe('EntityCollection', () => {
       expect(collection.contains(user)).toBeTruthy();
 
       collection.remove(user);
+
+      expect(collection.contains(user)).toBeFalsy();
+    });
+
+    test('explicitly remove with Entity id property', () => {
+      const collection = new EntityCollection<User, 'id'>();
+
+      collection.add(user);
+
+      expect(collection.contains(user)).toBeTruthy();
+
+      collection.remove(user.id);
 
       expect(collection.contains(user)).toBeFalsy();
     });
@@ -245,6 +280,28 @@ describe('EntityCollection', () => {
   });
 
   describe('from', () => {
+    test('iterable', () => {
+      const iterable = [user, userTwo];
+
+      const collection = EntityCollection.from(iterable);
+
+      expect(collection.count).toBe(iterable.length);
+      expect(collection.contains(user)).toBeTruthy();
+      expect(collection.contains(userTwo)).toBeTruthy();
+    });
+
+    test('iterable with reducer', () => {
+      const iterable = [user.id, userTwo.id];
+
+      const collection = EntityCollection.from(iterable, (id) =>
+        user.id.equals(id) ? user : userTwo
+      );
+
+      expect(collection.count).toBe(iterable.length);
+      expect(collection.contains(user)).toBeTruthy();
+      expect(collection.contains(userTwo)).toBeTruthy();
+    });
+
     test('dictionary', () => {
       const dictionary = {
         [user.id.unpack()]: user,
@@ -264,21 +321,11 @@ describe('EntityCollection', () => {
         [userTwo.id.unpack()]: userTwo.id
       };
 
-      const collection = EntityCollection.from(dictionary, (id) =>
+      const collection = EntityCollection.from(dictionary, ([, id]) =>
         user.id.equals(id) ? user : userTwo
       );
 
       expect(collection.count).toBe(Object.values(dictionary).length);
-      expect(collection.contains(user)).toBeTruthy();
-      expect(collection.contains(userTwo)).toBeTruthy();
-    });
-
-    test('iterable', () => {
-      const users = [user, userTwo];
-
-      const collection = EntityCollection.from(users);
-
-      expect(collection.count).toBe(users.length);
       expect(collection.contains(user)).toBeTruthy();
       expect(collection.contains(userTwo)).toBeTruthy();
     });

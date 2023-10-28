@@ -22,16 +22,16 @@ export class Money extends ValueObject {
     return new Money(this.amount + summand.amount, this.currency);
   }
 
-  public substract(subtrahend: Money): Money {
+  public subtract(subtrahend: Money): Money {
     if (this.currency.notEquals(subtrahend.currency))
       throw new InvalidOperationException(
-        'Cannot substract amounts with different currencies'
+        'Cannot subtract amounts with different currencies'
       );
 
     return new Money(this.amount - subtrahend.amount, this.currency);
   }
 
   public toString(): string {
-    return this.currency.serialize(this);
+    return this.currency.toString(this);
   }
 }

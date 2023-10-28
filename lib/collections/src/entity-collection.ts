@@ -6,17 +6,14 @@ import {
   NotFoundException
 } from '@ddd-framework/core';
 
-type EntityCollectionMap<E extends Entity> = Map<Symbol, E>;
+type EntityCollectionMap<E extends Entity> = Map<symbol, E>;
 
 /**
  * Represents a collection of Entity objects on the "many" end of a relationship.
  */
-export type EntityCollectionOptions = { shouldUpsert: boolean };
-
-/**
- * Represents a collection of Entity objects on the "many" end of a relationship.
- */
-export class EntityCollection<E extends Entity> implements Iterable<E> {
+export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
+  implements Iterable<E>
+{
   private _last?: E;
 
   protected map: EntityCollectionMap<E> = new Map();
@@ -29,7 +26,7 @@ export class EntityCollection<E extends Entity> implements Iterable<E> {
   }
 
   /**
-   * Returns the number of key/value pairs contained in the EntityCollection.
+   * Returns the last inserted Entity in the EntityCollection.
    */
   public get lastInserted(): E {
     if (!this._last)
@@ -40,7 +37,7 @@ export class EntityCollection<E extends Entity> implements Iterable<E> {
   /**
    * Adds an entity to the EntityCollection.
    */
-  public add(entity: E): EntityCollection<E> {
+  public add(entity: E): EntityCollection<E, K> {
     if (this.contains(entity))
       throw new InvalidOperationException(
         'Entity is already in the collection.'
@@ -54,7 +51,7 @@ export class EntityCollection<E extends Entity> implements Iterable<E> {
   }
 
   /**
-   * Removes all entitys from the EntityCollection.
+   * Removes all entities from the EntityCollection.
    */
   public clear(): void {
     this.map.clear();
@@ -63,8 +60,11 @@ export class EntityCollection<E extends Entity> implements Iterable<E> {
   /**
    * Determines whether the EntityCollection contains a specific value.
    */
-  public contains(entity: E): boolean {
-    return this.map.has(EntityId.getId(entity));
+  public contains(entity: E): boolean;
+  public contains(entityId: E[K]): boolean;
+  public contains(arg: E | E[K]): boolean {
+    if (arg instanceof Entity) return this.map.has(EntityId.getId(arg));
+    return this.map.has(arg as symbol);
   }
 
   /**
@@ -77,15 +77,21 @@ export class EntityCollection<E extends Entity> implements Iterable<E> {
   /**
    * Returns a specific object from the EntityCollection.
    */
-  public get(entity: E) {
-    return this.map.get(EntityId.getId(entity));
+  public get(entity: E): Entity | undefined;
+  public get(entityId: E[K]): Entity | undefined;
+  public get(arg: E | E[K]): Entity | undefined {
+    if (arg instanceof Entity) return this.map.get(EntityId.getId(arg));
+    return this.map.get(arg as symbol);
   }
 
   /**
    * Removes a specific object from the EntityCollection.
    */
-  public remove(entity: E) {
-    return this.map.delete(EntityId.getId(entity));
+  public remove(entity: E): boolean;
+  public remove(entityId: E[K]): boolean;
+  public remove(arg: E | E[K]): boolean {
+    if (arg instanceof Entity) return this.map.delete(EntityId.getId(arg));
+    return this.map.delete(arg as symbol);
   }
 
   /**
@@ -165,60 +171,65 @@ export class EntityCollection<E extends Entity> implements Iterable<E> {
   /**
    * Returns a new EntityCollection from an iterable object of Entities.
    */
-  public static from<E extends Entity>(
-    dictionary: Record<string, E>,
-    options?: Partial<EntityCollectionOptions>
-  ): EntityCollection<E>;
+  public static from<E extends Entity, K extends keyof E>(
+    iterable: Iterable<E>
+  ): EntityCollection<E, K>;
 
-  public static from<E extends Entity, Value>(
-    dictionary: Record<string, Value>,
-    reducer: (value: Value) => E,
-    options?: Partial<EntityCollectionOptions>
-  ): EntityCollection<E>;
+  public static from<E extends Entity, K extends keyof E, Value>(
+    iterable: Iterable<Value>,
+    reducer: (value: Value) => E
+  ): EntityCollection<E, K>;
 
-  public static from<E extends Entity>(
-    iterable: Iterable<E> | ArrayLike<E>,
-    options?: Partial<EntityCollectionOptions>
-  ): EntityCollection<E>;
+  public static from<E extends Entity, K extends keyof E>(
+    dictionary: Record<string | number | symbol, E>
+  ): EntityCollection<E, K>;
+
+  public static from<
+    E extends Entity,
+    K extends keyof E,
+    Key extends string | number | symbol,
+    Value
+  >(
+    dictionary: Record<Key, Value>,
+    reducer: (entry: [Key, Value]) => E
+  ): EntityCollection<E, K>;
 
   public static from<E extends Entity, Value>(
     arg1:
-      | Record<string, E>
-      | Record<string, Value>
       | Iterable<E>
-      | ArrayLike<E>,
-    arg2?: Partial<EntityCollectionOptions> | ((value: Value) => E)
+      | Iterable<Value>
+      | Record<string, E>
+      | Record<string, Value>,
+    arg2?:
+      | ((value: Value) => E)
+      | ((entry: [string | number | symbol, Value]) => E)
   ): EntityCollection<E> {
+    const collection = new EntityCollection<E>();
+
     if (Symbol.iterator in arg1) {
-      const iterable = arg1 as Iterable<E> | ArrayLike<E>;
-
-      const collection = new EntityCollection<E>();
-
-      Array.from(iterable).forEach((entity) => collection.add(entity));
-
-      return collection;
-    } else if (typeof arg2 === 'function') {
-      const dictionary = arg1 as Record<string, Value>;
-
-      const reducer = arg2;
-
-      const collection = new EntityCollection<E>();
-
-      Array.from(Object.values(dictionary)).forEach((value) =>
-        collection.add(reducer(value))
-      );
-
-      return collection;
+      if (arg2) {
+        const values = arg1 as Iterable<Value>;
+        const reducer = arg2 as (value: Value) => E;
+        Array.from(values).forEach((value) => collection.add(reducer(value)));
+      } else {
+        const entities = arg1 as Iterable<E>;
+        Array.from(entities).forEach((entity) => collection.add(entity));
+      }
     } else {
-      const dictionary = arg1 as Record<string, E>;
-
-      const collection = new EntityCollection<E>();
-
-      Array.from(Object.values(dictionary)).forEach((entity) =>
-        collection.add(entity)
-      );
-
-      return collection;
+      if (arg2) {
+        const dictionary = arg1 as Record<string, Value>;
+        const reducer = arg2 as (entry: [string, Value]) => E;
+        Array.from(Object.entries(dictionary)).forEach((entry) =>
+          collection.add(reducer(entry))
+        );
+      } else {
+        const dictionary = arg1 as Record<string, E>;
+        Array.from(Object.values(dictionary)).forEach((entity) =>
+          collection.add(entity)
+        );
+      }
     }
+
+    return collection;
   }
 }
