@@ -86,11 +86,11 @@ describe('EntityCollection', () => {
 
       collection.add(user);
 
-      expect(collection.contains(user.id)).toBeTruthy();
+      expect(collection.contains(new UserId(user.id.unpack()))).toBeTruthy();
 
       collection.remove(user);
 
-      expect(collection.contains(user.id)).toBeFalsy();
+      expect(collection.contains(new UserId(user.id.unpack()))).toBeFalsy();
     });
   });
 
@@ -138,11 +138,11 @@ describe('EntityCollection', () => {
 
       collection.add(user);
 
-      expect(collection.get(user.id)).toBeTruthy();
+      expect(collection.get(new UserId(user.id.unpack()))).toBeTruthy();
 
       collection.remove(user);
 
-      expect(collection.get(user.id)).toBe(undefined);
+      expect(collection.get(new UserId(user.id.unpack()))).toBe(undefined);
     });
   });
 
@@ -178,7 +178,7 @@ describe('EntityCollection', () => {
 
       expect(collection.contains(user)).toBeTruthy();
 
-      collection.remove(user.id);
+      collection.remove(new UserId(user.id.unpack()));
 
       expect(collection.contains(user)).toBeFalsy();
     });

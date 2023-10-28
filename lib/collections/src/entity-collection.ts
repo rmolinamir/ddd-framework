@@ -6,7 +6,7 @@ import {
   NotFoundException
 } from '@ddd-framework/core';
 
-type EntityCollectionMap<E extends Entity> = Map<symbol, E>;
+type EntityCollectionMap<E extends Entity> = Map<PropertyKey, E>;
 
 /**
  * Represents a collection of Entity objects on the "many" end of a relationship.
@@ -43,7 +43,7 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
         'Entity is already in the collection.'
       );
 
-    this.map.set(EntityId.getId(entity), entity);
+    this.map.set(this.getUnpackedEntityId(entity), entity);
 
     this._last = entity;
 
@@ -63,8 +63,7 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
   public contains(entity: E): boolean;
   public contains(entityId: E[K]): boolean;
   public contains(arg: E | E[K]): boolean {
-    if (arg instanceof Entity) return this.map.has(EntityId.getId(arg));
-    return this.map.has(arg as symbol);
+    return this.map.has(this.getUnpackedEntityId(arg));
   }
 
   /**
@@ -80,8 +79,7 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
   public get(entity: E): E | undefined;
   public get(entityId: E[K]): E | undefined;
   public get(arg: E | E[K]): E | undefined {
-    if (arg instanceof Entity) return this.map.get(EntityId.getId(arg));
-    return this.map.get(arg as symbol);
+    return this.map.get(this.getUnpackedEntityId(arg));
   }
 
   /**
@@ -90,14 +88,13 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
   public remove(entity: E): boolean;
   public remove(entityId: E[K]): boolean;
   public remove(arg: E | E[K]): boolean {
-    if (arg instanceof Entity) return this.map.delete(EntityId.getId(arg));
-    return this.map.delete(arg as symbol);
+    return this.map.delete(this.getUnpackedEntityId(arg));
   }
 
   /**
    * Returns a new Array object that contains the keys for each element in the EntityCollection in insertion order.
    */
-  public identities<Identity>(): Array<Identity> {
+  public identities<Identity = E[K]>(): Array<Identity> {
     return Array.from(this.map.values(), (entity) =>
       EntityId.getId<Identity>(entity)
     );
@@ -113,7 +110,7 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
   /**
    * Returns a new Array object that contains a two-member array of [key, value] for each element in the EntityCollection in insertion order.
    */
-  public entries<Identity>(): Array<[Identity, E]> {
+  public entries<Identity = E[K]>(): Array<[Identity, E]> {
     return Array.from(this.map.values(), (entity) => [
       EntityId.getId<Identity>(entity),
       entity
@@ -134,13 +131,7 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
   ): Record<PropertyKey, Value> {
     const dictionary = this.entities().reduce<Record<PropertyKey, Value>>(
       (dictionary, entity) => {
-        let dictionaryKey: PropertyKey;
-
-        const entityId = EntityId.getId(entity);
-
-        if (entityId instanceof DomainPrimitive)
-          dictionaryKey = entityId.unpack();
-        else dictionaryKey = entityId as PropertyKey;
+        const dictionaryKey = this.getUnpackedEntityId(entity);
 
         if (reducer) dictionary[dictionaryKey] = reducer(entity);
         else dictionary[dictionaryKey] = entity as unknown as Value;
@@ -198,8 +189,8 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
     arg1:
       | Iterable<E>
       | Iterable<Value>
-      | Record<string, E>
-      | Record<string, Value>,
+      | Record<PropertyKey, E>
+      | Record<PropertyKey, Value>,
     arg2?:
       | ((value: Value) => E)
       | ((entry: [string | number | symbol, Value]) => E)
@@ -217,13 +208,13 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
       }
     } else {
       if (arg2) {
-        const dictionary = arg1 as Record<string, Value>;
-        const reducer = arg2 as (entry: [string, Value]) => E;
+        const dictionary = arg1 as Record<PropertyKey, Value>;
+        const reducer = arg2 as (entry: [PropertyKey, Value]) => E;
         Array.from(Object.entries(dictionary)).forEach((entry) =>
           collection.add(reducer(entry))
         );
       } else {
-        const dictionary = arg1 as Record<string, E>;
+        const dictionary = arg1 as Record<PropertyKey, E>;
         Array.from(Object.values(dictionary)).forEach((entity) =>
           collection.add(entity)
         );
@@ -231,5 +222,19 @@ export class EntityCollection<E extends Entity, K extends keyof E = keyof E>
     }
 
     return collection;
+  }
+
+  /**
+   * Returns the unpacked EntityId value of an Entity or DomainPrimitive.
+   */
+  private getUnpackedEntityId(arg: E | E[K]): PropertyKey {
+    if (arg instanceof Entity) {
+      const id = EntityId.getId(arg);
+      if (id instanceof DomainPrimitive) return id.unpack() as PropertyKey;
+      else return id as PropertyKey;
+    }
+
+    if (arg instanceof DomainPrimitive) return arg.unpack() as PropertyKey;
+    else return arg as PropertyKey;
   }
 }
