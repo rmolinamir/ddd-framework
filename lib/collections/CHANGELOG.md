@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.1...${npm.name}-v1.1.2) (2023-10-28)
+
+
+### Bug Fixes
+
+* **@ddd-framework/collections:** type improvements | now attempting to unpack entity IDs ([c2ddb72](https://github.com/rmolinamir/ddd-framework/commit/c2ddb720f0319043474a73d8687814760978be8c))
+* **@ddd-framework/core:** added details to exceptions thrown in domain events module ([984cac9](https://github.com/rmolinamir/ddd-framework/commit/984cac94aee0680dae2fe9d64701c2759910a63c))
+
 ## [1.1.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.0...${npm.name}-v1.1.1) (2023-10-28)
 
 
