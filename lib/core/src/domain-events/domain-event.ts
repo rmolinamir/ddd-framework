@@ -57,10 +57,10 @@ export function DomainEvent(
         Decorator.setMetadata(DOMAIN_EVENT_METADATA, metadata, this);
 
         if (requireAggregateId && !AggregateId.hasId(this))
-          throw new IllegalStateException(`TODO: Description`);
+          throw new IllegalStateException('AggregateId is required.');
 
         if (requireEntityId && !EntityId.hasId(this))
-          throw new IllegalStateException(`TODO: Description`);
+          throw new IllegalStateException('EntityId is required.');
       }
     };
   } as ClassDecorator;
