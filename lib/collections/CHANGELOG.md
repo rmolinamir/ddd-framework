@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.0.1...${npm.name}-v1.1.0) (2023-10-28)
+
+
+### Features
+
+* **@ddd-framework/collections:** entityCollection now supports Entity keys | `from` improvements ([18203ae](https://github.com/rmolinamir/ddd-framework/commit/18203ae49098f81e7b1886df41043ee323ec2369))
+
+
+### Bug Fixes
+
+* **core:** removed logs ([dfaf76f](https://github.com/rmolinamir/ddd-framework/commit/dfaf76f4987723a20d00590cf54faf012e7b4535))
+
 ## [1.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.0.0...${npm.name}-v1.0.1) (2023-07-17)
 
 ## [1.0.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v0.0.1...${npm.name}-v1.0.0) (2023-07-17)
