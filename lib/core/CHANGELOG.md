@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.3](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.2...${npm.name}-v1.0.3) (2023-10-28)
+
+
+### Features
+
+* **@ddd-framework/collections:** entityCollection now supports Entity keys | `from` improvements ([18203ae](https://github.com/rmolinamir/ddd-framework/commit/18203ae49098f81e7b1886df41043ee323ec2369))
+
+
+### Bug Fixes
+
+* **@ddd-framework/collections:** generic type fix ([6252ced](https://github.com/rmolinamir/ddd-framework/commit/6252ced49ecd8f201f21666b489ca423fc1b2312))
+* **@ddd-framework/core:** added details to exceptions thrown in domain events module ([984cac9](https://github.com/rmolinamir/ddd-framework/commit/984cac94aee0680dae2fe9d64701c2759910a63c))
+
 ## [1.0.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.1...${npm.name}-v1.0.2) (2023-07-22)
 
 
