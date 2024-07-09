@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.1.3](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.2...${npm.name}-v1.1.3) (2024-07-09)
+
 ## [1.1.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.1...${npm.name}-v1.1.2) (2023-10-28)
 
 
