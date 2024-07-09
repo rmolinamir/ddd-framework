@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/dto-v1.0.1...${npm.name}-v1.0.2) (2024-07-09)
+
+
+### Features
+
+* **@ddd-framework/collections:** entityCollection now supports Entity keys | `from` improvements ([18203ae](https://github.com/rmolinamir/ddd-framework/commit/18203ae49098f81e7b1886df41043ee323ec2369))
+
+
+### Bug Fixes
+
+* **@ddd-framework/collections:** generic type fix ([6252ced](https://github.com/rmolinamir/ddd-framework/commit/6252ced49ecd8f201f21666b489ca423fc1b2312))
+* **@ddd-framework/collections:** type improvements | now attempting to unpack entity IDs ([c2ddb72](https://github.com/rmolinamir/ddd-framework/commit/c2ddb720f0319043474a73d8687814760978be8c))
+* **@ddd-framework/core:** added details to exceptions thrown in domain events module ([984cac9](https://github.com/rmolinamir/ddd-framework/commit/984cac94aee0680dae2fe9d64701c2759910a63c))
+* **core:** removed logs ([dfaf76f](https://github.com/rmolinamir/ddd-framework/commit/dfaf76f4987723a20d00590cf54faf012e7b4535))
+
 ## [1.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/dto-v1.0.0...${npm.name}-v1.0.1) (2023-07-17)
 
 ## [1.0.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/dto-v0.0.1...${npm.name}-v1.0.0) (2023-07-17)
