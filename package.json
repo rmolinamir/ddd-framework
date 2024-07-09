@@ -24,12 +24,12 @@
     "watch": "turbo run build --watch"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "~7.0.0",
+    "@release-it/conventional-changelog": "~8.0.1",
     "commitizen": "~4.3.0",
     "cz-conventional-changelog": "~3.3.0",
-    "release-it": "~16.1.2",
-    "turbo": "~1.10.8",
-    "typedoc": "~0.24.8"
+    "release-it": "~17.5.0",
+    "turbo": "~2.0.6",
+    "typedoc": "~0.26.3"
   },
   "config": {
     "commitizen": {

@@ -33,26 +33,26 @@
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "dependencies": {
-    "check-dependencies": "~1.1.0",
-    "commander": "~10.0.1",
+    "check-dependencies": "~2.0.0",
+    "commander": "~12.1.0",
     "degit": "~2.8.4",
-    "enquirer": "~2.3.6",
-    "fs-extra": "~11.1.1"
+    "enquirer": "~2.4.1",
+    "fs-extra": "~11.2.0"
   },
   "devDependencies": {
     "@config/eslint": "workspace:*",
     "@config/jest": "workspace:*",
     "@config/release-it": "workspace:*",
     "@config/tsconfig": "workspace:*",
-    "@faker-js/faker": "~8.0.1",
-    "@types/degit": "~2.8.3",
-    "@types/fs-extra": "~11.0.1",
-    "@types/jest": "~29.5.1",
-    "@types/lodash": "~4.14.194",
-    "@types/node": "~20.1.5",
-    "jest": "~29.5.0",
+    "@faker-js/faker": "~8.4.1",
+    "@types/degit": "~2.8.6",
+    "@types/fs-extra": "~11.0.4",
+    "@types/jest": "~29.5.12",
+    "@types/lodash": "~4.17.6",
+    "@types/node": "~20.14.10",
+    "jest": "~29.7.0",
     "lodash": "~4.17.21",
-    "ts-jest": "~29.1.0",
-    "typescript": "~5.0.4"
+    "ts-jest": "~29.2.0",
+    "typescript": "~5.5.3"
   }
 }
