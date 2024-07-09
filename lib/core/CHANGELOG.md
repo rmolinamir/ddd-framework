@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.3...${npm.name}-v1.0.4) (2024-07-09)
+
+
+### Bug Fixes
+
+* **@ddd-framework/collections:** type improvements | now attempting to unpack entity IDs ([c2ddb72](https://github.com/rmolinamir/ddd-framework/commit/c2ddb720f0319043474a73d8687814760978be8c))
+
 ## [1.0.3](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.2...${npm.name}-v1.0.3) (2023-10-28)
 
 
