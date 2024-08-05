@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.6...${npm.name}-v1.0.7) (2024-08-05)
+
+
+### Features
+
+* **repository:** added support for the transaction pattern ([9c0e069](https://github.com/rmolinamir/ddd-framework/commit/9c0e069b8256a1d9a93c3115d75076d0270d7cb8))
+
 ## [1.0.6](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.5...${npm.name}-v1.0.6) (2024-08-05)
 
 
