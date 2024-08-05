@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/mongodb-v1.0.0...${npm.name}-v1.0.1) (2024-08-05)
+
 ## 1.0.0 (2024-08-05)
 
 
