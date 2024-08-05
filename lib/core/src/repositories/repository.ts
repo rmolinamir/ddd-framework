@@ -1,3 +1,4 @@
+import { Transaction } from './transaction';
 import { UnitOfWork } from './unit-of-work';
 
 // TODO:
@@ -13,16 +14,14 @@ import { UnitOfWork } from './unit-of-work';
  * Persistence oriented repository that provides an abstraction layer between the domain and data mapping layers.
  * Acts like an in-memory domain object collection.
  */
-export abstract class Repository<Entity, Identity> {
+export abstract class Repository<
+  Entity,
+  Identity,
+  Context extends UnitOfWork | Transaction = UnitOfWork | Transaction
+> {
   public abstract getById(anIdentity: Identity): Promise<Entity | null>;
 
-  public abstract save(
-    anObject: Entity,
-    aUnitOfWork?: UnitOfWork
-  ): Promise<Entity>;
+  public abstract save(anObject: Entity, context?: Context): Promise<Entity>;
 
-  public abstract delete(
-    anObject: Entity,
-    aUnitOfWork?: UnitOfWork
-  ): Promise<Entity>;
+  public abstract delete(anObject: Entity, context?: Context): Promise<Entity>;
 }
