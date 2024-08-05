@@ -1,13 +1,13 @@
+import { validate } from 'uuid';
+import type { Anemic } from '@ddd-framework/core';
 import {
   AggregateId,
   AggregateRoot,
-  Anemic,
   DateValue,
   Entity,
   Identity,
   IllegalStateException
 } from '@ddd-framework/core';
-import { validate } from 'uuid';
 
 export class OrderId extends Identity<string> {
   public validate(): void {
@@ -22,9 +22,9 @@ export class Order extends Entity {
 
   public status!: 'REQUESTED' | 'PROCESSING' | 'READY';
 
-  public createdAt!: DateValue;
+  public declare createdAt: DateValue;
 
-  public updatedAt!: DateValue;
+  public declare updatedAt: DateValue;
 
   constructor(data: Anemic<Order>) {
     super();

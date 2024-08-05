@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { CurrencyDetails } from '../../../tests/currency-details';
 import { FakeMoney } from '../../../tests/fake-money';
 import { Money } from '../../../tests/money';

@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
-
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { enquireYesToEverything } from './mocks';
 
 describe('cli', () => {
@@ -13,7 +13,7 @@ describe('cli', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('generates seedwork', async () => {

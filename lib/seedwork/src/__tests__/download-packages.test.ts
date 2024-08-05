@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
+import { describe, expect, test } from 'vitest';
 
 describe('downloadPackages', () => {
   test('downloads the repository and ignores blacklisted packages', async () => {

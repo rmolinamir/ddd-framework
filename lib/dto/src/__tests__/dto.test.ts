@@ -1,7 +1,8 @@
+import { expectType } from 'tsd';
+import { describe, expect, test } from 'vitest';
 import { EntityCollection, List } from '@ddd-framework/collections';
 import { DateValue, DomainPrimitive } from '@ddd-framework/core';
 import { faker } from '@faker-js/faker';
-
 import { CurrencyDetails } from '../../tests/currency-details';
 import { Money } from '../../tests/money';
 import { Order, OrderId } from '../../tests/order';
@@ -16,12 +17,14 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
     test('DateValue', () => {
       const now = DateValue.now();
       const dto = serializeMock(now);
+      expectType<string>(dto);
       expect(dto as string).not.toBe(NaN);
     });
 
     test('Uuid', () => {
       const uuid = faker.string.uuid();
       const dto = serializeMock(uuid);
+      expectType<string>(dto);
       expect(dto as string).not.toBe(NaN);
     });
   });
@@ -30,6 +33,15 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
     test('Money', () => {
       const money = new Money(10, new CurrencyDetails('USD', '$', 2, true));
       const dto = serializeMock(money);
+      expectType<{
+        amount: number;
+        currency: {
+          currencyCode: string;
+          currencySymbol: string;
+          decimalPlaces: number;
+          isCurrencyPrefix: boolean;
+        };
+      }>(dto);
       expect(dto.amount as number).not.toBe(NaN);
       expect(dto.currency.currencyCode as string).not.toBe(NaN);
     });
@@ -45,6 +57,13 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
       });
 
       const dto = serializeMock(order);
+
+      expectType<{
+        createdAt: string;
+        updatedAt: string;
+        id: string;
+        status: 'REQUESTED' | 'PROCESSING' | 'READY';
+      }>(dto);
 
       order.id as DomainPrimitive<string>;
       expect(dto.id as string).not.toBe(NaN);
@@ -66,6 +85,15 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
 
       const dto = serializeMock(collection);
 
+      expectType<
+        {
+          id: string;
+          status: 'REQUESTED' | 'PROCESSING' | 'READY';
+          createdAt: string;
+          updatedAt: string;
+        }[]
+      >(dto);
+
       expect(dto as DataTransferObject<Order>[]).not.toBe(NaN);
       expect(dto[0] as DataTransferObject<Order>).not.toBe(NaN);
     });
@@ -76,6 +104,15 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
       const collection = new List<Order>();
 
       const dto = serializeMock(collection);
+
+      expectType<
+        {
+          id: string;
+          status: 'REQUESTED' | 'PROCESSING' | 'READY';
+          createdAt: string;
+          updatedAt: string;
+        }[]
+      >(dto);
 
       expect(dto as Array<DataTransferObject<Order>>).not.toBe(NaN);
       expect(dto[0] as DataTransferObject<Order>).not.toBe(NaN);
@@ -92,6 +129,25 @@ describe('DataTransferObject (testing the TS linter and compiler)', () => {
       const opportunity: Opportunity = {};
 
       const dto = serializeMock(opportunity);
+
+      expectType<{
+        preferredCurrency?:
+          | {
+              currencyCode: string;
+              currencySymbol: string;
+              decimalPlaces: number;
+              isCurrencyPrefix: boolean;
+            }
+          | undefined;
+        order?:
+          | {
+              id: string;
+              status: 'REQUESTED' | 'PROCESSING' | 'READY';
+              createdAt: string;
+              updatedAt: string;
+            }
+          | undefined;
+      }>(dto);
 
       dto.preferredCurrency as DataTransferObject<CurrencyDetails> | undefined;
 

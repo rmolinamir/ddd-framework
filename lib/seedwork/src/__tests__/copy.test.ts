@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import {
   enquireNoToEverything,
   enquireRandomAnswers,
@@ -14,7 +14,7 @@ describe('copy', () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     test('copies', async () => {
@@ -34,7 +34,7 @@ describe('copy', () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     test('copies', async () => {
@@ -54,7 +54,7 @@ describe('copy', () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     test('copies', async () => {

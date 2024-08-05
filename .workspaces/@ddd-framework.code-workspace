@@ -17,8 +17,20 @@
 			"name": "@ddd-framework/dto"
 		},
 		{
+			"path": "../lib/mongodb",
+			"name": "@ddd-framework/mongodb"
+		},
+		{
+			"path": "../lib/postgres",
+			"name": "@ddd-framework/postgres"
+		},
+		{
 			"path": "../lib/seedwork",
 			"name": "@ddd-framework/seedwork"
+		},
+		{
+			"path": "../lib/testing",
+			"name": "@ddd-framework/testing"
 		},
 		{
 			"path": "../lib/uuid",

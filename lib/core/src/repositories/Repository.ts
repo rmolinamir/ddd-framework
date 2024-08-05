@@ -10,7 +10,7 @@ import { UnitOfWork } from './unit-of-work';
 // > This effectively works like any regular command handler annotated method.
 
 /**
- * Persistence oriented repositoriy that provides an abstraction layer between the domain and data mapping layers.
+ * Persistence oriented repository that provides an abstraction layer between the domain and data mapping layers.
  * Acts like an in-memory domain object collection.
  */
 export abstract class Repository<Entity, Identity> {

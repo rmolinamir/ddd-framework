@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-
 import { AggregateId, AggregateRoot } from '../aggregates';
 import { EventSink } from '../domain-events';
 import {
@@ -8,6 +7,7 @@ import {
 } from '../exceptions';
 import { Guards } from '../helpers';
 import { Class, ObjectLiteral } from '../types';
+import { DateValue } from '../value-objects';
 import { EntityId } from './entity-id';
 import { Identity } from './identity';
 
@@ -18,8 +18,12 @@ type Identifier = Identity | PropertyKey;
  * An object defined primarily by its identity is called an Entity.
  */
 export abstract class Entity<
-  DomainEvent extends ObjectLiteral = ObjectLiteral
+  EntityEvent extends ObjectLiteral = ObjectLiteral
 > {
+  public createdAt?: DateValue;
+
+  public updatedAt?: DateValue;
+
   constructor() {
     // TODO: Find a way to move these validations to the decorators.
     if (AggregateRoot.isRoot(this.constructor)) {
@@ -65,15 +69,15 @@ export abstract class Entity<
   /**
    * Returns the list of pending events of the Aggregate root in the event sink.
    */
-  public events(): readonly DomainEvent[] {
-    return EventSink.get<DomainEvent>(this);
+  public events(): readonly EntityEvent[] {
+    return EventSink.get<EntityEvent>(this);
   }
 
   /**
    * Clears the list of events by flushing them from the event sink.
    */
-  public clearEvents(): DomainEvent[] {
-    return EventSink.flush<DomainEvent>(this);
+  public clearEvents(): EntityEvent[] {
+    return EventSink.flush<EntityEvent>(this);
   }
 
   /**
@@ -81,7 +85,7 @@ export abstract class Entity<
    * The Domain Event is raised by adding it to the list of pending events of the Aggregate root in the event sink.
    * It's recommended to call this method after mutating the state of the Aggregate.
    */
-  public raise(aDomainEvent: DomainEvent): void {
+  public raise(aDomainEvent: EntityEvent, shouldUpdateDates = true): void {
     if (this.validateInvariants) this.validateInvariants();
 
     // If not an aggregate root, then save the aggregate ID inside the domain event.
@@ -90,6 +94,11 @@ export abstract class Entity<
         [Entity.aggregateIdSymbol]: AggregateId.getId(aDomainEvent)
       });
       AggregateId()(this, Entity.aggregateIdSymbol);
+    }
+
+    if (shouldUpdateDates) {
+      if (!this.createdAt) this.createdAt = DateValue.now();
+      this.updatedAt = DateValue.now();
     }
 
     EventSink.add(aDomainEvent);

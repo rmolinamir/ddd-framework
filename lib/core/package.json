@@ -23,8 +23,8 @@
     "prepublish": "pnpm build",
     "release:dry": "pnpm release-it --dry-run",
     "release": "pnpm release-it",
-    "test:watch": "pnpm jest --watch",
-    "test": "pnpm jest",
+    "test:watch": "pnpm vitest dev --ui",
+    "test": "pnpm vitest run",
     "watch": "tsc --project tsconfig.build.json --watch"
   },
   "peerDependencies": {
@@ -32,17 +32,14 @@
   },
   "devDependencies": {
     "@config/eslint": "workspace:*",
-    "@config/jest": "workspace:*",
     "@config/release-it": "workspace:*",
     "@config/tsconfig": "workspace:*",
     "@faker-js/faker": "~8.4.1",
-    "@types/jest": "~29.5.12",
     "@types/lodash": "~4.17.6",
     "@types/node": "~20.14.10",
-    "jest": "~29.7.0",
     "lodash": "~4.17.21",
     "reflect-metadata": "~0.2.2",
-    "ts-jest": "~29.2.0",
-    "typescript": "~5.5.3"
+    "typescript": "~5.5.3",
+    "vitest": "~2.0.5"
   }
 }

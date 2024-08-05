@@ -1,9 +1,10 @@
+import { MockInstance, vi } from 'vitest';
 import { PromptAnswer, PromptOptions } from '../types/enquirer';
 
 export function enquireNoToEverything() {
-  jest.mock('enquirer', () => {
+  vi.mock('enquirer', () => {
     return {
-      prompt: (options: PromptOptions): PromptAnswer | jest.Mock => {
+      prompt: (options: PromptOptions): PromptAnswer | MockInstance => {
         if (options && options.type === 'confirm') {
           return { [options.name as PropertyKey]: false };
         } else if (options && options.type === 'select') {
@@ -16,7 +17,7 @@ export function enquireNoToEverything() {
           };
         }
 
-        return jest.fn();
+        return vi.fn();
       }
     };
   });

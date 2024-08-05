@@ -1,5 +1,5 @@
+import { describe, expect, test } from 'vitest';
 import { faker } from '@faker-js/faker';
-
 import { AggregateId } from '../../aggregates';
 import { EntityId } from '../../entities';
 import { DomainEvent } from '../domain-event';

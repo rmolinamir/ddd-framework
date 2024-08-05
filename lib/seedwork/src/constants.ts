@@ -1,6 +1,5 @@
 import os from 'os';
 import path from 'path';
-
 import { Repository } from './types';
 
 export const repository: Repository = {
@@ -35,9 +34,12 @@ export const ignoredDeps = [
   '@ddd-framework/cqrs',
   '@ddd-framework/dto',
   '@ddd-framework/event-sourcing',
+  '@ddd-framework/postgres',
   '@faker-js/faker',
   '@types/jest',
   'jest',
   'ts-jest',
-  'typescript'
+  'tsx',
+  'typescript',
+  'vitest'
 ];

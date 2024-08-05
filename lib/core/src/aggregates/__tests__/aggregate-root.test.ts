@@ -1,5 +1,5 @@
+import { describe, expect, test } from 'vitest';
 import { faker } from '@faker-js/faker';
-
 import {
   GiftCard,
   GiftCardTransaction,

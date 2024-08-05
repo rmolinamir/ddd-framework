@@ -1,0 +1,53 @@
+$schema: ./node_modules/@cspell/cspell-types/cspell.schema.json
+version: "0.2"
+language: en-US
+flagWords:
+  - hte
+ignorePaths:
+  - .git
+  - .gitignore
+  - .vscodeignore
+  - "*.lock"
+  - "*.log"
+  - "*.vsix"
+  - "*.tsv"
+  - "*.svg"
+  - "**/__snapshots__/**"
+  - /samples
+  - CHANGELOG.md
+  - cspell.json
+  - cspell*.{json,yaml}
+  - .cspell*.{json,yaml}
+  - dist
+  - package-lock.json
+ignoreWords: []
+languageSettings:
+  - languageId: "*"
+    allowCompoundWords: false
+useGitignore: true
+words:
+  - commitizen
+  - cqrs
+  - degit
+  - dirents
+  - dockerfiles
+  - fastify
+  - fkey
+  - Idac
+  - josephg
+  - linebreak
+  - nestjs
+  - pckg
+  - pckge
+  - pgmock
+  - pkce
+  - rmolinamir
+  - savepoint
+  - seedwork
+  - supabase
+  - transpiles
+  - tsbuildinfo
+  - turborepo
+  - typestack
+  - vendia
+  - websockets

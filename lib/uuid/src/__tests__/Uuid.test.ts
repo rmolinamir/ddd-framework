@@ -1,5 +1,5 @@
+import { describe, expect, test } from 'vitest';
 import { Entity, EntityId } from '@ddd-framework/core';
-
 import { CommentId, VideoId } from '../../tests/identifiers';
 import { Uuid } from '../uuid';
 

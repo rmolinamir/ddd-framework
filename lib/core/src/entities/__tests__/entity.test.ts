@@ -1,6 +1,7 @@
+import { describe, expect, test, vi } from 'vitest';
 import { faker } from '@faker-js/faker';
-
 import {
+  CardReimbursedEvent,
   GiftCardTransaction,
   ReimburseCardCommand
 } from '../../../tests/gift-card';
@@ -107,8 +108,47 @@ describe('Entity', () => {
     });
   });
 
+  describe('date fields', () => {
+    test('date fields are set when raising an event', () => {
+      const transactionId = faker.string.uuid();
+
+      const transaction = new GiftCardTransaction(transactionId, 100);
+
+      expect(transaction.createdAt).toBeUndefined();
+      expect(transaction.updatedAt).toBeUndefined();
+
+      transaction.raise(
+        new CardReimbursedEvent(faker.string.uuid(), transactionId, 100)
+      );
+
+      expect(transaction.events()).toHaveLength(1);
+
+      expect(transaction.createdAt).toBeDefined();
+      expect(transaction.updatedAt).toBeDefined();
+    });
+
+    test('date fields are not set when raising an event with no date fields', () => {
+      const transactionId = faker.string.uuid();
+
+      const transaction = new GiftCardTransaction(transactionId, 100);
+
+      expect(transaction.createdAt).toBeUndefined();
+      expect(transaction.updatedAt).toBeUndefined();
+
+      transaction.raise(
+        new CardReimbursedEvent(faker.string.uuid(), transactionId, 100),
+        false
+      );
+
+      expect(transaction.events()).toHaveLength(1);
+
+      expect(transaction.createdAt).toBeUndefined();
+      expect(transaction.updatedAt).toBeUndefined();
+    });
+  });
+
   test('validate decorator', () => {
-    const validator = jest.fn();
+    const validator = vi.fn();
 
     class TestEvent {
       @AggregateId()

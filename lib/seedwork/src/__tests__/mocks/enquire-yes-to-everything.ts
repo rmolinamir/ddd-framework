@@ -1,11 +1,11 @@
+import { MockInstance, vi } from 'vitest';
 import { faker } from '@faker-js/faker';
-
 import { PromptAnswer, PromptOptions } from '../types/enquirer';
 
 export function enquireYesToEverything() {
-  jest.mock('enquirer', () => {
+  vi.mock('enquirer', () => {
     return {
-      prompt: (options: PromptOptions): PromptAnswer | jest.Mock => {
+      prompt: (options: PromptOptions): PromptAnswer | MockInstance => {
         if (options && options.type === 'confirm') {
           return { [options.name as PropertyKey]: true };
         } else if (options && options.type === 'select') {
@@ -23,7 +23,7 @@ export function enquireYesToEverything() {
           };
         }
 
-        return jest.fn();
+        return vi.fn();
       }
     };
   });

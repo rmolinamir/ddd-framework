@@ -1,10 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  extends: [
-    path.resolve(__dirname, 'typescript-preset.js'),
-    path.resolve(__dirname, 'jest-preset.js')
-  ],
+  extends: [path.resolve(__dirname, 'typescript-preset.js')],
   env: {
     browser: false,
     es2021: true,

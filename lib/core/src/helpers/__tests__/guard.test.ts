@@ -1,5 +1,5 @@
+import { describe, expect, test } from 'vitest';
 import { faker } from '@faker-js/faker';
-
 import { Entity, EntityId } from '../../entities';
 import { Guards } from '../guards';
 

@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { faker } from '@faker-js/faker';
 import { User, UserId } from '../../tests/user';
 import { List } from '../list';

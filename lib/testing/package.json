@@ -1,0 +1,54 @@
+{
+  "name": "@ddd-framework/testing",
+  "version": "0.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": ["dist"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "dev": "pnpm watch",
+    "lint:fix": "tsc --noEmit && eslint --fix",
+    "lint": "tsc --noEmit && eslint",
+    "prebuild": "rm -rf tsconfig.build.tsbuildinfo ./dist",
+    "test:watch": "pnpm vitest dev --ui",
+    "test": "pnpm vitest run",
+    "watch": "tsc --project tsconfig.build.json --watch"
+  },
+  "dependencies": {
+    "@faker-js/faker": "~8.4.1",
+    "lodash": "~4.17.21",
+    "mongodb-memory-server": "~9.4.0",
+    "typescript": "~5.5.3"
+  },
+  "devDependencies": {
+    "@config/eslint": "workspace:*",
+    "@config/tsconfig": "workspace:*",
+    "@ddd-framework/core": "workspace:*",
+    "@ddd-framework/dto": "workspace:*",
+    "@faker-js/faker": "~8.4.1",
+    "@nestjs/common": "~10.3.10",
+    "@nestjs/mongoose": "~10.0.10",
+    "@nestjs/testing": "~10.3.10",
+    "@types/lodash": "~4.17.6",
+    "lodash": "~4.17.21",
+    "mongodb-memory-server": "~9.4.0",
+    "typescript": "~5.5.3",
+    "vitest": "~2.0.2"
+  }
+}
