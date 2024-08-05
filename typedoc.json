@@ -2,11 +2,13 @@
   "$schema": "https://typedoc.org/schema.json",
   "name": "@ddd-framework",
   "entryPoints": [
-    "lib/core",
     "lib/collections",
+    "lib/core",
     "lib/dto",
+    "lib/mongodb",
+    "lib/postgres",
+    "lib/seedwork",
     "lib/uuid",
-    "lib/seedwork"
   ],
   "entryPointStrategy": "packages",
   "out": "docs",
