@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.6](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.5...${npm.name}-v1.0.6) (2024-08-05)
+
+
+### Features
+
+* **mongodb:** dDD framework mongodb adapter ([f2b014a](https://github.com/rmolinamir/ddd-framework/commit/f2b014a3a90912e1102c0c1b56a523535361a639))
+* **postgres:** dDD framework postgres adapter ([061a115](https://github.com/rmolinamir/ddd-framework/commit/061a1152e06580486d5533625699557712d64c30))
+
 ## [1.0.5](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.4...${npm.name}-v1.0.5) (2024-07-10)
 
 ## [1.0.4](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.3...${npm.name}-v1.0.4) (2024-07-09)
