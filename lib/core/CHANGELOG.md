@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.8](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.7...${npm.name}-v1.0.8) (2024-08-07)
+
 ## [1.0.7](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.6...${npm.name}-v1.0.7) (2024-08-05)
 
 

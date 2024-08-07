@@ -1,6 +1,6 @@
 {
   "name": "@ddd-framework/core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "publishConfig": {
     "access": "public",
