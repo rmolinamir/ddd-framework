@@ -3,9 +3,8 @@
   "display": "NPM Packages",
   "extends": "./base.json",
   "compilerOptions": {
-    "target": "es2022",
-    "module": "preserve",
-    "moduleResolution": "bundler",
+    "target": "es2018",
+    "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
