@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/mongodb-v1.0.1...${npm.name}-v1.0.2) (2024-08-07)
+
+
+### Features
+
+* **repository:** added support for the transaction pattern ([9c0e069](https://github.com/rmolinamir/ddd-framework/commit/9c0e069b8256a1d9a93c3115d75076d0270d7cb8))
+
 ## [1.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/mongodb-v1.0.0...${npm.name}-v1.0.1) (2024-08-05)
 
 ## 1.0.0 (2024-08-05)
