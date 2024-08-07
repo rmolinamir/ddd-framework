@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.4](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.3...${npm.name}-v1.1.4) (2024-08-07)
+
+
+### Features
+
+* **mongodb:** dDD framework mongodb adapter ([f2b014a](https://github.com/rmolinamir/ddd-framework/commit/f2b014a3a90912e1102c0c1b56a523535361a639))
+* **postgres:** dDD framework postgres adapter ([061a115](https://github.com/rmolinamir/ddd-framework/commit/061a1152e06580486d5533625699557712d64c30))
+* **repository:** added support for the transaction pattern ([9c0e069](https://github.com/rmolinamir/ddd-framework/commit/9c0e069b8256a1d9a93c3115d75076d0270d7cb8))
+
 ## [1.1.3](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.2...${npm.name}-v1.1.3) (2024-07-09)
 
 ## [1.1.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/collections-v1.1.1...${npm.name}-v1.1.2) (2023-10-28)
