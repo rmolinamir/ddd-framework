@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.1.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.0...${npm.name}-v1.1.1) (2024-08-09)
+
 ## [1.1.0](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.0.1...${npm.name}-v1.1.0) (2024-08-09)
 
 ## [1.0.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.0.0...${npm.name}-v1.0.1) (2024-08-07)
