@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 import { describe, expect, test } from 'vitest';
 import { Test } from '@nestjs/testing';
-import { PgClientModule } from '../nestjs/pg-client.module';
+import { PgClientModule } from '../nestjs/pg-client.module.js';
 
 describe('PgClientModule', () => {
   test('module returns an instance of Client using forRoot', async () => {

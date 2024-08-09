@@ -5,7 +5,7 @@ import {
   InvalidOperationException,
   TransactionManager
 } from '@ddd-framework/core';
-import { NodePgDatabaseTransaction, PgTransaction } from './pg-transaction';
+import { NodePgDatabaseTransaction, PgTransaction } from './pg-transaction.js';
 
 export class PgTransactionManager extends TransactionManager {
   constructor(protected db: NodePgDatabase) {

@@ -1,6 +1,9 @@
 {
   "name": "@ddd-framework/postgres",
   "version": "1.0.1",
+  "files": [
+    "dist"
+  ],
   "private": false,
   "publishConfig": {
     "access": "public",
@@ -8,24 +11,8 @@
   },
   "license": "MIT",
   "repository": "rmolinamir/ddd-framework",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    }
-  },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tshy",
     "db:prepare": "pnpm drizzle-kit generate",
     "dev": "pnpm watch",
     "lint:fix": "tsc --noEmit && eslint --fix",
@@ -60,9 +47,39 @@
     "@vitest/ui": "^2.0.5",
     "drizzle-kit": "^0.23.0",
     "lodash": "~4.17.21",
-    "pg": "^8.12.0",
+    "pg": "~8.12.0",
     "reflect-metadata": "~0.2.2",
+    "tshy": "~3.0.2",
     "typescript": "~5.5.3",
     "vitest": "~2.0.5"
-  }
+  },
+  "tshy": {
+    "dialects": [
+      "commonjs",
+      "esm"
+    ],
+    "exclude": [
+      "src/**/*.test.ts"
+    ],
+    "exports": {
+      ".": "./src/index.ts"
+    },
+    "project": "./tsconfig.build.json"
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    }
+  },
+  "type": "module"
 }

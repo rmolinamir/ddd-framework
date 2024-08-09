@@ -6,6 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
@@ -14,8 +15,7 @@
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true,
-    "experimentalDecorators": true
+    "strict": true
   },
   "exclude": ["node_modules"]
 }

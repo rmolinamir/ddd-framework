@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 
 export type DrizzleOrmModuleOptions = {
-  db: Client;
+  client: Client;
   options?: DrizzleConfig;
 };
 
@@ -41,12 +41,12 @@ export class DrizzleOrmModule {
    * Configurations are only loaded once because the internal module is global.
    */
   public static forRoot({
-    db,
+    client,
     options
   }: DrizzleOrmModuleOptions): DynamicModule {
     const dbProvider: Provider<PgDatabase<PgQueryResultHKT>> = {
       provide: PgDatabase,
-      useValue: drizzle(db, options)
+      useValue: drizzle(client, options)
     };
 
     return {
@@ -68,8 +68,8 @@ export class DrizzleOrmModule {
       provide: PgDatabase,
       useFactory: async ({
         options = {},
-        db
-      }: DrizzleOrmModuleOptions): Promise<unknown> => drizzle(db, options),
+        client
+      }: DrizzleOrmModuleOptions): Promise<unknown> => drizzle(client, options),
       inject: [this.OPTIONS_PROVIDER_TOKEN]
     };
 

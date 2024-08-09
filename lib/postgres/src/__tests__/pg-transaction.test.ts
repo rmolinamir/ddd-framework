@@ -12,8 +12,8 @@ import {
   vi
 } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
-import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module';
-import { NodePgDatabaseTransaction, PgTransaction } from '../pg-transaction';
+import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module.js';
+import { NodePgDatabaseTransaction, PgTransaction } from '../pg-transaction.js';
 
 describe('PgTransactionManager', () => {
   const store = new AsyncLocalStorage<NodePgDatabaseTransaction>();
@@ -22,7 +22,7 @@ describe('PgTransactionManager', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [DrizzleOrmModule.forRoot({ db: globalThis.__pgClient })]
+      imports: [DrizzleOrmModule.forRoot({ client: globalThis.__pgClient })]
     }).compile();
 
     await module.init();

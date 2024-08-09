@@ -12,10 +12,10 @@ import {
 } from 'vitest';
 import { Uuid } from '@ddd-framework/uuid';
 import { Test, TestingModule } from '@nestjs/testing';
-import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module';
-import { NodePgDatabaseTransaction } from '../pg-transaction';
-import { PgTransactionManager } from '../pg-transaction-manager';
-import { testTable } from './test.table';
+import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module.js';
+import { PgTransactionManager } from '../pg-transaction-manager.js';
+import { NodePgDatabaseTransaction } from '../pg-transaction.js';
+import { testTable } from './test.table.js';
 
 export const expectEntries = vi.fn(
   async (
@@ -31,7 +31,7 @@ describe('PgTransactionManager', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [DrizzleOrmModule.forRoot({ db: globalThis.__pgClient })]
+      imports: [DrizzleOrmModule.forRoot({ client: globalThis.__pgClient })]
     }).compile();
 
     await module.init();

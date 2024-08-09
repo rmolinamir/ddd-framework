@@ -47,6 +47,7 @@ words:
   - supabase
   - transpiles
   - tsbuildinfo
+  - tsup
   - turborepo
   - typestack
   - vendia

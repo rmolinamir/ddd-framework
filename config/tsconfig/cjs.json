@@ -5,19 +5,19 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "composite": true,
-    "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
+    "esModuleInterop": true,
     "incremental": true,
-    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
     "strictBindCallApply": true,
-    "noFallthroughCasesInSwitch": true
+    "strictNullChecks": true
   }
 }

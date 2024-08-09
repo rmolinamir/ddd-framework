@@ -34,6 +34,7 @@ yarn-error.log*
 .turbo
 
 # typescript
+.tshy-build
 *.tsbuildinfo
 
 # tmp files
