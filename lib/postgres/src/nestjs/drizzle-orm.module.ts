@@ -1,7 +1,7 @@
 import { DrizzleConfig } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { PgDatabase, PgQueryResultHKT } from 'drizzle-orm/pg-core';
-import { Client } from 'pg';
+import pg from 'pg';
 import {
   DynamicModule,
   InjectionToken,
@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 
 export type DrizzleOrmModuleOptions = {
-  client: Client;
+  client: pg.Client;
   options?: DrizzleConfig;
 };
 

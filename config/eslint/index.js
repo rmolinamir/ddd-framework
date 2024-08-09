@@ -34,5 +34,6 @@ module.exports = {
         '@typescript-eslint/no-use-before-define': 'off'
       }
     }
-  ]
+  ],
+  ignorePatterns: ['dist/**/*']
 };

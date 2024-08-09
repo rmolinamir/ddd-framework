@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
   extends: [
     path.resolve(__dirname, 'base-preset.js'),
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript'
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],

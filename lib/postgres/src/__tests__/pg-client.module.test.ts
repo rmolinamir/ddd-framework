@@ -1,4 +1,4 @@
-import { Client } from 'pg';
+import pg from 'pg';
 import { describe, expect, test } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { PgClientModule } from '../nestjs/pg-client.module.js';
@@ -13,9 +13,9 @@ describe('PgClientModule', () => {
       ]
     }).compile();
 
-    const client = module.get(Client);
+    const client = module.get(pg.Client);
 
-    expect(client).toBeInstanceOf(Client);
+    expect(client).toBeInstanceOf(pg.Client);
 
     await module.close();
   });
@@ -31,9 +31,9 @@ describe('PgClientModule', () => {
       ]
     }).compile();
 
-    const client = module.get(Client);
+    const client = module.get(pg.Client);
 
-    expect(client).toBeInstanceOf(Client);
+    expect(client).toBeInstanceOf(pg.Client);
 
     await module.close();
   });

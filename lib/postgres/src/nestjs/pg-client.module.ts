@@ -1,4 +1,4 @@
-import { Client } from 'pg';
+import pg from 'pg';
 import {
   DynamicModule,
   Inject,
@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 
 export type PgClientModuleOptions = ConstructorParameters<
-  typeof Client
+  typeof pg.Client
 >[number];
 
 export type PgClientOptionsFactory = {
@@ -37,7 +37,7 @@ export interface PgClientModuleAsyncOptions
 export class PgClientModule
   implements OnApplicationBootstrap, OnApplicationShutdown
 {
-  constructor(@Inject(Client) private readonly client: Client) {}
+  constructor(@Inject(pg.Client) private readonly client: pg.Client) {}
 
   public async onApplicationBootstrap() {
     await this.client.connect();
@@ -52,18 +52,18 @@ export class PgClientModule
    * Configurations are only loaded once because the internal module is global.
    */
   public static forRoot(
-    ...options: ConstructorParameters<typeof Client>
+    ...options: ConstructorParameters<typeof pg.Client>
   ): DynamicModule {
-    const clientProvider: Provider<Client> = {
-      provide: Client,
-      useValue: new Client(...options)
+    const clientProvider: Provider<pg.Client> = {
+      provide: pg.Client,
+      useValue: new pg.Client(...options)
     };
 
     return {
       module: PgClientModule,
       imports: [],
       providers: [clientProvider],
-      exports: [Client]
+      exports: [pg.Client]
     };
   }
 
@@ -75,10 +75,10 @@ export class PgClientModule
     asyncOptions: PgClientModuleAsyncOptions
   ): DynamicModule {
     const dbProvider = {
-      provide: Client,
+      provide: pg.Client,
       useFactory: async (
-        ...options: ConstructorParameters<typeof Client>
-      ): Promise<unknown> => new Client(...options),
+        ...options: ConstructorParameters<typeof pg.Client>
+      ): Promise<unknown> => new pg.Client(...options),
       inject: [this.OPTIONS_PROVIDER_TOKEN]
     };
 
