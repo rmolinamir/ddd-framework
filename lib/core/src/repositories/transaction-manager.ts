@@ -10,9 +10,9 @@ export abstract class TransactionManager {
    * @param callback - The async callback function that will be executed within the transaction context.
    * @returns A Promise that resolves when the transaction and the callback have completed successfully.
    */
-  public abstract startTransaction(
-    callback: (transaction: Transaction) => Promise<void>
-  ): Promise<void>;
+  public abstract startTransaction<Result = void>(
+    callback: (transaction: Transaction) => Promise<Result>
+  ): Promise<Result>;
 
   /**
    * Creates a savepoint within the specified transaction and executes the provided callback within the savepoint context.
@@ -20,8 +20,8 @@ export abstract class TransactionManager {
    * @param callback - The async callback function that will be executed within the savepoint context.
    * @returns A Promise that resolves when the savepoint and the callback have completed successfully.
    */
-  public abstract savePoint(
+  public abstract savePoint<Result = void>(
     transaction: Transaction,
-    callback: (nestedTransaction: Transaction) => Promise<void>
-  ): Promise<void>;
+    callback: (nestedTransaction: Transaction) => Promise<Result>
+  ): Promise<Result>;
 }

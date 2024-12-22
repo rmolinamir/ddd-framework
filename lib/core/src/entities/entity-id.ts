@@ -1,14 +1,14 @@
 import { AggregateId, AggregateRoot } from '../aggregates';
 import { InvalidOperationException } from '../exceptions';
-import { Decorator, ENTITY_ID_METADATA, ENTITY_ID_WATERMARK } from '../helpers';
+import { Decorator } from '../helpers';
 import { ObjectLiteral } from '../types';
+
+const METADATA_SYMBOL = Symbol('entityId:metadata');
+const WATERMARK_SYMBOL = Symbol('__entityId__');
 
 interface EntityIdMetadata {
   propertyKey: PropertyKey;
 }
-
-const watermarkSymbol = ENTITY_ID_WATERMARK;
-const metadataSymbol = ENTITY_ID_METADATA;
 
 /**
  * Decorator that marks a property as the entity identifier.
@@ -29,11 +29,11 @@ export function EntityId(): PropertyDecorator {
         );
       }
     } else {
-      Decorator.setWatermark(watermarkSymbol, targetClass);
-      Decorator.setMetadata(metadataSymbol, metadata, targetClass);
+      Decorator.setWatermark(WATERMARK_SYMBOL, targetClass);
+      Decorator.setMetadata(METADATA_SYMBOL, metadata, targetClass);
 
-      Decorator.setWatermark(watermarkSymbol, targetClass.constructor);
-      Decorator.setMetadata(metadataSymbol, metadata, targetClass.constructor);
+      Decorator.setWatermark(WATERMARK_SYMBOL, targetClass.constructor);
+      Decorator.setMetadata(METADATA_SYMBOL, metadata, targetClass.constructor);
     }
   };
 }
@@ -55,7 +55,7 @@ EntityId.getId = function <EntityId = unknown>(
   }
 
   const metadata = Decorator.getMetadata<EntityIdMetadata>(
-    metadataSymbol,
+    METADATA_SYMBOL,
     anObject
   );
 
@@ -67,7 +67,7 @@ EntityId.getId = function <EntityId = unknown>(
  */
 EntityId.getMetadata = function (targetClass: ObjectLiteral) {
   return Decorator.getMetadata<EntityIdMetadata | undefined>(
-    metadataSymbol,
+    METADATA_SYMBOL,
     targetClass
   );
 };
@@ -78,5 +78,5 @@ EntityId.getMetadata = function (targetClass: ObjectLiteral) {
 EntityId.hasId = function (anObject: ObjectLiteral): boolean {
   if (AggregateRoot.isRoot(anObject)) return AggregateId.hasId(anObject);
 
-  return Decorator.hasMetadata(watermarkSymbol, anObject);
+  return Decorator.hasMetadata(WATERMARK_SYMBOL, anObject);
 };

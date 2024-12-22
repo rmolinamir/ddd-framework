@@ -86,22 +86,14 @@ export abstract class Entity<
    * It's recommended to call this method after mutating the state of the Aggregate.
    */
   public raise(aDomainEvent: EntityEvent, shouldUpdateDates = true): void {
-    if (this.validateInvariants) this.validateInvariants();
-
-    // If the domain event has an aggregate id, assign it to the entity.
-    if (!AggregateRoot.isRoot(this) && AggregateId.hasId(aDomainEvent)) {
-      Object.assign(this, {
-        [Entity.aggregateIdSymbol]: AggregateId.getId(aDomainEvent)
-      });
-      AggregateId()(this, Entity.aggregateIdSymbol);
-    }
+    this.validateInvariants?.();
 
     if (shouldUpdateDates) {
       if (!this.createdAt) this.createdAt = DateValue.now();
       this.updatedAt = DateValue.now();
     }
 
-    EventSink.add(aDomainEvent, this);
+    EventSink.add(this, aDomainEvent);
   }
 
   /**
@@ -159,6 +151,4 @@ export abstract class Entity<
     if (a instanceof Identity && b instanceof Identity) return a.equals(b);
     else return a === b;
   }
-
-  private static aggregateIdSymbol = Symbol('aggregateId');
 }

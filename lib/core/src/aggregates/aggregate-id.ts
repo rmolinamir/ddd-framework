@@ -1,17 +1,13 @@
 import { InvalidOperationException } from '../exceptions';
-import {
-  AGGREGATE_ID_METADATA,
-  AGGREGATE_ID_WATERMARK,
-  Decorator
-} from '../helpers';
+import { Decorator } from '../helpers';
 import { ObjectLiteral } from '../types';
+
+const METADATA_SYMBOL = Symbol('aggregateId:metadata');
+const WATERMARK_SYMBOL = Symbol('__aggregateId__');
 
 interface AggregateIdMetadata {
   propertyKey: PropertyKey;
 }
-
-const watermarkSymbol = AGGREGATE_ID_WATERMARK;
-const metadataSymbol = AGGREGATE_ID_METADATA;
 
 /**
  * Decorator that marks a property as the aggregate identifier.
@@ -32,11 +28,15 @@ export function AggregateId(): PropertyDecorator {
         );
       }
     } else {
-      Decorator.setWatermark(watermarkSymbol, targetClass);
-      Decorator.setMetadata(metadataSymbol, metadata, targetClass);
+      Decorator.setWatermark(METADATA_SYMBOL, targetClass);
+      Decorator.setMetadata(WATERMARK_SYMBOL, metadata, targetClass);
 
-      Decorator.setWatermark(watermarkSymbol, targetClass.constructor);
-      Decorator.setMetadata(metadataSymbol, metadata, targetClass.constructor);
+      Decorator.setWatermark(METADATA_SYMBOL, targetClass.constructor);
+      Decorator.setMetadata(
+        WATERMARK_SYMBOL,
+        metadata,
+        targetClass.constructor
+      );
     }
   };
 }
@@ -64,7 +64,7 @@ AggregateId.getId = function <AggregateId = unknown>(
  */
 AggregateId.getMetadata = function (targetClass: ObjectLiteral) {
   return Decorator.getMetadata<AggregateIdMetadata | undefined>(
-    metadataSymbol,
+    WATERMARK_SYMBOL,
     targetClass
   );
 };
@@ -73,5 +73,5 @@ AggregateId.getMetadata = function (targetClass: ObjectLiteral) {
  * Returns true if the object has an aggregate identifier.
  */
 AggregateId.hasId = function (anObject: ObjectLiteral): boolean {
-  return Decorator.hasMetadata(watermarkSymbol, anObject);
+  return Decorator.hasMetadata(METADATA_SYMBOL, anObject);
 };

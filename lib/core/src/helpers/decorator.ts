@@ -88,8 +88,8 @@ export class Decorator {
     target: ObjectLiteral,
     { own = false }: MetadataOptions = {}
   ): Metadata {
-    if (own) return Reflect.getOwnMetadata(metadataSymbol, target) as Metadata;
-    else return Reflect.getMetadata(metadataSymbol, target) as Metadata;
+    if (own) return Reflect.getOwnMetadata(metadataSymbol, target);
+    else return Reflect.getMetadata(metadataSymbol, target);
   }
 
   /**
@@ -102,5 +102,15 @@ export class Decorator {
   ): boolean {
     if (own) return Reflect.hasOwnMetadata(metadataSymbol, target);
     else return Reflect.hasMetadata(metadataSymbol, target);
+  }
+
+  /**
+   * Deletes the metadata of a object.
+   */
+  public static deleteMetadata(
+    metadataSymbol: ReturnType<typeof Symbol>,
+    target: ObjectLiteral
+  ): void {
+    Reflect.deleteMetadata(metadataSymbol, target);
   }
 }

@@ -1,13 +1,12 @@
 import { AggregateId } from '../aggregates';
 import { EntityId } from '../entities';
 import { InvalidOperationException } from '../exceptions';
-import {
-  Decorator,
-  DOMAIN_EVENT_METADATA,
-  DOMAIN_EVENT_WATERMARK
-} from '../helpers';
+import { Decorator } from '../helpers';
 import { Class, ObjectLiteral } from '../types';
 import { DomainEventMap } from './domain-event-map';
+
+const METADATA_SYMBOL = Symbol('domainEvent:metadata');
+const WATERMARK_SYMBOL = Symbol('__domainEvent__');
 
 interface DomainEventMetadata {
   type: string | number;
@@ -28,8 +27,8 @@ export function DomainEvent(
   return function (Class: Class<ObjectLiteral>) {
     const metadata: DomainEventMetadata = { type, version };
 
-    Decorator.setWatermark(DOMAIN_EVENT_WATERMARK, Class);
-    Decorator.setMetadata(DOMAIN_EVENT_METADATA, metadata, Class);
+    Decorator.setWatermark(WATERMARK_SYMBOL, Class);
+    Decorator.setMetadata(METADATA_SYMBOL, metadata, Class);
 
     DomainEventMap.add(Class);
 
@@ -44,8 +43,8 @@ export function DomainEvent(
           writable: false
         });
 
-        Decorator.setWatermark(DOMAIN_EVENT_WATERMARK, this);
-        Decorator.setMetadata(DOMAIN_EVENT_METADATA, metadata, this);
+        Decorator.setWatermark(WATERMARK_SYMBOL, this);
+        Decorator.setMetadata(METADATA_SYMBOL, metadata, this);
 
         if (!AggregateId.hasId(this) && !EntityId.hasId(this))
           throw new InvalidOperationException(
@@ -62,7 +61,7 @@ export function DomainEvent(
 DomainEvent.isDomainEvent = function isDomainEvent(
   anObject: ObjectLiteral
 ): boolean {
-  return Decorator.hasMetadata(DOMAIN_EVENT_WATERMARK, anObject);
+  return Decorator.hasMetadata(WATERMARK_SYMBOL, anObject);
 };
 
 /**
@@ -77,7 +76,7 @@ DomainEvent.getMetadata = function getMetadata(
     );
 
   const domainEventMetadata = Decorator.getMetadata<DomainEventMetadata>(
-    DOMAIN_EVENT_METADATA,
+    METADATA_SYMBOL,
     anObject
   );
 

@@ -10,5 +10,5 @@ export abstract class Transaction {
    * Rolls back the changes made within the transaction.
    * @returns A promise that resolves when the rollback operation is complete.
    */
-  public abstract rollback(): Promise<void>;
+  public abstract rollback(): Promise<never>;
 }

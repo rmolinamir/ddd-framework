@@ -1,37 +1,24 @@
-import { AggregateId, AggregateRoot } from '../aggregates';
+import { AggregateRoot } from '../aggregates';
 import { AggregateMember } from '../aggregates/aggregate-member';
-import { Entity, EntityId, Identity } from '../entities';
+import { Entity } from '../entities';
+import { Decorator } from '../helpers';
 import { ObjectLiteral } from '../types';
 
 /**
- * A sink for DomainEvents.
+ * Manages the events of an Entity. Can be used to add, get, and flush events.
+ * @privateRemarks Events are stored in a private property of the Entity accessed through the Reflect API.
  */
-export class EventSink<DomainEvent extends ObjectLiteral> {
-  private static singleton: EventSink<ObjectLiteral>;
-
-  // TODO: Sink should be an LRU or LFU cache.
-  private sink: Map<PropertyKey, DomainEvent[]> = new Map();
-
+export class EventSink {
   private constructor() {}
 
   /**
    * Adds a DomainEvent to the EventSink.
    */
   public static add<DomainEvent extends ObjectLiteral>(
-    aDomainEvent: DomainEvent,
-    entity: Entity
+    entity: Entity,
+    aDomainEvent: DomainEvent
   ): void {
-    const { sink } = this.instance<DomainEvent>();
-
-    const id = AggregateRoot.isRoot(entity)
-      ? this.getAggregateIdFrom(entity)
-      : this.getEntityIdFrom(entity);
-
-    if (id) {
-      const events = sink.get(id);
-      if (events) events.push(aDomainEvent);
-      else sink.set(id, [aDomainEvent]);
-    }
+    this.sink<DomainEvent>(entity).push(aDomainEvent);
   }
 
   /**
@@ -40,14 +27,11 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
   public static get<DomainEvent extends ObjectLiteral>(
     entity: Entity
   ): DomainEvent[] {
-    const { sink } = this.instance<DomainEvent>();
+    const sink = this.sink<DomainEvent>(entity);
+
+    const events: DomainEvent[] = [...sink];
 
     if (AggregateRoot.isRoot(entity)) {
-      const events: DomainEvent[] = [];
-
-      const aggregateId = this.getAggregateIdFrom(entity);
-      if (aggregateId) events.push(...(sink.get(aggregateId) || []));
-
       // Assuming aggregate members will be nested only one level deep at most
       // instead of recursively traversing the aggregate members.
       const aggregateMembers = this.getAggregateMembersFrom(entity);
@@ -60,14 +44,9 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
           events.push(...EventSink.get<DomainEvent>(aggregateMember));
         }
       }
-
-      return events;
     }
 
-    const entityId = this.getEntityIdFrom(entity);
-    if (entityId) return sink.get(entityId) || [];
-
-    return [];
+    return events;
   }
 
   /**
@@ -76,61 +55,43 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
   public static flush<DomainEvent extends ObjectLiteral>(
     entity: Entity
   ): DomainEvent[] {
-    const { sink } = this.instance<DomainEvent>();
+    const events: DomainEvent[] = EventSink.get<DomainEvent>(entity);
+
+    Decorator.deleteMetadata(this.METADATA_SYMBOL, entity);
 
     if (AggregateRoot.isRoot(entity)) {
-      const events: DomainEvent[] = EventSink.get<DomainEvent>(entity);
-
-      const aggregateId = this.getAggregateIdFrom(entity);
-      if (aggregateId) sink.delete(aggregateId);
-
       // Assuming aggregate members will be nested only one level deep at most
       // instead of recursively traversing the aggregate members.
       const aggregateMembers = this.getAggregateMembersFrom(entity);
       for (const aggregateMember of aggregateMembers) {
         if (this.isIterable(aggregateMember)) {
           for (const childEntity of aggregateMember) {
-            const entityId = this.getEntityIdFrom(childEntity);
-            if (entityId) sink.delete(entityId);
+            Decorator.deleteMetadata(this.METADATA_SYMBOL, childEntity);
           }
         } else {
-          const entityId = this.getEntityIdFrom(aggregateMember);
-          if (entityId) sink.delete(entityId);
+          Decorator.deleteMetadata(this.METADATA_SYMBOL, aggregateMember);
         }
       }
-
-      return events;
-    } else {
-      const events = EventSink.get<DomainEvent>(entity);
-
-      const entityId = this.getEntityIdFrom(entity);
-      if (entityId) sink.delete(entityId);
-
-      return events;
     }
+
+    return events;
   }
 
   /**
-   * Returns the singleton instance of the EventSink.
+   * Returns the instance of the EventSink within the Entity.
    */
-  private static instance<
-    DomainEvent extends ObjectLiteral
-  >(): EventSink<DomainEvent> {
-    if (!EventSink.singleton) EventSink.singleton = new EventSink();
-    return EventSink.singleton as EventSink<DomainEvent>;
-  }
-
-  /**
-   * Returns the aggregate id of an object.
-   */
-  private static getAggregateIdFrom(anObject: ObjectLiteral) {
-    try {
-      const id = AggregateId.getId<Identity['value'] | Identity>(anObject);
-      if (id instanceof Identity) return id.unpack();
-      else return id;
-    } catch {
-      return undefined;
+  private static sink<DomainEvent extends ObjectLiteral>(
+    entity: Entity
+  ): DomainEvent[] {
+    if (Decorator.hasMetadata(this.METADATA_SYMBOL, entity)) {
+      return Decorator.getMetadata<DomainEvent[]>(this.METADATA_SYMBOL, entity);
     }
+
+    const sink: DomainEvent[] = [];
+
+    Decorator.setMetadata<DomainEvent[]>(this.METADATA_SYMBOL, sink, entity);
+
+    return sink;
   }
 
   /**
@@ -145,19 +106,6 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
   }
 
   /**
-   * Returns the entity id of an object.
-   */
-  private static getEntityIdFrom(anObject: ObjectLiteral) {
-    try {
-      const id = EntityId.getId<Identity['value'] | Identity>(anObject);
-      if (id instanceof Identity) return id.unpack();
-      else return id;
-    } catch {
-      return undefined;
-    }
-  }
-
-  /**
    * Returns true if the object is an iterable.
    */
   private static isIterable(
@@ -165,4 +113,6 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
   ): anObject is Iterable<ObjectLiteral> {
     return Boolean(anObject?.[Symbol.iterator]);
   }
+
+  private static METADATA_SYMBOL = Symbol('__eventSink__');
 }

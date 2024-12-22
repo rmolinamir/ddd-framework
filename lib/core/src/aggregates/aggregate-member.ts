@@ -1,17 +1,13 @@
 import { InvalidOperationException } from '../exceptions';
-import {
-  AGGREGATE_MEMBER_METADATA,
-  AGGREGATE_MEMBER_WATERMARK,
-  Decorator
-} from '../helpers';
+import { Decorator } from '../helpers';
 import { ObjectLiteral } from '../types';
+
+const METADATA_SYMBOL = Symbol('aggregateMember:metadata');
+const WATERMARK_SYMBOL = Symbol('__aggregateMember__');
 
 interface AggregateMemberMetadata {
   propertyKeys: Set<PropertyKey>;
 }
-
-const watermarkSymbol = AGGREGATE_MEMBER_WATERMARK;
-const metadataSymbol = AGGREGATE_MEMBER_METADATA;
 
 /**
  * Decorator that marks a property as the aggregate member.
@@ -37,11 +33,11 @@ export function AggregateMember(): PropertyDecorator {
         propertyKeys: new Set([propertyKey])
       };
 
-      Decorator.setWatermark(watermarkSymbol, targetClass);
-      Decorator.setMetadata(metadataSymbol, metadata, targetClass);
+      Decorator.setWatermark(WATERMARK_SYMBOL, targetClass);
+      Decorator.setMetadata(METADATA_SYMBOL, metadata, targetClass);
 
-      Decorator.setWatermark(watermarkSymbol, targetClass.constructor);
-      Decorator.setMetadata(metadataSymbol, metadata, targetClass.constructor);
+      Decorator.setWatermark(WATERMARK_SYMBOL, targetClass.constructor);
+      Decorator.setMetadata(METADATA_SYMBOL, metadata, targetClass.constructor);
     }
   };
 }
@@ -76,7 +72,7 @@ AggregateMember.getMembers = function <AggregateMember = unknown>(
  */
 AggregateMember.getMetadata = function (targetClass: ObjectLiteral) {
   return Decorator.getMetadata<AggregateMemberMetadata | undefined>(
-    metadataSymbol,
+    METADATA_SYMBOL,
     targetClass
   );
 };
@@ -85,5 +81,5 @@ AggregateMember.getMetadata = function (targetClass: ObjectLiteral) {
  * Returns true if the object has an aggregate member.
  */
 AggregateMember.hasMembers = function (anObject: ObjectLiteral): boolean {
-  return Decorator.hasMetadata(watermarkSymbol, anObject);
+  return Decorator.hasMetadata(WATERMARK_SYMBOL, anObject);
 };

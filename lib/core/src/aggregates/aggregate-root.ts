@@ -1,7 +1,9 @@
 import { Entity } from '../entities';
 import { InvalidOperationException } from '../exceptions';
-import { AGGREGATE_ROOT_WATERMARK, Decorator, Guards } from '../helpers';
+import { Decorator, Guards } from '../helpers';
 import { Class, ObjectLiteral } from '../types';
+
+const WATERMARK_SYMBOL = Symbol('__aggregateRoot__');
 
 /**
  * Decorator that marks a class as an aggregate root.
@@ -19,7 +21,7 @@ export function AggregateRoot(): ClassDecorator {
       );
     }
 
-    Decorator.setWatermark(AGGREGATE_ROOT_WATERMARK, Class);
+    Decorator.setWatermark(WATERMARK_SYMBOL, Class);
 
     return class extends Class {
       constructor(...args: unknown[]) {
@@ -32,7 +34,7 @@ export function AggregateRoot(): ClassDecorator {
           writable: false
         });
 
-        Decorator.setWatermark(AGGREGATE_ROOT_WATERMARK, this);
+        Decorator.setWatermark(WATERMARK_SYMBOL, this);
       }
     };
   } as ClassDecorator;
@@ -44,5 +46,5 @@ export function AggregateRoot(): ClassDecorator {
 AggregateRoot.isRoot = function isAggregateRoot(
   anObject: ObjectLiteral
 ): boolean {
-  return Decorator.hasMetadata(AGGREGATE_ROOT_WATERMARK, anObject);
+  return Decorator.hasMetadata(WATERMARK_SYMBOL, anObject);
 };
