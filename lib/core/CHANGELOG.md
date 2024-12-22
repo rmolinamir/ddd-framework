@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.8...${npm.name}-v1.0.9) (2024-12-22)
+
+
+### Features
+
+* **aggregate-root:** added aggregate members logic and allowed entities to raise domain events ([bae9fe5](https://github.com/rmolinamir/ddd-framework/commit/bae9fe59e279e6f8132b78e22957e8a16f76c6ab))
+
 ## [1.0.8](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.7...${npm.name}-v1.0.8) (2024-08-07)
 
 ## [1.0.7](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.6...${npm.name}-v1.0.7) (2024-08-05)
