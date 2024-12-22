@@ -48,10 +48,9 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
       const aggregateId = this.getAggregateIdFrom(entity);
       if (aggregateId) events.push(...(sink.get(aggregateId) || []));
 
-      const aggregateMembers = this.getAggregateMembersFrom(entity);
-
       // Assuming aggregate members will be nested only one level deep at most
       // instead of recursively traversing the aggregate members.
+      const aggregateMembers = this.getAggregateMembersFrom(entity);
       for (const aggregateMember of aggregateMembers) {
         if (this.isIterable(aggregateMember)) {
           for (const childEntity of aggregateMember) {
@@ -138,7 +137,11 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
    * Returns the aggregate id of an object.
    */
   private static getAggregateMembersFrom(anEntity: Entity) {
-    return AggregateMember.getMembers<Entity | Iterable<Entity>>(anEntity);
+    try {
+      return AggregateMember.getMembers<Entity | Iterable<Entity>>(anEntity);
+    } catch {
+      return [];
+    }
   }
 
   /**

@@ -54,7 +54,7 @@ AggregateMember.getMembers = function <AggregateMember = unknown>(
   if (!AggregateMember.hasMembers(anObject)) {
     const name = anObject.name || anObject.constructor?.name || 'Object';
     throw new InvalidOperationException(
-      `${name} does not have an aggregate members.`
+      `${name} does not have aggregate members.`
     );
   }
 
