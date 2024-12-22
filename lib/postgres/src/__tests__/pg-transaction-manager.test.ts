@@ -67,6 +67,36 @@ describe('PgTransactionManager', () => {
     await expectEntries(db, [{ id: firstId }, { id: secondId }]);
   });
 
+  test('returns result from transaction', async () => {
+    const firstId = Uuid.generate();
+    const secondId = Uuid.generate();
+
+    const result = await manager.startTransaction(async (transaction) => {
+      await transaction.context
+        .insert(testTable)
+        .values([{ id: firstId }, { id: secondId }]);
+
+      return true;
+    });
+
+    expect(result).toBe(true);
+  });
+
+  test('returns undefined when transaction is rolled back', async () => {
+    const firstId = Uuid.generate();
+    const secondId = Uuid.generate();
+
+    const result = await manager.startTransaction(async (transaction) => {
+      await transaction.context
+        .insert(testTable)
+        .values([{ id: firstId }, { id: secondId }]);
+
+      await transaction.rollback();
+    });
+
+    expect(result).toBeUndefined();
+  });
+
   test('transaction is not committed when rolled back', async () => {
     const firstId = Uuid.generate();
     const secondId = Uuid.generate();

@@ -12,17 +12,17 @@ export class PgTransactionManager extends TransactionManager {
     super();
   }
 
-  public startTransaction(
-    callback: (transaction: PgTransaction) => Promise<void>
-  ): Promise<void> {
-    return PgTransactionManager.createTransaction(this.db, callback);
+  public startTransaction<Result>(
+    callback: (transaction: PgTransaction) => Promise<Result>
+  ) {
+    return PgTransactionManager.createTransaction<Result>(this.db, callback);
   }
 
-  public savePoint(
+  public savePoint<Result>(
     transaction: PgTransaction,
-    callback: (nestedTransaction: PgTransaction) => Promise<void>
-  ): Promise<void> {
-    return PgTransactionManager.createTransaction(
+    callback: (nestedTransaction: PgTransaction) => Promise<Result>
+  ) {
+    return PgTransactionManager.createTransaction<Result>(
       transaction.context,
       callback
     );
@@ -30,17 +30,21 @@ export class PgTransactionManager extends TransactionManager {
 
   private static store = new AsyncLocalStorage<NodePgDatabaseTransaction>();
 
-  private static async createTransaction(
+  private static async createTransaction<Result>(
     pgDriver: NodePgDatabase | NodePgDatabaseTransaction,
-    callback: (transaction: PgTransaction) => Promise<void>
-  ): Promise<void> {
+    callback: (transaction: PgTransaction) => Promise<Result>
+  ) {
     try {
-      await pgDriver.transaction((context) => {
+      const res = await pgDriver.transaction<Result>((context) => {
         const transaction = new PgTransaction(this.store);
         return this.store.run(context, () => callback(transaction));
       });
+      return res;
     } catch (error) {
-      if (error instanceof TransactionRollbackError) return;
+      // Needed to cast because unreachable code after a `rollback` is not detected by the TypeScript compiler,
+      // even though the `ReturnType` of the `rollback` is `never`
+      // This is a workaround to make it work for now until it's fixed.
+      if (error instanceof TransactionRollbackError) return undefined as Result;
       const err = error instanceof Error ? error : new Error('Unknown error');
       throw new InvalidOperationException(err.message, error);
     }

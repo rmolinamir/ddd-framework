@@ -123,5 +123,5 @@ export class DrizzleOrmModule {
     };
   }
 
-  private static OPTIONS_PROVIDER_TOKEN = Symbol('OPTIONS_PROVIDER_TOKEN');
+  private static OPTIONS_PROVIDER_TOKEN = Symbol('__optionsProviderToken__');
 }

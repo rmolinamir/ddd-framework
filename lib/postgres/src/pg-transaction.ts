@@ -18,7 +18,7 @@ export class PgTransaction implements Transaction {
     return context;
   }
 
-  public rollback(): Promise<void> {
+  public rollback(): Promise<never> {
     return Promise.resolve(this.context.rollback());
   }
 }
