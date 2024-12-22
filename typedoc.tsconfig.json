@@ -1,5 +1,5 @@
 {
-  "extends": "./config/tsconfig/npm.json",
+  "extends": "./config/tsconfig/esm.json",
   "include": ["."],
   "exclude": ["dist", "node_modules", "**/tests/**/*", "**/__tests__/**/*"]
 }

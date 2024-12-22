@@ -32,7 +32,6 @@ export abstract class UnitOfWorkManager {
    * @throws {Error} If an error occurs while starting the Unit of Work.
    *
    * @public
-   * @abstract
    */
   public abstract startUnitOfWork(): Promise<UnitOfWork>;
 }

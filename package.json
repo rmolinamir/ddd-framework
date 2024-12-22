@@ -14,7 +14,7 @@
     "clean": "pnpm clean:.next && pnpm clean:deps && pnpm clean:dist && pnpm clean:tmp && pnpm clean:turbo && pnpm clean:pnpm",
     "commit": "pnpm cz",
     "dev": "turbo run dev --parallel --no-deps",
-    "docs": "pnpm typedoc",
+    "gen:docs": "pnpm typedoc",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "prebuild": "pnpm clean:dist",
