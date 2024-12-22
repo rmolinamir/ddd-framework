@@ -15,6 +15,7 @@ const metadataSymbol = AGGREGATE_MEMBER_METADATA;
 
 /**
  * Decorator that marks a property as the aggregate member.
+ * This lets the framework know which properties should be inspected when accessing domain events.
  */
 export function AggregateMember(): PropertyDecorator {
   /**

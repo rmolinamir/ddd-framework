@@ -88,8 +88,8 @@ export abstract class Entity<
   public raise(aDomainEvent: EntityEvent, shouldUpdateDates = true): void {
     if (this.validateInvariants) this.validateInvariants();
 
-    // If not an aggregate root, then save the aggregate ID inside the domain event.
-    if (!AggregateRoot.isRoot(this)) {
+    // If the domain event has an aggregate id, assign it to the entity.
+    if (!AggregateRoot.isRoot(this) && AggregateId.hasId(aDomainEvent)) {
       Object.assign(this, {
         [Entity.aggregateIdSymbol]: AggregateId.getId(aDomainEvent)
       });
