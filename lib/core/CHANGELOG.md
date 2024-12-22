@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.12](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.11...${npm.name}-v1.0.12) (2024-12-22)
+
+
+### Bug Fixes
+
+* **entity:** entities can raise domain events without aggregate IDs ([165e1ce](https://github.com/rmolinamir/ddd-framework/commit/165e1ce818fac9703cd680669cf11b53d3789dd8))
+* **entity:** updated test ([b9eb606](https://github.com/rmolinamir/ddd-framework/commit/b9eb606f78a5cab6148ae45f69fe4b0deb166d54))
+
 ## [1.0.11](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.10...${npm.name}-v1.0.11) (2024-12-22)
 
 
