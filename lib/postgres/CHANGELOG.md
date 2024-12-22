@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.3](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.2...${npm.name}-v1.1.3) (2024-12-22)
+
+
+### Features
+
+* **aggregate-root:** added aggregate members logic and allowed entities to raise domain events ([bae9fe5](https://github.com/rmolinamir/ddd-framework/commit/bae9fe59e279e6f8132b78e22957e8a16f76c6ab))
+* **core:** new aggregate-members logic is exportable ([15d5e34](https://github.com/rmolinamir/ddd-framework/commit/15d5e34685397b8bb44914f6771660247d93bbb6))
+* **transaction-manager:** the transactions are now capable of returning results ([5ec2894](https://github.com/rmolinamir/ddd-framework/commit/5ec289426abea4e07ee0adcb8f3f5feef296d4c3))
+
+
+### Bug Fixes
+
+* **aggregate members:** fixed typo and support for no aggregate members ([1bac1ba](https://github.com/rmolinamir/ddd-framework/commit/1bac1ba6d90d2065dd6b17c75ad3ade9fcfd5e4e))
+* **entity:** entities can raise domain events without aggregate IDs ([165e1ce](https://github.com/rmolinamir/ddd-framework/commit/165e1ce818fac9703cd680669cf11b53d3789dd8))
+* **entity:** updated test ([b9eb606](https://github.com/rmolinamir/ddd-framework/commit/b9eb606f78a5cab6148ae45f69fe4b0deb166d54))
+* **event sink:** removed potential memory leak ([dbd1f0f](https://github.com/rmolinamir/ddd-framework/commit/dbd1f0fa7491e577b531be479a068105966be1bd))
+
 ## [1.1.2](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.1...${npm.name}-v1.1.2) (2024-08-09)
 
 ## [1.1.1](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.0...${npm.name}-v1.1.1) (2024-08-09)
