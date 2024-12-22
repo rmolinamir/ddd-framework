@@ -79,7 +79,7 @@ describe('Entity', () => {
       expect(transaction.events()).toHaveLength(0);
     });
 
-    test('throws when raising an event without an aggregate identifier', () => {
+    test('raises an event without an aggregate identifier', () => {
       class TestEvent {
         public id: string;
 
@@ -104,7 +104,7 @@ describe('Entity', () => {
 
       const entity = new AnEntity(faker.string.uuid());
 
-      expect(() => entity.doSomething()).toThrow();
+      expect(() => entity.doSomething()).not.toThrow();
     });
   });
 
