@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.13](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.12...${npm.name}-v1.0.13) (2024-12-22)
+
+
+### Features
+
+* **transaction-manager:** the transactions are now capable of returning results ([5ec2894](https://github.com/rmolinamir/ddd-framework/commit/5ec289426abea4e07ee0adcb8f3f5feef296d4c3))
+
+
+### Bug Fixes
+
+* **event sink:** removed potential memory leak ([dbd1f0f](https://github.com/rmolinamir/ddd-framework/commit/dbd1f0fa7491e577b531be479a068105966be1bd))
+
 ## [1.0.12](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.11...${npm.name}-v1.0.12) (2024-12-22)
 
 
