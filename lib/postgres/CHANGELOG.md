@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.3...${npm.name}-v1.1.4) (2024-12-22)
+
+
+### Bug Fixes
+
+* **postgres:** transaction-manager no longer catches rollaback errors ([9a4ec6a](https://github.com/rmolinamir/ddd-framework/commit/9a4ec6ad086a2d55191b1502a18954d6c53cc1d7))
+
 ## [1.1.3](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.2...${npm.name}-v1.1.3) (2024-12-22)
 
 
