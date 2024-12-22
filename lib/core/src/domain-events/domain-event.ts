@@ -1,9 +1,6 @@
 import { AggregateId } from '../aggregates';
 import { EntityId } from '../entities';
-import {
-  IllegalStateException,
-  InvalidOperationException
-} from '../exceptions';
+import { InvalidOperationException } from '../exceptions';
 import {
   Decorator,
   DOMAIN_EVENT_METADATA,
@@ -22,14 +19,8 @@ interface DomainEventMetadata {
  */
 export function DomainEvent(
   type: DomainEventMetadata['type'],
-  version: DomainEventMetadata['version'],
-  options: Partial<{
-    requireAggregateId: boolean;
-    requireEntityId: boolean;
-  }> = {}
+  version: DomainEventMetadata['version']
 ): ClassDecorator {
-  const { requireAggregateId = true, requireEntityId = false } = options;
-
   /**
    * This function only runs once at runtime.
    * All respective instances share the same `Class`.
@@ -56,11 +47,10 @@ export function DomainEvent(
         Decorator.setWatermark(DOMAIN_EVENT_WATERMARK, this);
         Decorator.setMetadata(DOMAIN_EVENT_METADATA, metadata, this);
 
-        if (requireAggregateId && !AggregateId.hasId(this))
-          throw new IllegalStateException('AggregateId is required.');
-
-        if (requireEntityId && !EntityId.hasId(this))
-          throw new IllegalStateException('EntityId is required.');
+        if (!AggregateId.hasId(this) && !EntityId.hasId(this))
+          throw new InvalidOperationException(
+            'Domain Events must have an Aggregate ID or Entity ID.'
+          );
       }
     };
   } as ClassDecorator;

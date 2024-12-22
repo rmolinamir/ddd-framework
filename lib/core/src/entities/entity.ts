@@ -101,7 +101,7 @@ export abstract class Entity<
       this.updatedAt = DateValue.now();
     }
 
-    EventSink.add(aDomainEvent);
+    EventSink.add(aDomainEvent, this);
   }
 
   /**

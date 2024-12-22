@@ -7,6 +7,7 @@ import {
   EntityId,
   IllegalStateException
 } from '../src';
+import { AggregateMember } from '../src/aggregates/aggregate-member';
 
 export class TransactCommand {
   constructor(public cardId: string, public transactionValue: number) {}
@@ -85,6 +86,7 @@ export class GiftCard extends Entity {
 
   public remainingValue: number;
 
+  @AggregateMember()
   public transactions: GiftCardTransaction[] = [];
 
   constructor(id: string, initialBalance: number) {
@@ -106,7 +108,7 @@ export class GiftCard extends Entity {
 
       this.validateInvariants();
 
-      transaction.raise(
+      this.raise(
         new TransactionEvent(
           this.id,
           transaction.transactionId,

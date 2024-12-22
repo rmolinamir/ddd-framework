@@ -70,7 +70,7 @@ describe('AggregateRoot', () => {
         card.handle(new TransactCommand(cardId, 50));
 
         expect(card.events()).toHaveLength(1);
-        expect(card.transactions[0].events()).toHaveLength(1);
+        expect(card.transactions[0].events()).toHaveLength(0);
 
         // Reimburse transaction #1:
 
@@ -79,15 +79,15 @@ describe('AggregateRoot', () => {
         );
 
         expect(card.events()).toHaveLength(2);
-        expect(card.transactions[0].events()).toHaveLength(2);
+        expect(card.transactions[0].events()).toHaveLength(1);
 
         // Add transaction #2:
 
         card.handle(new TransactCommand(cardId, 50));
 
         expect(card.events()).toHaveLength(3);
-        expect(card.transactions[0].events()).toHaveLength(2);
-        expect(card.transactions[1].events()).toHaveLength(1);
+        expect(card.transactions[0].events()).toHaveLength(1);
+        expect(card.transactions[1].events()).toHaveLength(0);
 
         // Reimburse transaction #2:
 
@@ -96,8 +96,8 @@ describe('AggregateRoot', () => {
         );
 
         expect(card.events()).toHaveLength(4);
-        expect(card.transactions[0].events()).toHaveLength(2);
-        expect(card.transactions[1].events()).toHaveLength(2);
+        expect(card.transactions[0].events()).toHaveLength(1);
+        expect(card.transactions[1].events()).toHaveLength(1);
       });
 
       test('child entity clearEvents works as expected', () => {
@@ -110,7 +110,7 @@ describe('AggregateRoot', () => {
         card.handle(new TransactCommand(cardId, 50));
 
         expect(card.events()).toHaveLength(1);
-        expect(card.transactions[0].events()).toHaveLength(1);
+        expect(card.transactions[0].events()).toHaveLength(0);
 
         // Reimburse transaction #1:
 
@@ -119,33 +119,33 @@ describe('AggregateRoot', () => {
         );
 
         expect(card.events()).toHaveLength(2);
-        expect(card.transactions[0].events()).toHaveLength(2);
+        expect(card.transactions[0].events()).toHaveLength(1);
 
         // Add transaction #2:
 
         card.handle(new TransactCommand(cardId, 50));
 
         expect(card.events()).toHaveLength(3);
-        expect(card.transactions[0].events()).toHaveLength(2);
-        expect(card.transactions[1].events()).toHaveLength(1);
+        expect(card.transactions[0].events()).toHaveLength(1);
+        expect(card.transactions[1].events()).toHaveLength(0);
 
         // Reimburse transaction #2:
 
         card.handle(
           new ReimburseCardCommand(card.id, card.transactions[1].transactionId)
         );
-
         expect(card.events()).toHaveLength(4);
-        expect(card.transactions[0].events()).toHaveLength(2);
-        expect(card.transactions[1].events()).toHaveLength(2);
+        expect(card.transactions[0].events()).toHaveLength(1);
+        expect(card.transactions[1].events()).toHaveLength(1);
 
         // Clearing events:
 
-        card.transactions[0].clearEvents();
+        const firstTransactionEvents = card.transactions[0].clearEvents();
+        expect(firstTransactionEvents).toHaveLength(1);
 
-        expect(card.events()).toHaveLength(2);
+        expect(card.events()).toHaveLength(3);
         expect(card.transactions[0].events()).toHaveLength(0);
-        expect(card.transactions[1].events()).toHaveLength(2);
+        expect(card.transactions[1].events()).toHaveLength(1);
       });
     });
   });

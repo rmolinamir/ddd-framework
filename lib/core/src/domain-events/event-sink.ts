@@ -1,4 +1,5 @@
 import { AggregateId, AggregateRoot } from '../aggregates';
+import { AggregateMember } from '../aggregates/aggregate-member';
 import { Entity, EntityId, Identity } from '../entities';
 import { ObjectLiteral } from '../types';
 
@@ -17,16 +18,20 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
    * Adds a DomainEvent to the EventSink.
    */
   public static add<DomainEvent extends ObjectLiteral>(
-    aDomainEvent: DomainEvent
+    aDomainEvent: DomainEvent,
+    entity: Entity
   ): void {
     const { sink } = this.instance<DomainEvent>();
 
-    const aggregateId = this.getAggregateIdFrom(aDomainEvent);
+    const id = AggregateRoot.isRoot(entity)
+      ? this.getAggregateIdFrom(entity)
+      : this.getEntityIdFrom(entity);
 
-    const events = sink.get(aggregateId);
-
-    if (events) events.push(aDomainEvent);
-    else sink.set(aggregateId, [aDomainEvent]);
+    if (id) {
+      const events = sink.get(id);
+      if (events) events.push(aDomainEvent);
+      else sink.set(id, [aDomainEvent]);
+    }
   }
 
   /**
@@ -38,24 +43,32 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
     const { sink } = this.instance<DomainEvent>();
 
     if (AggregateRoot.isRoot(entity)) {
-      return sink.get(this.getAggregateIdFrom(entity)) || [];
-    } else {
-      if (!AggregateId.hasId(entity) || !EntityId.hasId(entity)) return [];
+      const events: DomainEvent[] = [];
 
       const aggregateId = this.getAggregateIdFrom(entity);
-      const entityId = this.getEntityIdFrom(entity)!;
+      if (aggregateId) events.push(...(sink.get(aggregateId) || []));
 
-      const events = sink.get(aggregateId) || [];
+      const aggregateMembers = this.getAggregateMembersFrom(entity);
 
-      const res = events.filter((event) => {
-        const eventEntityId = this.getEntityIdFrom(event);
+      // Assuming aggregate members will be nested only one level deep at most
+      // instead of recursively traversing the aggregate members.
+      for (const aggregateMember of aggregateMembers) {
+        if (this.isIterable(aggregateMember)) {
+          for (const childEntity of aggregateMember) {
+            events.push(...EventSink.get<DomainEvent>(childEntity));
+          }
+        } else {
+          events.push(...EventSink.get<DomainEvent>(aggregateMember));
+        }
+      }
 
-        if (eventEntityId) return entityId === eventEntityId;
-        else return false;
-      });
-
-      return res;
+      return events;
     }
+
+    const entityId = this.getEntityIdFrom(entity);
+    if (entityId) return sink.get(entityId) || [];
+
+    return [];
   }
 
   /**
@@ -67,32 +80,32 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
     const { sink } = this.instance<DomainEvent>();
 
     if (AggregateRoot.isRoot(entity)) {
-      const events = EventSink.get<DomainEvent>(entity);
-      sink.delete(this.getAggregateIdFrom(entity));
-      return events;
-    } else {
-      if (!AggregateId.hasId(entity) || !EntityId.hasId(entity)) return [];
+      const events: DomainEvent[] = EventSink.get<DomainEvent>(entity);
 
       const aggregateId = this.getAggregateIdFrom(entity);
-      const entityId = this.getEntityIdFrom(entity)!;
+      if (aggregateId) sink.delete(aggregateId);
 
-      const aggregateEvents = sink.get(aggregateId) || [];
+      // Assuming aggregate members will be nested only one level deep at most
+      // instead of recursively traversing the aggregate members.
+      const aggregateMembers = this.getAggregateMembersFrom(entity);
+      for (const aggregateMember of aggregateMembers) {
+        if (this.isIterable(aggregateMember)) {
+          for (const childEntity of aggregateMember) {
+            const entityId = this.getEntityIdFrom(childEntity);
+            if (entityId) sink.delete(entityId);
+          }
+        } else {
+          const entityId = this.getEntityIdFrom(aggregateMember);
+          if (entityId) sink.delete(entityId);
+        }
+      }
 
-      const { events, remaining } = aggregateEvents.reduce<
-        Record<'events' | 'remaining', DomainEvent[]>
-      >(
-        ({ events, remaining }, event) => {
-          const eventEntityId = this.getEntityIdFrom(event);
+      return events;
+    } else {
+      const events = EventSink.get<DomainEvent>(entity);
 
-          if (eventEntityId && entityId === eventEntityId) events.push(event);
-          else remaining.push(event);
-
-          return { events, remaining };
-        },
-        { events: [], remaining: [] }
-      );
-
-      sink.set(aggregateId, remaining);
+      const entityId = this.getEntityIdFrom(entity);
+      if (entityId) sink.delete(entityId);
 
       return events;
     }
@@ -111,24 +124,42 @@ export class EventSink<DomainEvent extends ObjectLiteral> {
   /**
    * Returns the aggregate id of an object.
    */
-  private static getAggregateIdFrom(anObject: ObjectLiteral): PropertyKey {
-    const id = AggregateId.getId<PropertyKey | Identity>(anObject);
-    if (id instanceof Identity) return id.unpack();
-    else return id;
-  }
-
-  /**
-   * Returns the entity id of an object.
-   */
-  private static getEntityIdFrom(
-    anObject: ObjectLiteral
-  ): PropertyKey | undefined {
+  private static getAggregateIdFrom(anObject: ObjectLiteral) {
     try {
-      const id = EntityId.getId<PropertyKey | Identity>(anObject);
+      const id = AggregateId.getId<Identity['value'] | Identity>(anObject);
       if (id instanceof Identity) return id.unpack();
       else return id;
     } catch {
       return undefined;
     }
+  }
+
+  /**
+   * Returns the aggregate id of an object.
+   */
+  private static getAggregateMembersFrom(anEntity: Entity) {
+    return AggregateMember.getMembers<Entity | Iterable<Entity>>(anEntity);
+  }
+
+  /**
+   * Returns the entity id of an object.
+   */
+  private static getEntityIdFrom(anObject: ObjectLiteral) {
+    try {
+      const id = EntityId.getId<Identity['value'] | Identity>(anObject);
+      if (id instanceof Identity) return id.unpack();
+      else return id;
+    } catch {
+      return undefined;
+    }
+  }
+
+  /**
+   * Returns true if the object is an iterable.
+   */
+  private static isIterable(
+    anObject: ObjectLiteral
+  ): anObject is Iterable<ObjectLiteral> {
+    return Boolean(anObject?.[Symbol.iterator]);
   }
 }

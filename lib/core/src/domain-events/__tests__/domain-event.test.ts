@@ -50,40 +50,8 @@ describe('DomainEvent', () => {
     });
   });
 
-  describe('options', () => {
-    test('default options', () => {
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver())
-        class TestEvent {
-          @AggregateId()
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).not.toThrow();
-
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver())
-        class TestEvent {
-          @AggregateId()
-          public id: string;
-
-          @EntityId()
-          public anotherId: string;
-
-          constructor(id: string, anotherId: string) {
-            this.id = id;
-            this.anotherId = anotherId;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid(), faker.string.uuid());
-      }).not.toThrow();
-
+  describe('when there is no Aggregate or Entity ID', () => {
+    test('should throw', () => {
       expect(() => {
         @DomainEvent(faker.string.uuid(), faker.system.semver())
         class TestEvent {
@@ -96,105 +64,6 @@ describe('DomainEvent', () => {
 
         return new TestEvent(faker.string.uuid());
       }).toThrow();
-    });
-
-    test('requireAggregateId works as expected', () => {
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver(), {
-          requireAggregateId: true
-        })
-        class TestEvent {
-          @AggregateId()
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).not.toThrow();
-
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver(), {
-          requireAggregateId: true
-        })
-        class TestEvent {
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).toThrow();
-
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver(), {
-          requireAggregateId: false
-        })
-        class TestEvent {
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).not.toThrow();
-    });
-
-    test('requireEntityId works as expected', () => {
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver(), {
-          requireAggregateId: false,
-          requireEntityId: true
-        })
-        class TestEvent {
-          @EntityId()
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).not.toThrow();
-
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver(), {
-          requireAggregateId: false,
-          requireEntityId: true
-        })
-        class TestEvent {
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).toThrow();
-
-      expect(() => {
-        @DomainEvent(faker.string.uuid(), faker.system.semver(), {
-          requireAggregateId: false,
-          requireEntityId: false
-        })
-        class TestEvent {
-          public id: string;
-
-          constructor(id: string) {
-            this.id = id;
-          }
-        }
-
-        return new TestEvent(faker.string.uuid());
-      }).not.toThrow();
     });
   });
 });
