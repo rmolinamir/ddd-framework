@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.10...${npm.name}-v1.0.11) (2024-12-22)
+
+
+### Bug Fixes
+
+* **aggregate members:** fixed typo and support for no aggregate members ([1bac1ba](https://github.com/rmolinamir/ddd-framework/commit/1bac1ba6d90d2065dd6b17c75ad3ade9fcfd5e4e))
+
 ## [1.0.10](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.9...${npm.name}-v1.0.10) (2024-12-22)
 
 
