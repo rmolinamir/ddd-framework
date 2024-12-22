@@ -16,6 +16,7 @@ import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module.js';
 import { PgTransactionManager } from '../pg-transaction-manager.js';
 import { NodePgDatabaseTransaction } from '../pg-transaction.js';
 import { testTable } from './test.table.js';
+import { InvalidOperationException } from '@ddd-framework/core';
 
 export const expectEntries = vi.fn(
   async (
@@ -80,34 +81,63 @@ describe('PgTransactionManager', () => {
     });
 
     expect(result).toBe(true);
+
+    await expectEntries(db, [{ id: firstId }, { id: secondId }]);
   });
 
-  test('returns undefined when transaction is rolled back', async () => {
+  test('transactions are automatically rolled back when an error occurs', async () => {
     const firstId = Uuid.generate();
     const secondId = Uuid.generate();
 
-    const result = await manager.startTransaction(async (transaction) => {
-      await transaction.context
-        .insert(testTable)
-        .values([{ id: firstId }, { id: secondId }]);
+    await expect(() =>
+      manager.startTransaction(async (transaction) => {
+        await transaction.context
+          .insert(testTable)
+          .values([{ id: firstId }, { id: secondId }]);
 
-      await transaction.rollback();
-    });
+        throw new InvalidOperationException('An error occurred');
+      })
+    ).rejects.toThrow('An error occurred');
+
+    await expectEntries(db, []);
+  });
+
+  test('returns undefined when transaction is rolled back (unreachable code)', async () => {
+    const firstId = Uuid.generate();
+    const secondId = Uuid.generate();
+
+    let result: boolean | undefined;
+
+    try {
+      result = await manager.startTransaction(async (transaction) => {
+        await transaction.context
+          .insert(testTable)
+          .values([{ id: firstId }, { id: secondId }]);
+
+        await transaction.rollback();
+
+        return false;
+      });
+    } catch {}
 
     expect(result).toBeUndefined();
+
+    await expectEntries(db, []);
   });
 
-  test('transaction is not committed when rolled back', async () => {
+  test('transaction is not committed when manually rolled back', async () => {
     const firstId = Uuid.generate();
     const secondId = Uuid.generate();
 
-    await manager.startTransaction(async (transaction) => {
-      await transaction.context
-        .insert(testTable)
-        .values([{ id: firstId }, { id: secondId }]);
+    await expect(() =>
+      manager.startTransaction(async (transaction) => {
+        await transaction.context
+          .insert(testTable)
+          .values([{ id: firstId }, { id: secondId }]);
 
-      await transaction.rollback();
-    });
+        await transaction.rollback();
+      })
+    ).rejects.toThrow();
 
     await expectEntries(db, []);
   });
@@ -128,20 +158,22 @@ describe('PgTransactionManager', () => {
         { id: secondId }
       ]);
 
-      await manager.savePoint(transaction, async (nestedTransaction) => {
-        await nestedTransaction.context
-          .insert(testTable)
-          .values([{ id: thirdId }, { id: fourthId }]);
+      await expect(() =>
+        manager.savePoint(transaction, async (nestedTransaction) => {
+          await nestedTransaction.context
+            .insert(testTable)
+            .values([{ id: thirdId }, { id: fourthId }]);
 
-        await expectEntries(nestedTransaction.context, [
-          { id: firstId },
-          { id: secondId },
-          { id: thirdId },
-          { id: fourthId }
-        ]);
+          await expectEntries(nestedTransaction.context, [
+            { id: firstId },
+            { id: secondId },
+            { id: thirdId },
+            { id: fourthId }
+          ]);
 
-        await nestedTransaction.rollback();
-      });
+          await nestedTransaction.rollback();
+        })
+      ).rejects.toThrow();
     });
 
     await expectEntries(db, [{ id: firstId }, { id: secondId }]);
