@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.9...${npm.name}-v1.0.10) (2024-12-22)
+
+
+### Features
+
+* **core:** new aggregate-members logic is exportable ([15d5e34](https://github.com/rmolinamir/ddd-framework/commit/15d5e34685397b8bb44914f6771660247d93bbb6))
+
 ## [1.0.9](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/core-v1.0.8...${npm.name}-v1.0.9) (2024-12-22)
 
 
