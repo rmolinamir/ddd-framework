@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.4...${npm.name}-v1.1.5) (2025-01-19)
+
+
+### Bug Fixes
+
+* **postgres:** fixed nestjs module providers ([3dff154](https://github.com/rmolinamir/ddd-framework/commit/3dff154bf3c88ae25e6f2f8025d08a5929f9b76d))
+
 ## [1.1.4](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.3...${npm.name}-v1.1.4) (2024-12-22)
 
 
