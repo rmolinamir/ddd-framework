@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.5...${npm.name}-v1.1.6) (2025-01-19)
+
+
+### Features
+
+* **postgres:** added pool support ([a8ea332](https://github.com/rmolinamir/ddd-framework/commit/a8ea332d7589fee52857ae019ef48b752fbb8954))
+
 ## [1.1.5](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.4...${npm.name}-v1.1.5) (2025-01-19)
 
 
