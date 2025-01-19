@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.6...${npm.name}-v1.1.7) (2025-01-19)
+
+
+### Features
+
+* **postgres:** exporting pools for cjs ([2498190](https://github.com/rmolinamir/ddd-framework/commit/249819084f5bdae4991dc891cec607f6661970f1))
+
 ## [1.1.6](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.5...${npm.name}-v1.1.6) (2025-01-19)
 
 
