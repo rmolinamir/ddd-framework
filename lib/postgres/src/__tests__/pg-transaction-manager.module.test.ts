@@ -24,7 +24,7 @@ describe('PgTransactionManagerModule', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
-        DrizzleOrmModule.forRoot({ client: globalThis.__pgClient }),
+        DrizzleOrmModule.forRoot({ pg: globalThis.__pgClient }),
         PgTransactionManagerModule
       ]
     }).compile();

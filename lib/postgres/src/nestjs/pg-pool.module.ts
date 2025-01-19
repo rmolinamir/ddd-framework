@@ -1,97 +1,95 @@
-import { DrizzleConfig } from 'drizzle-orm';
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { PgDatabase, PgQueryResultHKT } from 'drizzle-orm/pg-core';
 import pg from 'pg';
 import {
   DynamicModule,
   Global,
+  Inject,
   InjectionToken,
   Module,
   ModuleMetadata,
+  OnApplicationShutdown,
   OptionalFactoryDependency,
   Provider,
   Type
 } from '@nestjs/common';
 
-export type DrizzleOrmModuleOptions = {
-  pg: pg.Client | pg.Pool;
-  options?: DrizzleConfig;
+export type PgPoolModuleOptions = ConstructorParameters<typeof pg.Pool>[number];
+
+export type PgPoolOptionsFactory = {
+  createPgPoolOptions(): Promise<PgPoolModuleOptions> | PgPoolModuleOptions;
 };
 
-export type DrizzleOrmOptionsFactory = {
-  createDrizzleOrmOptions():
-    | Promise<DrizzleOrmModuleOptions>
-    | DrizzleOrmModuleOptions;
-};
-
-export interface DrizzleOrmModuleAsyncOptions
+export interface PgPoolModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
-  useExisting?: Type<DrizzleOrmOptionsFactory>;
-  useClass?: Type<DrizzleOrmOptionsFactory>;
+  useExisting?: Type<PgPoolOptionsFactory>;
+  useClass?: Type<PgPoolOptionsFactory>;
   useFactory?: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- It's fine to accept `any` type here.
     ...args: any[]
-  ) => Promise<DrizzleOrmModuleOptions> | DrizzleOrmModuleOptions;
+  ) => Promise<PgPoolModuleOptions> | PgPoolModuleOptions;
   inject?: (InjectionToken | OptionalFactoryDependency)[];
 }
 
 @Global()
 @Module({})
-export class DrizzleOrmModule {
+export class PgPoolModule implements OnApplicationShutdown {
+  constructor(@Inject(pg.Pool) private readonly pool: pg.Pool) {}
+
+  public async onApplicationShutdown() {
+    await this.pool.end();
+  }
+
   /**
-   * Configures the DrizzleOrmModule NestJS module.
+   * Configures the PgPoolModule NestJS module.
    * Configurations are only loaded once because the internal module is global.
    */
-  public static forRoot({
-    pg,
-    options
-  }: DrizzleOrmModuleOptions): DynamicModule {
-    const dbProvider: Provider<PgDatabase<PgQueryResultHKT>> = {
-      provide: PgDatabase,
-      useValue: drizzle(pg, options)
+  public static forRoot(
+    ...options: ConstructorParameters<typeof pg.Pool>
+  ): DynamicModule {
+    const poolProvider: Provider<pg.Pool> = {
+      provide: pg.Pool,
+      useValue: new pg.Pool(...options)
     };
 
     return {
-      module: DrizzleOrmModule,
+      module: PgPoolModule,
       imports: [],
-      providers: [dbProvider],
-      exports: [PgDatabase]
+      providers: [poolProvider],
+      exports: [pg.Pool]
     };
   }
 
   /**
-   * Configures the DrizzleOrmModule NestJS module.
+   * Configures the PgPoolModule NestJS module.
    * Configurations are only loaded once because the internal module is global.
    */
   public static forRootAsync(
-    asyncOptions: DrizzleOrmModuleAsyncOptions
+    asyncOptions: PgPoolModuleAsyncOptions
   ): DynamicModule {
     const dbProvider = {
-      provide: PgDatabase,
-      useFactory: async ({
-        pg,
-        options = {}
-      }: DrizzleOrmModuleOptions): Promise<unknown> => drizzle(pg, options),
+      provide: pg.Pool,
+      useFactory: async (
+        ...options: ConstructorParameters<typeof pg.Pool>
+      ): Promise<unknown> => new pg.Pool(...options),
       inject: [this.OPTIONS_PROVIDER_TOKEN]
     };
 
     const asyncProviders = this.asyncOptionsProviders(asyncOptions);
 
     return {
-      module: DrizzleOrmModule,
+      module: PgPoolModule,
       imports: asyncOptions.imports,
       providers: [dbProvider, ...asyncProviders],
-      exports: [PgDatabase]
+      exports: [dbProvider]
     };
   }
 
   private static asyncOptionsProviders(
-    asyncOptions: DrizzleOrmModuleAsyncOptions
+    asyncOptions: PgPoolModuleAsyncOptions
   ): Provider[] {
     if (asyncOptions.useExisting || asyncOptions.useFactory)
       return [this.factoryOptionsProvider(asyncOptions)];
 
-    const useClass = asyncOptions.useClass as Type<DrizzleOrmOptionsFactory>;
+    const useClass = asyncOptions.useClass as Type<PgPoolOptionsFactory>;
 
     return [
       this.factoryOptionsProvider(asyncOptions),
@@ -103,8 +101,8 @@ export class DrizzleOrmModule {
   }
 
   private static factoryOptionsProvider(
-    options: DrizzleOrmModuleAsyncOptions
-  ): Provider<DrizzleOrmModuleOptions> {
+    options: PgPoolModuleAsyncOptions
+  ): Provider<PgPoolModuleOptions> {
     if (options.useFactory) {
       return {
         provide: this.OPTIONS_PROVIDER_TOKEN,
@@ -114,13 +112,13 @@ export class DrizzleOrmModule {
     }
 
     const inject = [options.useClass || options.useExisting] as [
-      Type<DrizzleOrmOptionsFactory>
+      Type<PgPoolOptionsFactory>
     ];
 
     return {
       provide: this.OPTIONS_PROVIDER_TOKEN,
-      useFactory: (factory: DrizzleOrmOptionsFactory) =>
-        factory.createDrizzleOrmOptions(),
+      useFactory: (factory: PgPoolOptionsFactory) =>
+        factory.createPgPoolOptions(),
       inject
     };
   }

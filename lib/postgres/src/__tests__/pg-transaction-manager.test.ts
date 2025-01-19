@@ -17,6 +17,7 @@ import { PgTransactionManager } from '../pg-transaction-manager.js';
 import { testTable2 } from './test.table.js';
 import { InvalidOperationException } from '@ddd-framework/core';
 import { expectEntries } from './assertions.js';
+import { Pool } from 'pg';
 
 describe('PgTransactionManager', () => {
   let module: TestingModule;
@@ -25,7 +26,7 @@ describe('PgTransactionManager', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [DrizzleOrmModule.forRoot({ client: globalThis.__pgClient })]
+      imports: [DrizzleOrmModule.forRoot({ pg: globalThis.__pgClient })]
     }).compile();
 
     await module.init();
@@ -168,5 +169,85 @@ describe('PgTransactionManager', () => {
     });
 
     await expectEntries(db, testTable2, [{ id: firstId }, { id: secondId }]);
+  });
+});
+
+describe('PgTransactionManager with a pool', () => {
+  let module: TestingModule;
+  let db: NodePgDatabase;
+  let manager: PgTransactionManager;
+
+  beforeAll(async () => {
+    module = await Test.createTestingModule({
+      imports: [
+        DrizzleOrmModule.forRoot({ pg: new Pool(globalThis.__dbCredentials) })
+      ]
+    }).compile();
+
+    await module.init();
+
+    db = module.get(PgDatabase);
+
+    // This would be returned by a dependency injection container.
+    manager = new PgTransactionManager(db);
+  });
+
+  beforeEach(async () => {
+    await db.delete(testTable2);
+  });
+
+  afterEach(async () => {
+    vi.clearAllMocks();
+  });
+
+  afterAll(async () => {
+    await module?.close();
+  });
+
+  test('starts transaction and implicitly commits', async () => {
+    const firstId = Uuid.generate();
+    const secondId = Uuid.generate();
+
+    await manager.startTransaction(async (transaction) => {
+      await transaction.context
+        .insert(testTable2)
+        .values([{ id: firstId }, { id: secondId }]);
+    });
+
+    await expectEntries(db, testTable2, [{ id: firstId }, { id: secondId }]);
+  });
+
+  test('returns result from transaction', async () => {
+    const firstId = Uuid.generate();
+    const secondId = Uuid.generate();
+
+    const result = await manager.startTransaction(async (transaction) => {
+      await transaction.context
+        .insert(testTable2)
+        .values([{ id: firstId }, { id: secondId }]);
+
+      return true;
+    });
+
+    expect(result).toBe(true);
+
+    await expectEntries(db, testTable2, [{ id: firstId }, { id: secondId }]);
+  });
+
+  test('transactions are automatically rolled back when an error occurs', async () => {
+    const firstId = Uuid.generate();
+    const secondId = Uuid.generate();
+
+    await expect(() =>
+      manager.startTransaction(async (transaction) => {
+        await transaction.context
+          .insert(testTable2)
+          .values([{ id: firstId }, { id: secondId }]);
+
+        throw new InvalidOperationException('An error occurred');
+      })
+    ).rejects.toThrow('An error occurred');
+
+    await expectEntries(db, testTable2, []);
   });
 });

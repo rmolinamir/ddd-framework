@@ -3,6 +3,7 @@ import { TransactionManager } from '@ddd-framework/core';
 import { PgDatabaseTransaction, PgTransaction } from './pg-transaction.js';
 import { DrizzlePgDatabase } from './drizzle-pg-database.js';
 
+// TODO: Support PG Pools.
 export class PgTransactionManager<
   PgDatabase extends DrizzlePgDatabase = DrizzlePgDatabase
 > extends TransactionManager {

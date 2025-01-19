@@ -22,7 +22,7 @@ describe('PgTransaction', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [DrizzleOrmModule.forRoot({ client: globalThis.__pgClient })]
+      imports: [DrizzleOrmModule.forRoot({ pg: globalThis.__pgClient })]
     }).compile();
 
     await module.init();

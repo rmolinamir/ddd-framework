@@ -37,4 +37,22 @@ describe('PgClientModule', () => {
 
     await module.close();
   });
+
+  test('module connects clients on bootstrap and disconnects on shutdown', async () => {
+    const module = await Test.createTestingModule({
+      imports: [PgClientModule.forRoot(globalThis.__dbCredentials)]
+    }).compile();
+
+    await module.init();
+
+    const client = module.get(pg.Client);
+
+    const res = await client.query('SELECT NOW()');
+
+    expect(res.rows[0].now).toBeDefined();
+
+    await module.close();
+
+    expect(() => client.query('SELECT NOW()')).rejects.toThrow();
+  });
 });

@@ -5,13 +5,15 @@ import pg from 'pg';
 import { afterAll, beforeAll } from 'vitest';
 
 beforeAll(async () => {
-  const client = new pg.Client({
+  const dbCredentials: pg.ClientConfig = {
     host: 'localhost',
     user: 'postgres',
     password: 'postgres',
     database: 'ddd-framework',
     port: 5432
-  });
+  };
+
+  const client = new pg.Client(dbCredentials);
 
   await client.connect();
 
@@ -20,6 +22,7 @@ beforeAll(async () => {
   });
 
   globalThis.__pgClient = client;
+  globalThis.__dbCredentials = dbCredentials;
 });
 
 afterAll(async () => {
