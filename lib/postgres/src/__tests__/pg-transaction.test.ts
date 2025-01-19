@@ -13,10 +13,10 @@ import {
 } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module.js';
-import { NodePgDatabaseTransaction, PgTransaction } from '../pg-transaction.js';
+import { PgDatabaseTransaction, PgTransaction } from '../pg-transaction.js';
 
-describe('PgTransactionManager', () => {
-  const store = new AsyncLocalStorage<NodePgDatabaseTransaction>();
+describe('PgTransaction', () => {
+  const store = new AsyncLocalStorage<PgDatabaseTransaction>();
   let module: TestingModule;
   let db: NodePgDatabase;
 

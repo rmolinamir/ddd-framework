@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "NPM Packages",
+  "display": "CJS",
   "extends": "./base.json",
   "compilerOptions": {
     "target": "es2018",

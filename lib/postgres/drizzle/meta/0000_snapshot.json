@@ -1,11 +1,27 @@
 {
-  "id": "fc32f0a3-8c98-4ba0-8b21-93b053fc8171",
+  "id": "f1091fe4-a09f-46e8-920e-03178a8da955",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.test": {
-      "name": "test",
+    "public.test_1": {
+      "name": "test_1",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.test_2": {
+      "name": "test_2",
       "schema": "",
       "columns": {
         "id": {

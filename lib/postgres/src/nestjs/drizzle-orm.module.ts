@@ -4,6 +4,7 @@ import { PgDatabase, PgQueryResultHKT } from 'drizzle-orm/pg-core';
 import pg from 'pg';
 import {
   DynamicModule,
+  Global,
   InjectionToken,
   Module,
   ModuleMetadata,
@@ -34,6 +35,7 @@ export interface DrizzleOrmModuleAsyncOptions
   inject?: (InjectionToken | OptionalFactoryDependency)[];
 }
 
+@Global()
 @Module({})
 export class DrizzleOrmModule {
   /**

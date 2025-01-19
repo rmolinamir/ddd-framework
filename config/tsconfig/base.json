@@ -2,21 +2,21 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Base",
   "compilerOptions": {
-    "allowUnreachableCode": false,
     "composite": false,
     "declaration": true,
     "declarationMap": true,
-    "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "moduleResolution": "node",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "allowJs": true,
+    "moduleDetection": "force",
+    "noUncheckedIndexedAccess": true
   },
   "exclude": ["node_modules"]
 }

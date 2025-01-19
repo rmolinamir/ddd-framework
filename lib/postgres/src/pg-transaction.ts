@@ -1,15 +1,15 @@
-import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { IllegalStateException, Transaction } from '@ddd-framework/core';
+import { DrizzlePgDatabase } from './drizzle-pg-database.js';
 
-export type NodePgDatabaseTransaction<
-  Pg extends NodePgDatabase = NodePgDatabase
-> = Parameters<Parameters<Pg['transaction']>[0]>[0];
+export type PgDatabaseTransaction<
+  PgDatabase extends DrizzlePgDatabase = DrizzlePgDatabase
+> = Parameters<Parameters<PgDatabase['transaction']>[0]>[0];
 
 export class PgTransaction implements Transaction {
-  constructor(private store: AsyncLocalStorage<NodePgDatabaseTransaction>) {}
+  constructor(private store: AsyncLocalStorage<PgDatabaseTransaction>) {}
 
-  public get context(): NodePgDatabaseTransaction {
+  public get context(): PgDatabaseTransaction {
     const context = this.store.getStore();
     if (!context)
       throw new IllegalStateException(

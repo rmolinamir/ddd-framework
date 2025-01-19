@@ -1,6 +1,7 @@
 import pg from 'pg';
 import {
   DynamicModule,
+  Global,
   Inject,
   InjectionToken,
   Module,
@@ -33,6 +34,7 @@ export interface PgClientModuleAsyncOptions
   inject?: (InjectionToken | OptionalFactoryDependency)[];
 }
 
+@Global()
 @Module({})
 export class PgClientModule
   implements OnApplicationBootstrap, OnApplicationShutdown

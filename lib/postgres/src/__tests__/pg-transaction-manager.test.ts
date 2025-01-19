@@ -14,16 +14,9 @@ import { Uuid } from '@ddd-framework/uuid';
 import { Test, TestingModule } from '@nestjs/testing';
 import { DrizzleOrmModule } from '../nestjs/drizzle-orm.module.js';
 import { PgTransactionManager } from '../pg-transaction-manager.js';
-import { NodePgDatabaseTransaction } from '../pg-transaction.js';
-import { testTable } from './test.table.js';
+import { testTable2 } from './test.table.js';
 import { InvalidOperationException } from '@ddd-framework/core';
-
-export const expectEntries = vi.fn(
-  async (
-    context: NodePgDatabase | NodePgDatabaseTransaction,
-    expected: typeof testTable.$inferSelect[]
-  ) => expect(context.select().from(testTable)).resolves.toMatchObject(expected)
-);
+import { expectEntries } from './assertions.js';
 
 describe('PgTransactionManager', () => {
   let module: TestingModule;
@@ -44,7 +37,7 @@ describe('PgTransactionManager', () => {
   });
 
   beforeEach(async () => {
-    await db.delete(testTable);
+    await db.delete(testTable2);
   });
 
   afterEach(async () => {
@@ -61,11 +54,11 @@ describe('PgTransactionManager', () => {
 
     await manager.startTransaction(async (transaction) => {
       await transaction.context
-        .insert(testTable)
+        .insert(testTable2)
         .values([{ id: firstId }, { id: secondId }]);
     });
 
-    await expectEntries(db, [{ id: firstId }, { id: secondId }]);
+    await expectEntries(db, testTable2, [{ id: firstId }, { id: secondId }]);
   });
 
   test('returns result from transaction', async () => {
@@ -74,7 +67,7 @@ describe('PgTransactionManager', () => {
 
     const result = await manager.startTransaction(async (transaction) => {
       await transaction.context
-        .insert(testTable)
+        .insert(testTable2)
         .values([{ id: firstId }, { id: secondId }]);
 
       return true;
@@ -82,7 +75,7 @@ describe('PgTransactionManager', () => {
 
     expect(result).toBe(true);
 
-    await expectEntries(db, [{ id: firstId }, { id: secondId }]);
+    await expectEntries(db, testTable2, [{ id: firstId }, { id: secondId }]);
   });
 
   test('transactions are automatically rolled back when an error occurs', async () => {
@@ -92,14 +85,14 @@ describe('PgTransactionManager', () => {
     await expect(() =>
       manager.startTransaction(async (transaction) => {
         await transaction.context
-          .insert(testTable)
+          .insert(testTable2)
           .values([{ id: firstId }, { id: secondId }]);
 
         throw new InvalidOperationException('An error occurred');
       })
     ).rejects.toThrow('An error occurred');
 
-    await expectEntries(db, []);
+    await expectEntries(db, testTable2, []);
   });
 
   test('returns undefined when transaction is rolled back (unreachable code)', async () => {
@@ -111,7 +104,7 @@ describe('PgTransactionManager', () => {
     try {
       result = await manager.startTransaction(async (transaction) => {
         await transaction.context
-          .insert(testTable)
+          .insert(testTable2)
           .values([{ id: firstId }, { id: secondId }]);
 
         await transaction.rollback();
@@ -122,7 +115,7 @@ describe('PgTransactionManager', () => {
 
     expect(result).toBeUndefined();
 
-    await expectEntries(db, []);
+    await expectEntries(db, testTable2, []);
   });
 
   test('transaction is not committed when manually rolled back', async () => {
@@ -132,14 +125,14 @@ describe('PgTransactionManager', () => {
     await expect(() =>
       manager.startTransaction(async (transaction) => {
         await transaction.context
-          .insert(testTable)
+          .insert(testTable2)
           .values([{ id: firstId }, { id: secondId }]);
 
         await transaction.rollback();
       })
     ).rejects.toThrow();
 
-    await expectEntries(db, []);
+    await expectEntries(db, testTable2, []);
   });
 
   test('nested transaction is not committed when rolled back', async () => {
@@ -150,10 +143,10 @@ describe('PgTransactionManager', () => {
 
     await manager.startTransaction(async (transaction) => {
       await transaction.context
-        .insert(testTable)
+        .insert(testTable2)
         .values([{ id: firstId }, { id: secondId }]);
 
-      await expectEntries(transaction.context, [
+      await expectEntries(transaction.context, testTable2, [
         { id: firstId },
         { id: secondId }
       ]);
@@ -161,12 +154,10 @@ describe('PgTransactionManager', () => {
       await expect(() =>
         manager.savePoint(transaction, async (nestedTransaction) => {
           await nestedTransaction.context
-            .insert(testTable)
+            .insert(testTable2)
             .values([{ id: thirdId }, { id: fourthId }]);
 
-          await expectEntries(nestedTransaction.context, [
-            { id: firstId },
-            { id: secondId },
+          await expectEntries(nestedTransaction.context, testTable2, [
             { id: thirdId },
             { id: fourthId }
           ]);
@@ -176,6 +167,6 @@ describe('PgTransactionManager', () => {
       ).rejects.toThrow();
     });
 
-    await expectEntries(db, [{ id: firstId }, { id: secondId }]);
+    await expectEntries(db, testTable2, [{ id: firstId }, { id: secondId }]);
   });
 });
