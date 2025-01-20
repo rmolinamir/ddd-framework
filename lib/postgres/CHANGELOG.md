@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.1.8](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.7...${npm.name}-v1.1.8) (2025-01-20)
+
 ## [1.1.7](https://github.com/rmolinamir/ddd-framework/compare/@ddd-framework/postgres-v1.1.6...${npm.name}-v1.1.7) (2025-01-19)
 
 
